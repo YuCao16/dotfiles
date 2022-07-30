@@ -192,19 +192,28 @@ return require("packer").startup(function()
 			require("telescope").load_extension("heading")
 		end,
 	})
+	-- use({
+	-- 	"Pocco81/TrueZen.nvim",
+	-- 	event = { "BufAdd", "InsertEnter" },
+	-- 	config = function()
+	-- 		local true_zen = require("true-zen")
+	-- 		true_zen.setup({
+	-- 			modes = {
+	-- 				ataraxis = {
+	-- 					ideal_writing_area_width = { 0 },
+	-- 					custom_bg = { "#1e222a" },
+	-- 					disable_bg_configuration = false,
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
 	use({
-		"Pocco81/TrueZen.nvim",
-		event = { "BufAdd", "InsertEnter" },
+		"Pocco81/true-zen.nvim",
 		config = function()
-			local true_zen = require("true-zen")
-			true_zen.setup({
-				modes = {
-					ataraxis = {
-						ideal_writing_area_width = { 0 },
-						custom_bg = { "#1e222a" },
-						disable_bg_configuration = false,
-					},
-				},
+			require("true-zen").setup({
+				-- your config goes here
+				-- or just leave it empty :)
 			})
 		end,
 	})
@@ -433,7 +442,8 @@ return require("packer").startup(function()
 	-- use({ "tpope/vim-surround", event = { "BufAdd", "InsertEnter" } })
 
 	-- "-------------------=== Debugging navigation ===-------------
-	use({ "mfussenegger/nvim-dap", ft = { "python" }, event = { "BufAdd", "InsertEnter" } })
+	-- use({ "mfussenegger/nvim-dap", ft = { "python" }, event = { "BufAdd", "InsertEnter" } })
+	use({ "mfussenegger/nvim-dap" })
 	use({
 		"rcarriga/nvim-dap-ui",
 		ft = { "python" },

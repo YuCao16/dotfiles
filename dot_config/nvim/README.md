@@ -17,3 +17,16 @@ features description.
 4. Python Show Documentation ![python_doc](img/coc_documentation.png)
 
 5. Telescope ![telescope](img/telescope.png)
+
+## Requirements
+
+1. MaxNvim use `/usr/bin/python3` as default `PythonPATH`, and it requires
+   following python modules:
+   1. neovim
+   2. black
+   3. python-language-server
+   4. debugpy
+2. Packer
+3. Node.js
+
+## Usage

@@ -24,7 +24,7 @@
   // be careful not to condense the hierarchy as it breaks pyls
   "languageserver": {
     "python": {
-      "command": "/Library/Frameworks/Python.framework/Versions/3.9/bin/python3",
+      "command": "/usr/bin/python3",
       "args": [
         "-mpyls",
         "-vv",

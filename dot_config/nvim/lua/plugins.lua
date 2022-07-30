@@ -448,7 +448,7 @@ return require("packer").startup(function()
 		ft = { "python" },
 		-- event = { "BufAdd", "InsertEnter" },
 		config = function()
-			require("dap-python").setup("/Library/Frameworks/Python.framework/Versions/3.9/bin/python3.9")
+			require("dap-python").setup("/usr/bin/python3")
 		end,
 	})
 	-- use({

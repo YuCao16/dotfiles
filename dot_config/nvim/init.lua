@@ -6,7 +6,7 @@
 --            ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║		  --
 --            ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝		  --
 --++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
-vim.cmd([[let g:python3_host_prog="/Library/Frameworks/Python.framework/Versions/3.9/bin/python3"]])
+vim.cmd([[let g:python3_host_prog="/usr/bin/python3"]])
 
 
 require("impatient") --speed up start up

@@ -1,0 +1,21 @@
+0000000000000000000000000000000000000000 f757b840d78a65b7a2cc5d8885f422d62effbd04 YuCao16 <yu.carl@outlook.com> 1646011708 +0000	commit (initial): my neovim config
+f757b840d78a65b7a2cc5d8885f422d62effbd04 889c5f7ff286a6c9f48e6056b1fb9170254b6d97 YuCao16 <yu.carl@outlook.com> 1646011855 +0000	pull --no-edit origin main: Fast-forward
+889c5f7ff286a6c9f48e6056b1fb9170254b6d97 4b9990ed7e622b9fee735de091db57adb068f4f2 YuCao16 <yu.carl@outlook.com> 1646523987 +0000	commit: switch config from vim script to lua
+4b9990ed7e622b9fee735de091db57adb068f4f2 128be101ecab72bbe7077aabdd3ef4fb18bef880 YuCao16 <yu.carl@outlook.com> 1646580784 +0000	commit: Switch back to fzf since telescope do not toggle orgmode python code highlight
+128be101ecab72bbe7077aabdd3ef4fb18bef880 50e99da9d35812a21bcf3cdd7d5226c85a718ca2 YuCao16 <yu.carl@outlook.com> 1646581927 +0000	commit: disable nvim-treesitter-endwise for lua
+50e99da9d35812a21bcf3cdd7d5226c85a718ca2 f9c3ffa8e46a6a1b673de982826f9f37a82d7118 YuCao16 <yu.carl@outlook.com> 1646582049 +0000	commit: fix mapping <leader>Q typo
+f9c3ffa8e46a6a1b673de982826f9f37a82d7118 ebda9b2f0190a99c41b603aa79f734af3594eb11 YuCao16 <yu.carl@outlook.com> 1646582174 +0000	commit: fix readme typo
+ebda9b2f0190a99c41b603aa79f734af3594eb11 2d6927e08ce275f9438bfc473809f05d38bd6ca9 YuCao16 <yu.carl@outlook.com> 1646780136 +0000	commit: fix dashboard last session feature and other bug fix
+2d6927e08ce275f9438bfc473809f05d38bd6ca9 6fbe5da6dc013373cb4bac59335f2f37100e0d2c YuCao16 <yu.carl@outlook.com> 1646781367 +0000	commit: change session manager save/read dir
+6fbe5da6dc013373cb4bac59335f2f37100e0d2c 3e7a8d09b13710b7ce8ee39cb97bdfcf206a389d YuCao16 <yu.carl@outlook.com> 1647105307 +0000	commit: bug fixed, include bufferline, orgmode...
+3e7a8d09b13710b7ce8ee39cb97bdfcf206a389d 1cfb6605ecb35882169deb2c1fea58c570812b33 YuCao16 <yu.carl@outlook.com> 1658618151 +0100	commit: make some clean up, remove not use files and plugins
+1cfb6605ecb35882169deb2c1fea58c570812b33 b7201fd2f1852affac89f8e54781f855025d8e22 YuCao16 <yu.carl@outlook.com> 1658706547 +0100	commit: add plugin mhartington/formatter.nvim
+b7201fd2f1852affac89f8e54781f855025d8e22 67064f411152a00157e78fd351b91c9b78476320 YuCao16 <yu.carl@outlook.com> 1658840392 +0100	commit: --
+67064f411152a00157e78fd351b91c9b78476320 c480258f1e6dafa2c556cfbb9bd75859e0f79cdf YuCao16 <yu.carl@outlook.com> 1658840472 +0100	commit: --
+c480258f1e6dafa2c556cfbb9bd75859e0f79cdf f66d22dd76ff0e5cbe7cc45d00cbb94bf9d844a8 YuCao16 <yu.carl@outlook.com> 1658840516 +0100	commit: remove unused file and fix typo and some clean up
+f66d22dd76ff0e5cbe7cc45d00cbb94bf9d844a8 fb0f32147eeaed1006ab5a3cfa08bad8010a9fad YuCao16 <yu.carl@outlook.com> 1658840564 +0100	commit: --
+fb0f32147eeaed1006ab5a3cfa08bad8010a9fad 58e758c529083803dcc52beed21abf7d78a263d9 YuCao16 <yu.carl@outlook.com> 1658842418 +0100	commit: clean up all lua files
+58e758c529083803dcc52beed21abf7d78a263d9 24febe24ceeb36270f0ac9456523ab105e00b44c YuCao16 <yu.carl@outlook.com> 1658842738 +0100	commit: -test
+24febe24ceeb36270f0ac9456523ab105e00b44c 20acde6d2d13d8c18a9ae3f82ec3d337110837c1 YuCao16 <yu.carl@outlook.com> 1658842879 +0100	commit: --
+20acde6d2d13d8c18a9ae3f82ec3d337110837c1 65d415d61f4587e81bc943a011f6434b7f2326a5 YuCao16 <yu.carl@outlook.com> 1658844862 +0100	commit: add some screenshot to README, still need a lot description
+65d415d61f4587e81bc943a011f6434b7f2326a5 7fcd6692bf0d396625a93ec4b0ef546db0426b28 YuCao16 <yu.carl@outlook.com> 1658845549 +0100	commit: README

@@ -1,0 +1,78 @@
+{
+  "coc.preferences.willSaveHandlerTimeout": 2000,
+  "signature.floatConfig": {"border": true},
+  "suggest.floatConfig": {"border": true},
+  "hover.floatConfig": {"border": true},
+  "diagnostic.floatConfig": {"border": true},
+  "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.9/bin/python3",
+  "snippets.userSnippetsDirectory":"~/.config/nvim/UltiSnips",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes":["python","markdown"],
+  "python.formatting.provider":"black",
+  "python.formatting.blackPath":"/Users/caoyu/opt/anaconda3/bin/black",
+  "python.sortImports.path":"/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/isort",
+  "pyright.completion.importSupport":false,
+  "coc.source.vimtex.filetypes":["tex","plaintex","latex","markdown","*.ipynb"],
+  "Lua.diagnostics.enable":false,
+  "cSpell.enabledLanguageIds": [
+  	"latex",
+  	"markdown",
+  	"text"
+  ],
+  "cSpellExt.enableDictionaries": ["catalan"],
+  "cSpell.language": "en,ca",
+  // be careful not to condense the hierarchy as it breaks pyls
+  "languageserver": {
+    "python": {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.9/bin/python3",
+      "args": [
+        "-mpyls",
+        "-vv",
+        "--log-file",
+        "/tmp/lsp_python.log"
+      ],
+      "trace.server": "verbose",
+      "filetypes": [
+        "python"
+      ],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
+          },
+          "commandPath": "",
+          "configurationSources": [
+            "pycodestyle"
+          ],
+          "plugins": {
+            "mccabe": {
+              "enabled": true,
+              "threshold": 15
+            },
+            "preload": {
+              "enabled": true
+            },
+            "pycodestyle": {
+              "enabled": true
+            },
+            "pydocstyle": {
+              "enabled": false,
+              "match": "(?!test_).*\\.py",
+              "matchDir": "[^\\.].*"
+            },
+            "pyflakes": {
+              "enabled": true
+            },
+            "rope_completion": {
+              "enabled": true
+            },
+            "yapf": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

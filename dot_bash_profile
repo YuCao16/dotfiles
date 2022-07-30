@@ -1,0 +1,10 @@
+
+# alias python=/usr/bin/python3
+alias python3=/Library/Frameworks/Python.framework/Versions/3.9/bin/python3
+alias python3.7=/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
+alias python3.6=/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
+# alias latex=/Library/TeX/texbin/latex
+# alias pdftex=/Library/TeX/texbin/pdflatex
+# alias black="black --line-length=79 --fast"
+
+. "$HOME/.cargo/env"

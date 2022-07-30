@@ -1,8 +1,0 @@
-.DS_Store
-**/.DS_Store
-.luarc.json
-Users/*
-plugin/*
-lua/config
-lua/this
-.vim/*

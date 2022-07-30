@@ -7,7 +7,7 @@
 3. bat -- Display texts
 4. vivid -- Themes
 5. ffmpegthumbnailer -- Preview videos
-6. poppler -- Preview PDF files (pip)
+6. poppler -- Preview PDF files
 7. glow -- Preview markdown files
 8. gnumeric -- Convert `*.xlsx` to `*.csv` files
 9. exiftool -- Preview audio files

@@ -109,6 +109,9 @@ export EDITOR='nvim'
 export OPENER=open
 eval $(thefuck --alias)
 
+#For completions to work, the above line must be added after compinit is called. You may have to rebuild your cache by running rm ~/.zcompdump*; compinit.
+eval "$(zoxide init zsh)"
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -147,6 +150,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# <<< tre function <<<
+tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
+# <<< tre function <<<
+
 # Pyenv Initialization
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -156,3 +163,4 @@ alias lg='lazygit'
 alias ssh="kitty +kitten ssh"
 alias julia="/Applications/Julia-1.8.app/Contents/Resources/julia/bin/julia"
 alias ls="exa -F"
+alias whether="curl wttr.in"

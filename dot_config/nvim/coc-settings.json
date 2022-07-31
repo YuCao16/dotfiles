@@ -4,7 +4,6 @@
   "suggest.floatConfig": {"border": true},
   "hover.floatConfig": {"border": true},
   "diagnostic.floatConfig": {"border": true},
-  "snippets.userSnippetsDirectory":"~/.config/nvim/UltiSnips",
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveFiletypes":["python","markdown"],
   "python.formatting.provider":"black",

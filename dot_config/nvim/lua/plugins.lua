@@ -334,9 +334,9 @@ return require("packer").startup(function()
 
 			-- skip it, if you use another global object
 			_G.MUtils = {}
-
 			MUtils.completion_confirm = function()
-				if vim.fn.pumvisible() ~= 0 then
+				-- if vim.fn.pumvisible() ~= 0 then
+				if vim.fn["coc#pum#visible"]() ~= 0 then
 					return vim.fn["coc#_select_confirm"]()
 				else
 					return npairs.autopairs_cr()

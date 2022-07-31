@@ -367,9 +367,9 @@ return require("packer").startup(function()
 		"rcarriga/nvim-dap-ui",
 		-- ft = { "python" },
 		-- event = { "BufAdd", "InsertEnter" },
-		config = function()
-			require("dapui").setup()
-		end,
+		-- config = function()
+		-- 	require("dapui").setup()
+		-- end,
 	})
 	use({ "Pocco81/dap-buddy.nvim" })
 	use({

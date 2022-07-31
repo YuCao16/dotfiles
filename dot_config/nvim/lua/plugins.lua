@@ -16,7 +16,11 @@ return require("packer").startup(function()
 		"neoclide/coc.nvim",
 		branch = "release",
 		event = { "BufAdd", "InsertEnter" },
-		ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html" },
+		ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
+	})
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
 	})
 	use({ "github/copilot.vim" })
 	use({ "majutsushi/tagbar", ft = { "python", "markdown", "tex", "ipynb", "org" } })
@@ -112,26 +116,9 @@ return require("packer").startup(function()
 		end,
 	})
 
-	-- use("romgrk/barbar.nvim")
-	-- use { 'startup-nvim/startup.nvim' }
-	-- use { 'nvim-neo-tree/neo-tree.nvim',
-	-- 	branch = "v1.x",
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-	-- 		"MunifTanjim/nui.nvim"
-	--    },
-	-- }
-	-- use {'ms-jpq/chadtree', branch= 'chad', run = 'python3 -m chadtree deps'}
-	-- " use 'scrooloose/NERDTree'		      " File Explorer
-	-- " use 'vim-airline/vim-airline'
-
 	-- "-------------------=== Utile ===-------------
 	use({
 		"lewis6991/impatient.nvim",
-		-- config = function()
-		-- 	require("impatient")
-		-- end,
 	})
 	use({ "antoinemadec/FixCursorHold.nvim" })
 	use({ "famiu/bufdelete.nvim", event = { "BufAdd" } })
@@ -146,32 +133,7 @@ return require("packer").startup(function()
 	use({
 		"anuvyklack/pretty-fold.nvim",
 		config = function()
-			require("pretty-fold").setup({
-				-- keep_indentation = false,
-				-- fill_char = "━",
-				-- sections = {
-				-- 	left = {
-				-- 		"━ ",
-				-- 		function()
-				-- 			return string.rep("*", vim.v.foldlevel)
-				-- 		end,
-				-- 		" ━┫",
-				-- 		"content",
-				-- 		"┣",
-				-- 	},
-				-- 	right = {
-				-- 		"┫ ",
-				-- 		"number_of_folded_lines",
-				-- 		": ",
-				-- 		"percentage",
-				-- 		" ┣━━",
-				-- 	},
-				-- },
-				-- config = {
-				-- 	key = "h",
-				-- 	border = { " ", "", " ", " ", " ", " ", " ", " " },
-				-- },
-			})
+			require("pretty-fold").setup({})
 		end,
 	})
 	-- use({ "junegunn/fzf" })
@@ -192,22 +154,6 @@ return require("packer").startup(function()
 			require("telescope").load_extension("heading")
 		end,
 	})
-	-- use({
-	-- 	"Pocco81/TrueZen.nvim",
-	-- 	event = { "BufAdd", "InsertEnter" },
-	-- 	config = function()
-	-- 		local true_zen = require("true-zen")
-	-- 		true_zen.setup({
-	-- 			modes = {
-	-- 				ataraxis = {
-	-- 					ideal_writing_area_width = { 0 },
-	-- 					custom_bg = { "#1e222a" },
-	-- 					disable_bg_configuration = false,
-	-- 				},
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- })
 	use({
 		"Pocco81/true-zen.nvim",
 		config = function()
@@ -283,7 +229,8 @@ return require("packer").startup(function()
 	})
 	use({ "rcarriga/nvim-notify" })
 	use({ "lewis6991/gitsigns.nvim" })
-	use({ "RRethy/vim-illuminate", event = { "BufAdd", "InsertEnter" } })
+	use({ "RRethy/vim-illuminate", event = { "BufAdd", "InsertEnter" } }) --Vim plugin for automatically highlighting other uses of the current word under the cursor
+
 	use({
 		"gbprod/substitute.nvim",
 		event = { "BufAdd", "InsertEnter" },
@@ -301,27 +248,6 @@ return require("packer").startup(function()
 	-- use({ "tmhedberg/SimpylFold", event = { "BufAdd", "InsertEnter" } })
 	-- use({ "folke/twilight.nvim" })
 	-- use({ "sindrets/winshift.nvim", event = { "BufAdd", "InsertEnter" } })
-	-- use({
-	-- 	"matbme/JABS.nvim",
-	-- 	event = { "BufAdd", "InsertEnter" },
-	-- 	config = function()
-	-- 		local ui = vim.api.nvim_list_uis()[1]
-	-- 		require("jabs").setup({
-	-- 			position = "corner", -- center, corner
-	-- 			width = 50,
-	-- 			height = 10,
-	-- 			border = "shadow", -- none, single, double, rounded, solid, shadow, (or an array or chars)
-	-- 			preview_position = "left", -- top, bottom, left, right
-	-- 			preview = {
-	-- 				width = 40,
-	-- 				height = 30,
-	-- 				border = "double", -- none, single, double, rounded, solid, shadow, (or an array or chars)
-	-- 			},
-	-- 			col = ui.width, -- Window appears on the right
-	-- 			row = ui.height / 2, -- Window appears in the vertical middle
-	-- 		})
-	-- 	end,
-	-- })
 
 	-- "-------------------=== Code/Project navigation ===-------------
 	use({
@@ -346,13 +272,13 @@ return require("packer").startup(function()
 		end,
 	})
 	use({ "RRethy/nvim-treesitter-endwise" })
-	-- use({
-	-- 	"romgrk/nvim-treesitter-context",
-	-- 	-- event = 'BufAdd',
-	-- 	config = function()
-	-- 		require("treesitter-context").setup()
-	-- 	end,
-	-- })
+	use({
+		"romgrk/nvim-treesitter-context",
+		-- event = 'BufAdd',
+		config = function()
+			require("treesitter-context").setup()
+		end,
+	})
 	use({
 		"lewis6991/spellsitter.nvim",
 		ft = { "markdown", "latex" },
@@ -363,12 +289,6 @@ return require("packer").startup(function()
 		end,
 	})
 	use({ "sbdchd/neoformat", event = { "BufAdd", "InsertEnter" } }) -- " Format .tex
-	use({
-		"mhartington/formatter.nvim",
-		config = function()
-			require("formatter").setup()
-		end,
-	})
 	use({
 		"numToStr/Comment.nvim",
 		event = { "BufAdd", "InsertEnter" },
@@ -442,12 +362,11 @@ return require("packer").startup(function()
 	-- use({ "tpope/vim-surround", event = { "BufAdd", "InsertEnter" } })
 
 	-- "-------------------=== Debugging navigation ===-------------
-	-- use({ "mfussenegger/nvim-dap", ft = { "python" }, event = { "BufAdd", "InsertEnter" } })
 	use({ "mfussenegger/nvim-dap" })
 	use({
 		"rcarriga/nvim-dap-ui",
-		ft = { "python" },
-		event = { "BufAdd", "InsertEnter" },
+		-- ft = { "python" },
+		-- event = { "BufAdd", "InsertEnter" },
 		config = function()
 			require("dapui").setup()
 		end,
@@ -492,11 +411,6 @@ return require("packer").startup(function()
 	use({ "jbyuki/nabla.nvim", ft = { "markdown", "tex", "ipynb", "org" } })
 
 	use({ "plasticboy/vim-markdown", ft = { "markdown", "tex", "ipynb" } }) -- " MarkDown
-	use({
-		"godlygeek/tabular",
-		ft = { "markdown", "tex", "ipynb", "org", "json" },
-		event = { "BufAdd", "InsertEnter" },
-	})
 	use({
 		"ellisonleao/glow.nvim",
 		ft = { "markdown" },
@@ -546,28 +460,37 @@ return require("packer").startup(function()
 	use({ "goerz/jupytext.vim", ft = { "markdown", "tex", "ipynb" } })
 
 	-- use("vim-pandoc/vim-pandoc")
+	-- use({
+	-- 	"godlygeek/tabular",
+	-- 	ft = { "markdown", "tex", "ipynb", "org", "json" },
+	-- 	event = { "BufAdd", "InsertEnter" },
+	-- })
 	-- "-------------------=== Games ===--------------------------
 	use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) --"game
 	use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
-	use({
-		"gbprod/cutlass.nvim",
-		config = function()
-			require("cutlass").setup({ cut_key = "c" })
-		end,
-	})
 
 	-- "-------------------=== Color/Theme ===-------------------
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	})
 	use({
 		"xiyaowong/nvim-transparent",
 		event = {
 			"BufAdd",
 			"InsertEnter",
 			config = function()
-				require("xiyaowong").setup()
+				require("transparent").setup({
+					enable = true, -- boolean: enable transparent
+					extra_groups = { -- table/string: additional groups that should be cleared
+						-- In particular, when you set it to 'all', that means all available groups
+
+						-- example of akinsho/nvim-bufferline.lua
+						"BufferLineTabClose",
+						"BufferlineBufferSelected",
+						"BufferLineFill",
+						"BufferLineBackground",
+						"BufferLineSeparator",
+						"BufferLineIndicatorSelected",
+					},
+					exclude = {}, -- table: groups you don't want to clear
+				})
 			end,
 		},
 	})
@@ -594,9 +517,9 @@ return require("packer").startup(function()
 	use({ "olimorris/onedarkpro.nvim", event = { "BufAdd", "InsertEnter" } })
 	use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
 	use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
-	use({ "rebelot/kanagawa.nvim", event = { "BufAdd", "InsertEnter" }})
-	use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" }})
-	use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" }})
+	use({ "rebelot/kanagawa.nvim", event = { "BufAdd", "InsertEnter" } })
+	use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
+	use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
 
 	-- "-------------------=== UI ===-------------------------------
 	use({ "MunifTanjim/nui.nvim" })
@@ -609,6 +532,12 @@ return require("packer").startup(function()
 	use({ "williamboman/nvim-lsp-installer" })
 	-- "-------------------=== Other ===-------------------------------
 	use({ "tami5/sqlite.lua" })
+	use({
+		"gbprod/cutlass.nvim",
+		config = function()
+			require("cutlass").setup({ cut_key = "c" })
+		end,
+	})
 
 	-- " use 'TaDaa/vimade'                       " Eye Protection
 

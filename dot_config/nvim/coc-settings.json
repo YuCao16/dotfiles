@@ -18,6 +18,7 @@
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
   "suggest.completionItemKindLabels": {
+    "default": "\uf29c",
     "method": "  ",
     "function": "  ",
     "variable": "[]",
@@ -42,6 +43,7 @@
     "text": "  ",
     "constructor": "  ",
     "value": "  ",
+    "tabnine": "  ",
     "enumMember": "  "
   },
   // be careful not to condense the hierarchy as it breaks pyls

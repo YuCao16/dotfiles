@@ -1,13 +1,13 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
   "signature.floatConfig": {"border": true},
-  "suggest.floatConfig": {"border": true},
+  "suggest.floatConfig": {"border": true, "rounded": true},
   "hover.floatConfig": {"border": true},
   "diagnostic.floatConfig": {"border": true},
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnSaveFiletypes":["python","markdown"],
+  "coc.preferences.formatOnSaveFiletypes":["python","markdown","lua"],
+  "lightbulb.only":["quickfix"],
   "python.formatting.provider":"black",
-  "pyright.completion.importSupport":false,
   "coc.source.vimtex.filetypes":["tex","plaintex","latex","markdown","*.ipynb"],
   "Lua.diagnostics.enable":false,
   "cSpell.enabledLanguageIds": [

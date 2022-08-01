@@ -34,6 +34,8 @@ function! s:check_back_space() abort
 endfunction
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+hi CocSearch ctermfg=12 guifg=#18A3FF
+hi CocMenuSel ctermbg=109 guibg=#13354A
 
 "=====================================================
 "" Lua Plugin setup

@@ -68,7 +68,7 @@ require("orgmode").setup_ts_grammar()
 
 require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "maintained",
-	ensure_installed = {'org','python'},
+	ensure_installed = {'org','python','norg'},
 	sync_install = false,
 	ignore_install = { "javascript" },
 	highlight = {

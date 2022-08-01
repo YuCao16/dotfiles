@@ -12,19 +12,25 @@ return require("packer").startup({
 	function()
 		use({ "wbthomason/packer.nvim" })
 
-		-- "-------------------=== Basic ===-------------
+		-- "-------------------=== Core ===-------------
 		use({
 			"neoclide/coc.nvim",
 			branch = "release",
 			event = { "BufAdd", "InsertEnter" },
 			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
 		})
-		use({
-			"nvim-treesitter/nvim-treesitter",
-			run = ":TSUpdate",
-		})
-		use({ "github/copilot.vim", ft = { "python", "markdown", "tex", "ipynb" } })
 		use({ "majutsushi/tagbar", ft = { "python", "markdown", "tex", "ipynb", "org" } })
+		use({
+			"nvim-lualine/lualine.nvim",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+			config = function()
+				require("lualine").setup({
+					options = {
+						theme = "auto",
+					},
+				})
+			end,
+		})
 		use({
 			"sidebar-nvim/sidebar.nvim",
 			event = { "BufAdd", "InsertEnter" },
@@ -43,6 +49,12 @@ return require("packer").startup({
 			end,
 		})
 		use({
+			"akinsho/toggleterm.nvim",
+			config = function()
+				require("toggleterm").setup()
+			end,
+		})
+		use({
 			"akinsho/bufferline.nvim",
 			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
@@ -54,37 +66,13 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 		use({ "glepnir/dashboard-nvim" })
-		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-			config = function()
-				require("lualine").setup({
-					options = {
-						theme = "auto",
-					},
-				})
-			end,
-		})
 		use({
 			"petertriho/nvim-scrollbar",
 			event = { "BufAdd", "InsertEnter" },
 			ft = { "python", "markdown", "tex", "ipynb", "org" },
 			config = function()
 				require("scrollbar").setup()
-			end,
-		})
-		use({
-			"folke/zen-mode.nvim",
-			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org" },
-			config = function()
-				require("zen-mode").setup({
-					window = {
-						width = 0.75, -- width will be 85% of the editor width
-					},
-				})
 			end,
 		})
 		use({
@@ -116,11 +104,32 @@ return require("packer").startup({
 				})
 			end,
 		})
+		use({ "lewis6991/impatient.nvim" })
+		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Utile ===-------------
 		use({
-			"lewis6991/impatient.nvim",
+			"folke/zen-mode.nvim",
+			event = { "BufAdd", "InsertEnter" },
+			ft = { "python", "markdown", "tex", "ipynb", "org" },
+			config = function()
+				require("zen-mode").setup({
+					window = {
+						width = 0.75, -- width will be 85% of the editor width
+					},
+				})
+			end,
 		})
+		use({
+			"Pocco81/true-zen.nvim",
+			config = function()
+				require("true-zen").setup({
+					-- your config goes here
+					-- or just leave it empty :)
+				})
+			end,
+		})
+		-- use { 'github/copilot.vim', ft = {"python", "markdown", "tex"} }
 		use({ "antoinemadec/FixCursorHold.nvim" })
 		use({ "famiu/bufdelete.nvim", event = { "BufAdd" } })
 		use({ "anuvyklack/nvim-keymap-amend" })
@@ -137,33 +146,6 @@ return require("packer").startup({
 				require("pretty-fold").setup({})
 			end,
 		})
-		-- use({ "junegunn/fzf" })
-		-- use({ "junegunn/fzf.vim" }) -- " Search Tools
-		use({
-			"nvim-telescope/telescope.nvim",
-			requires = { { "nvim-lua/plenary.nvim" } },
-		})
-		use({
-			"nvim-telescope/telescope-file-browser.nvim",
-			config = function()
-				require("telescope").load_extension("file_browser")
-			end,
-		})
-		use({
-			"crispgm/telescope-heading.nvim",
-			config = function()
-				require("telescope").load_extension("heading")
-			end,
-		})
-		use({
-			"Pocco81/true-zen.nvim",
-			config = function()
-				require("true-zen").setup({
-					-- your config goes here
-					-- or just leave it empty :)
-				})
-			end,
-		})
 		use({
 			"karb94/neoscroll.nvim",
 			-- event = { "BufAdd", "InsertEnter", "VimEnter" },
@@ -171,27 +153,17 @@ return require("packer").startup({
 				require("neoscroll").setup()
 			end,
 		})
-		use({ "camspiers/animate.vim", event = {"BufAdd"} }) -- " window resizer
-		use({ "camspiers/lens.vim", event = { "BufAdd"} })
+		use({
+			"gbprod/cutlass.nvim",
+			config = function()
+				require("cutlass").setup({ cut_key = "c" })
+			end,
+		})
+		use({ "camspiers/animate.vim", event = { "BufAdd" } }) -- " window resizer
+		use({ "camspiers/lens.vim", event = { "BufAdd" } })
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "BufAdd" } })
 		use({ "junegunn/limelight.vim", event = { "BufAdd", "InsertEnter" } })
 		use({ "kevinhwang91/nvim-hlslens", event = { "BufAdd", "InsertEnter" } })
-		use({
-			"rmagatti/auto-session",
-			config = function()
-				local opts = {
-					log_level = "info",
-					auto_session_enable_last_session = false,
-					auto_session_root_dir = vim.fn.stdpath("data") .. "/session/",
-					auto_session_enabled = true,
-					auto_save_enabled = false,
-					auto_restore_enabled = false,
-					auto_session_suppress_dirs = nil,
-				}
-
-				require("auto-session").setup(opts)
-			end,
-		})
 		use({
 			"Shatur/neovim-session-manager",
 			config = function()
@@ -202,33 +174,11 @@ return require("packer").startup({
 			end,
 		})
 		use({
-			"nvim-neorg/neorg",
-			event = { "BufAdd", "InsertEnter" },
-			config = function()
-				require("neorg").setup({
-					load = {
-						["core.defaults"] = {},
-						["core.norg.concealer"] = {},
-						["core.norg.dirman"] = {
-							config = {
-								workspaces = {
-									work = "~/notes/work",
-									home = "~/notes/home",
-								},
-							},
-						},
-					},
-				})
-			end,
-		})
-		use({ "tpope/vim-repeat", event = { "BufAdd", "InsertEnter" } })
-		use({
 			"ethanholz/nvim-lastplace",
 			config = function()
 				require("nvim-lastplace").setup({})
 			end,
 		})
-		use({ "rcarriga/nvim-notify" })
 		use({ "lewis6991/gitsigns.nvim" })
 		use({ "RRethy/vim-illuminate", event = { "BufAdd", "InsertEnter" } }) --Vim plugin for automatically highlighting other uses of the current word under the cursor
 
@@ -246,9 +196,63 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({ "junegunn/fzf" })
+		-- use({ "junegunn/fzf.vim" }) -- " Search Tools
 		-- use({ "tmhedberg/SimpylFold", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "folke/twilight.nvim" })
 		-- use({ "sindrets/winshift.nvim", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "tpope/vim-repeat", event = { "BufAdd", "InsertEnter" } })
+		-- use({
+		-- 	"rmagatti/auto-session",
+		-- 	config = function()
+		-- 		local opts = {
+		-- 			log_level = "info",
+		-- 			auto_session_enable_last_session = false,
+		-- 			auto_session_root_dir = vim.fn.stdpath("data") .. "/session/",
+		-- 			auto_session_enabled = true,
+		-- 			auto_save_enabled = false,
+		-- 			auto_restore_enabled = false,
+		-- 			auto_session_suppress_dirs = nil,
+		-- 		}
+		--
+		-- 		require("auto-session").setup(opts)
+		-- 	end,
+		-- })
+
+		-- "-------------------=== Telescope ===-------------
+		use({
+			"nvim-telescope/telescope.nvim",
+			requires = { { "nvim-lua/plenary.nvim" } },
+		})
+		use({
+			"nvim-telescope/telescope-file-browser.nvim",
+			config = function()
+				require("telescope").load_extension("file_browser")
+			end,
+		})
+		use({
+			"crispgm/telescope-heading.nvim",
+			config = function()
+				require("telescope").load_extension("heading")
+			end,
+		})
+
+		-- "-------------------=== Treesitter ===-------------
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			run = ":TSUpdate",
+		})
+		use({ "RRethy/nvim-treesitter-endwise" })
+		use({
+			"romgrk/nvim-treesitter-context",
+			-- event = 'BufAdd',
+			config = function()
+				require("treesitter-context").setup()
+			end,
+		})
+		use({ "p00f/nvim-ts-rainbow", event = { "BufAdd", "InsertEnter" } })
+		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
+
 
 		-- "-------------------=== Code/Project navigation ===-------------
 		use({
@@ -272,23 +276,6 @@ return require("packer").startup({
 				remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
 			end,
 		})
-		use({ "RRethy/nvim-treesitter-endwise" })
-		use({
-			"romgrk/nvim-treesitter-context",
-			-- event = 'BufAdd',
-			config = function()
-				require("treesitter-context").setup()
-			end,
-		})
-		use({
-			"lewis6991/spellsitter.nvim",
-			ft = { "markdown", "latex" },
-			config = function()
-				require("spellsitter").setup({
-					enable = true,
-				})
-			end,
-		})
 		use({ "sbdchd/neoformat", event = { "BufAdd", "InsertEnter" } }) -- " Format .tex
 		use({
 			"numToStr/Comment.nvim",
@@ -297,7 +284,6 @@ return require("packer").startup({
 			end,
 		})
 		use({ "mg979/vim-visual-multi", branch = "master", event = { "BufAdd", "InsertEnter" } })
-		use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			event = { "BufAdd", "InsertEnter" },
@@ -328,12 +314,6 @@ return require("packer").startup({
 			end,
 		})
 		use({
-			"akinsho/toggleterm.nvim",
-			config = function()
-				require("toggleterm").setup()
-			end,
-		})
-		use({
 			"michaelb/sniprun",
 			run = "bash install.sh",
 			event = { "BufAdd", "InsertEnter" },
@@ -346,7 +326,7 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "weilbith/nvim-code-action-menu" })
+		use({ "weilbith/nvim-code-action-menu" })  -- code action popup, but there is no quickif x for python
 		use({
 			"kylechui/nvim-surround",
 			config = function()
@@ -356,10 +336,19 @@ return require("packer").startup({
 			end,
 			event = { "BufAdd", "InsertEnter" },
 		})
-		use({ "honza/vim-snippets", event = { "BufAdd", "InsertEnter" } })
+		use({ "honza/vim-snippets", after = "coc.nvim"  }) -- snippets collections
 
+		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		-- " use 'sirver/ultisnips'
-		-- use({ "tpope/vim-surround", event = { "BufAdd", "InsertEnter" } })
+		-- use({
+		-- 	"lewis6991/spellsitter.nvim",
+		-- 	ft = { "markdown", "latex", "org" },
+		-- 	config = function()
+		-- 		require("spellsitter").setup({
+		-- 			enable = true,
+		-- 		})
+		-- 	end,
+		-- })
 
 		-- "-------------------=== Debugging navigation ===-------------
 		use({ "mfussenegger/nvim-dap" })
@@ -380,31 +369,8 @@ return require("packer").startup({
 				require("dap-python").setup("/usr/bin/python3")
 			end,
 		})
-		-- use({
-		-- 	"Pocco81/DAPInstall.nvim",
-		-- 	event = { "BufAdd", "InsertEnter" },
-		-- 	ft = { "python" },
-		-- 	config = function()
-		-- 		local dap_install = require("dap-install")
-		--
-		-- 		dap_install.setup({
-		-- 			installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-		-- 		})
-		--
-		-- 		local dap, dapui = require("dap"), require("dapui")
-		-- 		dap.listeners.after.event_initialized["dapui_config"] = function()
-		-- 			dapui.open()
-		-- 		end
-		-- 		dap.listeners.before.event_terminated["dapui_config"] = function()
-		-- 			dapui.close()
-		-- 		end
-		-- 		dap.listeners.before.event_exited["dapui_config"] = function()
-		-- 			dapui.close()
-		-- 		end
-		-- 	end,
-		-- })
 
-		-- "-------------------=== Languages support ===-------------------
+		-- "-------------------=== Languages plugins ===-------------------
 		use({ "lervag/vimtex", ft = { "markdown", "tex", "ipynb", "org" } }) -- " LaTex
 		use({ "KeitaNakamura/tex-conceal.vim", ft = { "markdown", "tex", "ipynb", "org" } })
 		use({ "cmhughes/latexindent.pl", ft = { "markdown", "tex", "ipynb", "org" } })
@@ -423,6 +389,15 @@ return require("packer").startup({
 
 		use({ "chrisbra/csv.vim", ft = { "csv" } }) -- " CSV
 
+		use({                                      -- Neorg
+			"nvim-neorg/neorg",
+			ft = "norg",
+			after = "nvim-treesitter",
+			config = function()
+				require("neorg").setup()
+			end,
+		})
+
 		use({
 			"nvim-orgmode/orgmode", -- " ORG
 		})
@@ -435,10 +410,7 @@ return require("packer").startup({
 						headlines = { "◉", "○", "✸", "✿" },
 						checkboxes = {
 							cancelled = { "", "OrgCancelled" },
-							-- done = { "✓", "OrgDone" },
-							-- todo = { "x", "OrgTODO" },
-							-- todo = { "✗", "OrgTODO" },
-							todo = { "☐", "OrgTODO" },
+							todo = { "-", "OrgTODO" },
 							done = { "✓", "OrgDone" },
 						},
 					},
@@ -465,9 +437,6 @@ return require("packer").startup({
 		-- 	ft = { "markdown", "tex", "ipynb", "org", "json" },
 		-- 	event = { "BufAdd", "InsertEnter" },
 		-- })
-		-- "-------------------=== Games ===--------------------------
-		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) --"game
-		use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Color/Theme ===-------------------
 		use({
@@ -494,17 +463,15 @@ return require("packer").startup({
 				end,
 			},
 		})
-		use({ "p00f/nvim-ts-rainbow", event = { "BufAdd", "InsertEnter" } })
-		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
-		use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
+		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 		use({ "kyazdani42/nvim-web-devicons" })
 
 		use({ "projekt0n/github-nvim-theme" })
-		use({ "joshdick/onedark.vim" })
-		-- use({ "navarasu/onedark.nvim" })
-		use({ "sainnhe/everforest" })
-		use({ "sainnhe/sonokai" })
+		use({ "rebelot/kanagawa.nvim" })
+		use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
+		use({ "sainnhe/everforest", event = { "BufAdd", "InsertEnter" } })
+		use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/edge", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
 		use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
@@ -517,7 +484,6 @@ return require("packer").startup({
 		use({ "olimorris/onedarkpro.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
 		use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
-		use({ "rebelot/kanagawa.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
 
@@ -526,40 +492,28 @@ return require("packer").startup({
 		use({ "nvim-lua/plenary.nvim" })
 		use({ "RishabhRD/popfix" })
 		use("machakann/vim-highlightedyank") --highlight yank region
+		use({ "rcarriga/nvim-notify" })
 
 		-- "-------------------=== LSP ===-------------------------------
 		use({ "neovim/nvim-lspconfig", event = { "BufAdd", "InsertEnter" } })
 		use({ "williamboman/nvim-lsp-installer" })
+
+		-- "-------------------=== Games ===--------------------------
+		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) --"game
+		use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
+
 		-- "-------------------=== Other ===-------------------------------
 		use({ "tami5/sqlite.lua" })
-		use({
-			"gbprod/cutlass.nvim",
-			config = function()
-				require("cutlass").setup({ cut_key = "c" })
-			end,
-		})
-
-		-- " use 'TaDaa/vimade'                       " Eye Protection
-
-		-- "-------------------=== Unknown ===-------------------------------
 		use({ "neomake/neomake", event = { "BufAdd", "InsertEnter" } })
-		-- Lua
-		use({
-			"folke/trouble.nvim",
-			requires = "kyazdani42/nvim-web-devicons",
-			config = function()
-				require("trouble").setup({
-					-- your configuration comes here
-					-- or leave it empty to use the default settings
-					-- refer to the configuration section below
-				})
-			end,
-		})
 		-- use({
 		-- 	"filipdutescu/renamer.nvim",
 		-- 	branch = "master",
 		-- 	requires = { { "nvim-lua/plenary.nvim" } },
 		-- })
+
+		-- " use 'TaDaa/vimade'                       " Eye Protection
+
+		-- "-------------------=== Unknown ===-------------------------------
 		-- use({ "svermeulen/vimpeccable", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Not used ===-------------------------------

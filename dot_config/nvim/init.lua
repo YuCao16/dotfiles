@@ -19,3 +19,4 @@ require("general_settings") -- neovim general settings
 require("colorscheme") -- custom colorscheme, gitsigns and github.theme
 require("load_plugins") -- dashboard and orgmode configurations
 require("autocmd") -- custom auto commands
+require("coc")

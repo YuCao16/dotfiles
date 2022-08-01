@@ -41,6 +41,8 @@ return require("packer").startup({
 						"git",
 						"symbols",
 						"todos",
+						"files",
+						"buffers"
 					},
 					symbols = {
 						icon = "ƒ",

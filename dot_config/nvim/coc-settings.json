@@ -42,7 +42,7 @@
               "enabled": false
             },
             "pycodestyle": {
-              "enabled": false
+              "enabled": true
             },
             "pydocstyle": {
               "enabled": false,

@@ -1,12 +1,15 @@
 local cmd = vim.cmd -- Execute Vim commands
-require("github-theme").setup({
-	transparent = false,
-	dark_sidebar = false,
-})
-cmd([[hi! link StatusLine Normal
+-- require("github-theme").setup({
+-- 	transparent = false,
+-- 	dark_sidebar = false,
+-- })
+cmd([[
+hi! link StatusLine Normal
 hi OrgDONE guifg=green
+hi CocSearch ctermfg=12 guifg=#18A3FF
+hi CocMenuSel ctermbg=109 guibg=#13354A
 ]])
--- cmd([[colorscheme onedark]])
+cmd([[colorscheme kanagawa]])
 
 require("gitsigns").setup({
 	signs = {

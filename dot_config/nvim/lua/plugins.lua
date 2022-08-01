@@ -23,7 +23,7 @@ return require("packer").startup({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
 		})
-		use({ "github/copilot.vim" })
+		use({ "github/copilot.vim", ft = { "python", "markdown", "tex", "ipynb" } })
 		use({ "majutsushi/tagbar", ft = { "python", "markdown", "tex", "ipynb", "org" } })
 		use({
 			"sidebar-nvim/sidebar.nvim",
@@ -171,8 +171,8 @@ return require("packer").startup({
 				require("neoscroll").setup()
 			end,
 		})
-		use({ "camspiers/animate.vim" }) -- " window resizer
-		use({ "camspiers/lens.vim" })
+		use({ "camspiers/animate.vim", event = {"BufAdd"} }) -- " window resizer
+		use({ "camspiers/lens.vim", event = { "BufAdd"} })
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "BufAdd" } })
 		use({ "junegunn/limelight.vim", event = { "BufAdd", "InsertEnter" } })
 		use({ "kevinhwang91/nvim-hlslens", event = { "BufAdd", "InsertEnter" } })

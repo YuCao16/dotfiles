@@ -5,7 +5,6 @@
   "hover.floatConfig": { "border": true },
   "diagnostic.floatConfig": { "border": true },
   "coc.preferences.formatOnSaveFiletypes": ["python", "markdown", "lua"],
-  "python.formatting.provider": "black",
   "lightbulb.only": ["quickfix"],
   "coc.source.vimtex.filetypes": [
     "tex",
@@ -15,7 +14,7 @@
     "*.ipynb"
   ],
   "Lua.diagnostics.enable": false,
-  "cSpell.enabledLanguageIds": ["latex", "markdown", "text"],
+  "cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
   // be careful not to condense the hierarchy as it breaks pyls

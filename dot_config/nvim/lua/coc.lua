@@ -115,6 +115,7 @@ local mappings = {
 		{ "gy", "<Plug>(coc-type-definition)", { noremap = false } },
 		{ "gi", "<Plug>(coc-implementation)", { noremap = false } },
 		{ "gr", "<Plug>(coc-references)", { noremap = false } },
+		{ "rn", "<Plug>(coc-rename)", { noremap = false } },
 
 		{
 			"<down>",

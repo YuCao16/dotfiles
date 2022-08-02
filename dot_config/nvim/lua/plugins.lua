@@ -150,7 +150,6 @@ return require("packer").startup({
 		})
 		use({
 			"karb94/neoscroll.nvim",
-			-- event = { "BufAdd", "InsertEnter", "VimEnter" },
 			config = function()
 				require("neoscroll").setup()
 			end,
@@ -182,8 +181,11 @@ return require("packer").startup({
 			end,
 		})
 		use({ "lewis6991/gitsigns.nvim" })
-		use({ "RRethy/vim-illuminate", event = { "BufAdd", "InsertEnter" } }) --Vim plugin for automatically highlighting other uses of the current word under the cursor
-
+		use({
+			"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
+			event = { "BufAdd", "InsertEnter" },
+			ft = { "python", "lua", "markdown", "org", "tex" },
+		})
 		use({
 			"gbprod/substitute.nvim",
 			event = { "BufAdd", "InsertEnter" },
@@ -192,7 +194,7 @@ return require("packer").startup({
 			end,
 		})
 		use({
-			"gennaro-tedesco/nvim-peekup",
+			"gennaro-tedesco/nvim-peekup", -- register
 			config = function()
 				require("nvim-peekup.config").on_keystroke["delay"] = "100ms"
 			end,
@@ -256,9 +258,11 @@ return require("packer").startup({
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Code/Project navigation ===-------------
+		use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		use({
 			"windwp/nvim-autopairs",
 			-- event = { "BufAdd", "InsertEnter" },
+			ft = { "python", "lua", "tex", "markdown", "org" },
 			config = function()
 				local remap = vim.api.nvim_set_keymap
 				local npairs = require("nvim-autopairs")
@@ -277,7 +281,11 @@ return require("packer").startup({
 				remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
 			end,
 		})
-		use({ "sbdchd/neoformat", event = { "BufAdd", "InsertEnter" } }) -- " Format .tex
+		use({
+			"sbdchd/neoformat",
+			event = { "BufAdd", "InsertEnter" },
+			ft = { "python", "tex", "markdown", "lua" },
+		}) -- " Format everything
 		use({
 			"numToStr/Comment.nvim",
 			config = function()
@@ -327,7 +335,6 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		use({
 			"kylechui/nvim-surround",
 			config = function()
@@ -445,27 +452,26 @@ return require("packer").startup({
 			event = {
 				"BufAdd",
 				"InsertEnter",
-				config = function()
-					require("transparent").setup({
-						enable = true, -- boolean: enable transparent
-						extra_groups = { -- table/string: additional groups that should be cleared
-							-- In particular, when you set it to 'all', that means all available groups
-
-							-- example of akinsho/nvim-bufferline.lua
-							"BufferLineTabClose",
-							"BufferlineBufferSelected",
-							"BufferLineFill",
-							"BufferLineBackground",
-							"BufferLineSeparator",
-							"BufferLineIndicatorSelected",
-						},
-						exclude = {}, -- table: groups you don't want to clear
-					})
-				end,
 			},
+			config = function()
+				require("transparent").setup({
+					enable = true, -- boolean: enable transparent
+					extra_groups = { -- table/string: additional groups that should be cleared
+						-- In particular, when you set it to 'all', that means all available groups
+
+						-- example of akinsho/nvim-bufferline.lua
+						"BufferLineTabClose",
+						"BufferlineBufferSelected",
+						"BufferLineFill",
+						"BufferLineBackground",
+						"BufferLineSeparator",
+						"BufferLineIndicatorSelected",
+					},
+					exclude = {}, -- table: groups you don't want to clear
+				})
+			end,
 		})
 
-		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 		use({ "kyazdani42/nvim-web-devicons" })
 
 		use({ "projekt0n/github-nvim-theme" })
@@ -487,6 +493,8 @@ return require("packer").startup({
 		use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
+
+		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 
 		-- "-------------------=== UI ===-------------------------------
 		use({ "MunifTanjim/nui.nvim" })
@@ -511,8 +519,6 @@ return require("packer").startup({
 
 		-- "-------------------=== Unknown ===-------------------------------
 		-- use({ "svermeulen/vimpeccable", event = { "BufAdd", "InsertEnter" } })
-
-		-- "-------------------=== Not used ===-------------------------------
 	end,
 	config = {
 		-- compile_path = "~/.local/share/packer_compiled/packer_compiled.lua",

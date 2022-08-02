@@ -14,6 +14,7 @@ autocmd FileType dashboard nnoremap <buffer> <up> k
 autocmd FileType dashboard nnoremap <buffer> <down> j
 autocmd FileType startify :lua require"nvim-tree".toggle(false, true)
 autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<cr>
+" autocmd FileType NvimTree nnoremap <buffer> <'<'> :exe "vertical resize +10"<cr>
 tnoremap <silent> <ESC> <C-\><C-n>
 hi ColorColumn guibg=#ff3131 ctermbg=236
 ]])

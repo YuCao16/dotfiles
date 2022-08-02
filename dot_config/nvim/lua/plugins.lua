@@ -42,7 +42,7 @@ return require("packer").startup({
 						"symbols",
 						"todos",
 						"files",
-						"buffers"
+						"buffers",
 					},
 					symbols = {
 						icon = "ƒ",
@@ -255,7 +255,6 @@ return require("packer").startup({
 		use({ "p00f/nvim-ts-rainbow", event = { "BufAdd", "InsertEnter" } })
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
-
 		-- "-------------------=== Code/Project navigation ===-------------
 		use({
 			"windwp/nvim-autopairs",
@@ -328,7 +327,7 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "weilbith/nvim-code-action-menu" })  -- code action popup, but there is no quickif x for python
+		use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		use({
 			"kylechui/nvim-surround",
 			config = function()
@@ -338,7 +337,7 @@ return require("packer").startup({
 			end,
 			event = { "BufAdd", "InsertEnter" },
 		})
-		use({ "honza/vim-snippets", after = "coc.nvim"  }) -- snippets collections
+		use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		-- " use 'sirver/ultisnips'
@@ -391,7 +390,7 @@ return require("packer").startup({
 
 		use({ "chrisbra/csv.vim", ft = { "csv" } }) -- " CSV
 
-		use({                                      -- Neorg
+		use({ -- Neorg
 			"nvim-neorg/neorg",
 			ft = "norg",
 			after = "nvim-treesitter",
@@ -507,11 +506,6 @@ return require("packer").startup({
 		-- "-------------------=== Other ===-------------------------------
 		use({ "tami5/sqlite.lua" })
 		use({ "neomake/neomake", event = { "BufAdd", "InsertEnter" } })
-		-- use({
-		-- 	"filipdutescu/renamer.nvim",
-		-- 	branch = "master",
-		-- 	requires = { { "nvim-lua/plenary.nvim" } },
-		-- })
 
 		-- " use 'TaDaa/vimade'                       " Eye Protection
 

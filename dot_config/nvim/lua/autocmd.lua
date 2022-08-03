@@ -9,7 +9,7 @@
 
 -- quick exit from dashboard
 vim.cmd([[
-autocmd FileType dashboard nnoremap <buffer> q :call Handle_dashboard()<CR>
+autocmd FileType dashboard nnoremap <buffer> q :lua Handle_dashboard()<CR>
 autocmd FileType dashboard nnoremap <buffer> <up> k
 autocmd FileType dashboard nnoremap <buffer> <down> j
 autocmd FileType startify :lua require"nvim-tree".toggle(false, true)

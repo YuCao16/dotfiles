@@ -23,13 +23,6 @@ return require("packer").startup({
 		use({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-			config = function()
-				require("lualine").setup({
-					options = {
-						theme = "auto",
-					},
-				})
-			end,
 		})
 		use({
 			"sidebar-nvim/sidebar.nvim",
@@ -119,15 +112,6 @@ return require("packer").startup({
 					window = {
 						width = 0.75, -- width will be 85% of the editor width
 					},
-				})
-			end,
-		})
-		use({
-			"Pocco81/true-zen.nvim",
-			config = function()
-				require("true-zen").setup({
-					-- your config goes here
-					-- or just leave it empty :)
 				})
 			end,
 		})
@@ -221,6 +205,15 @@ return require("packer").startup({
 		-- 	requires = "anuvyklack/keymap-amend.nvim",
 		-- 	config = function()
 		-- 		require("fold-preview").setup()
+		-- 	end,
+		-- })
+		-- use({
+		-- 	"Pocco81/true-zen.nvim",
+		-- 	config = function()
+		-- 		require("true-zen").setup({
+		-- 			-- your config goes here
+		-- 			-- or just leave it empty :)
+		-- 		})
 		-- 	end,
 		-- })
 

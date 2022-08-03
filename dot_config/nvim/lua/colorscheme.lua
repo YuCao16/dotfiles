@@ -3,13 +3,28 @@ local cmd = vim.cmd -- Execute Vim commands
 -- 	transparent = false,
 -- 	dark_sidebar = false,
 -- })
+cmd([[colorscheme kanagawa]])
+
 cmd([[
 hi! link StatusLine Normal
 hi OrgDONE guifg=green
 hi CocSearch ctermfg=12 guifg=#18A3FF
 hi CocMenuSel ctermbg=109 guibg=#13354A
 ]])
-cmd([[colorscheme kanagawa]])
+
+-- config orgmode Done symbol
+cmd([[
+function! s:setup_org_colors() abort
+  hi OrgDONE guifg=green
+endfunction
+
+autocmd ColorScheme * call s:setup_org_colors()
+]])
+
+-- add a red line one column 80
+cmd([[
+hi ColorColumn guibg=#ff3131 ctermbg=236
+]])
 
 require("gitsigns").setup({
 	signs = {

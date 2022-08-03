@@ -18,22 +18,12 @@ g["coc_snippet_next"] = "<tab>"
 -- "=====================================================
 -- "" tagbar settings
 -- "=====================================================
--- cmd([[let g:tagbar_width = 50]])
 g["tagbar_width"] = 34
-
--- cmd("let g:lens#disabled_filetypes = ['nerdtree','tagbar']")
 g["lens#animate"] = 0
 g["animate#duration"] = 100.0
-g["lens#disabled_filetypes"] = { "nerdtree", "tagbar", "nvimtree" }
-
--- "=====================================================
--- "" Python settings
--- "=====================================================
--- cmd([[let g:syntastic_python_python_exec = 'python3']])
--- cmd([[let g:syntastic_python_checkers = ('python')]])
--- cmd([[let g:semshi#filetypes = ['python']]])
-g["syntastic_python_checkers"] = "python"
-g["syntastic_python_python_exec"] = "python3"
+g["lens#disabled_filetypes"] = { "tagbar", "nvimtree" }
+-- cmd("let g:lens#disabled_filetypes = ['nerdtree','tagbar']")
+-- cmd([[let g:tagbar_width = 50]])
 
 -- "=====================================================
 -- "" CSV settings
@@ -58,11 +48,6 @@ g["vim_markdown_math"] = 1 -- enable markdown math
 g["tex_conceal"] = ""
 
 -- "=====================================================
--- "" UltiSnips settings
--- "=====================================================
-g["UltiSnipsSnippetsDir"] = "~/.config/nvim/UltiSnips"
-
--- "=====================================================
 -- "" FixCursorHold settings
 -- "=====================================================
 g["cursorhold_updatetime"] = 100
@@ -85,20 +70,14 @@ g["vim_markdown_concel"] = 0
 g["vim_markdown_conceal_code_blocks"] = 0
 
 -- "=====================================================
--- "" register.nvim settings
--- "=====================================================
-g["registers_window_border"] = "single"
-g["peekup_open"] = '"'
-
--- "=====================================================
 -- "" Tex-Conceal.vim settings
 -- "=====================================================
 cmd([[set conceallevel=2]])
--- cmd([[set concealcursor=nc]])
 g['tex_superscripts'] = "[0-9a-zA-W.,:;+-<>/()=]"
 g['tex_subscripts'] = "[0-9aehijklmnoprstuvx,+-/().]"
 g["tex_conceal"] = "abdmg"
 g["tex_flavor"] = "latex"
+-- cmd([[set concealcursor=nc]])
 -- cmd([[hi Conceal ctermbg=none]])
 
 -- "=====================================================
@@ -113,3 +92,4 @@ g['gruvbox_materiala_background'] = "hard"
 g['registers_delay'] = 300
 g['registers_window_border'] = "rounded"
 g['system_clip'] = 1
+g["peekup_open"] = '"'

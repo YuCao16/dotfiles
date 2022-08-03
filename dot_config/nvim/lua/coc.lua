@@ -54,6 +54,10 @@ g.coc_global_extensions = {
 	"coc-snippets",
 	"coc-tabnine",
 	"coc-vimtex",
+	"coc-lists",
+	"coc-highlight",
+	"coc-cspell-dicts",
+	"coc-spell-checker"
 }
 
 function _G.check_back_space()
@@ -141,7 +145,7 @@ local mappings = {
 
 -- vim.cmd([[
 --     " Add `:Format` command to format current buffer.
---     command! -nargs=0 Format :call CocAction('format')
+--     " command! -nargs=0 Format :call CocAction('format')
 --     " Add `:Fold` command to fold current buffer.
 --     command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 --     " Add `:OR` command for organize imports of the current buffer.

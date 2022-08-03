@@ -12,21 +12,19 @@ vim.cmd([[
 autocmd FileType dashboard nnoremap <buffer> q :lua Handle_dashboard()<CR>
 autocmd FileType dashboard nnoremap <buffer> <up> k
 autocmd FileType dashboard nnoremap <buffer> <down> j
-autocmd FileType startify :lua require"nvim-tree".toggle(false, true)
-autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<cr>
-" autocmd FileType NvimTree nnoremap <buffer> <'<'> :exe "vertical resize +10"<cr>
-tnoremap <silent> <ESC> <C-\><C-n>
-hi ColorColumn guibg=#ff3131 ctermbg=236
 ]])
 
--- config orgmode Done symbol
+-- config toggleterm
 vim.cmd([[
-function! s:setup_org_colors() abort
-  hi OrgDONE guifg=green
-endfunction
-
-autocmd ColorScheme * call s:setup_org_colors()
+autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<cr>
+tnoremap <silent> <ESC> <C-\><C-n>
 ]])
+
+-- Missing the best setup Plugin
+vim.cmd([[
+autocmd FileType startify :lua require"nvim-tree".toggle(false, true)
+]])
+
 
 -- auto config scrollbar
 vim.cmd([[
@@ -46,11 +44,11 @@ autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType tex setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType vim setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType lua setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType json setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
-" Markdown and Journal
 autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType journal setlocal shiftwidth=4 tabstop=4 softtabstop=4
 ]])

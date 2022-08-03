@@ -24,6 +24,7 @@ opt.cursorline = true
 opt.foldenable = false
 opt.incsearch = true
 opt.hlsearch = true
+opt.laststatus = 3
 vim.o.pumheight = 20
 vim.o.scrolloff = 10
 vim.cmd([[set enc=utf-8]])

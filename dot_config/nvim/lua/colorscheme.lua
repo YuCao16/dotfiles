@@ -26,6 +26,11 @@ cmd([[
 hi ColorColumn guibg=#ff3131 ctermbg=236
 ]])
 
+-- set windows separator to None
+cmd([[
+hi WinSeparator guibg = NONE
+]])
+
 require("gitsigns").setup({
 	signs = {
 		add = { hl = "GitGutterAdd", text = "+" },

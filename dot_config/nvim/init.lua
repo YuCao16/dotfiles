@@ -19,5 +19,5 @@ require("colorscheme") -- custom colorscheme, gitsigns and github.theme
 require("luaplugin_setting") -- dashboard and orgmode configurations
 require("autocmd") -- custom auto commands
 require("functions") -- custom functions
-require("coc")
+require("coc") -- coc.nvim configurations and keybindings
 -- vim.cmd("source $HOME/.config/nvim/settings.vim")

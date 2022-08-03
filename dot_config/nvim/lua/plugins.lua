@@ -131,17 +131,9 @@ return require("packer").startup({
 				})
 			end,
 		})
-		-- use { 'github/copilot.vim', ft = {"python", "markdown", "tex"} }
+		use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		use({ "antoinemadec/FixCursorHold.nvim" })
 		use({ "famiu/bufdelete.nvim", event = { "BufAdd" } })
-		use({ "anuvyklack/nvim-keymap-amend" })
-		use({
-			"anuvyklack/fold-preview.nvim",
-			requires = "anuvyklack/keymap-amend.nvim",
-			config = function()
-				require("fold-preview").setup()
-			end,
-		})
 		use({
 			"anuvyklack/pretty-fold.nvim",
 			config = function()
@@ -160,7 +152,6 @@ return require("packer").startup({
 				require("cutlass").setup({ cut_key = "c" })
 			end,
 		})
-		use({ "camspiers/animate.vim", event = { "BufAdd" } }) -- " window resizer
 		use({ "camspiers/lens.vim", event = { "BufAdd" } })
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "BufAdd" } })
 		use({ "junegunn/limelight.vim", event = { "BufAdd", "InsertEnter" } })
@@ -193,13 +184,15 @@ return require("packer").startup({
 				require("substitute").setup()
 			end,
 		})
-		use({
-			"gennaro-tedesco/nvim-peekup", -- register
-			config = function()
-				require("nvim-peekup.config").on_keystroke["delay"] = "100ms"
-			end,
-		})
+		use({ "yucao16/registers.nvim" })
 
+		-- use({ "camspiers/animate.vim", event = { "BufAdd" } }) -- " window resizer
+		-- use({
+		-- 	"yucao16/nvim-peekup", -- register
+		-- 	config = function()
+		-- 		require("nvim-peekup.config").on_keystroke["delay"] = "100ms"
+		-- 	end,
+		-- })
 		-- use({ "junegunn/fzf" })
 		-- use({ "junegunn/fzf.vim" }) -- " Search Tools
 		-- use({ "tmhedberg/SimpylFold", event = { "BufAdd", "InsertEnter" } })
@@ -220,6 +213,14 @@ return require("packer").startup({
 		-- 		}
 		--
 		-- 		require("auto-session").setup(opts)
+		-- 	end,
+		-- })
+		-- use({ "anuvyklack/nvim-keymap-amend" })
+		-- use({
+		-- 	"anuvyklack/fold-preview.nvim",
+		-- 	requires = "anuvyklack/keymap-amend.nvim",
+		-- 	config = function()
+		-- 		require("fold-preview").setup()
 		-- 	end,
 		-- })
 
@@ -309,7 +310,7 @@ return require("packer").startup({
 				vim.opt.listchars:append("eol:↴")
 				require("indent_blankline").setup({
 					space_char_blankline = " ",
-					filetype_exclude = { "dashboard", "lsp-installer" },
+					filetype_exclude = { "dashboard", "lsp-installer", "peek" },
 					buftype_exclude = { "terminal" },
 					char_highlight_list = {
 						"IndentBlanklineIndent1",
@@ -337,12 +338,12 @@ return require("packer").startup({
 		})
 		use({
 			"kylechui/nvim-surround",
+			event = { "BufAdd", "InsertEnter" },
 			config = function()
 				require("nvim-surround").setup({
 					-- Configuration here, or leave empty to use defaults
 				})
 			end,
-			event = { "BufAdd", "InsertEnter" },
 		})
 		use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 
@@ -381,7 +382,6 @@ return require("packer").startup({
 		-- "-------------------=== Languages plugins ===-------------------
 		use({ "lervag/vimtex", ft = { "markdown", "tex", "ipynb", "org" } }) -- " LaTex
 		use({ "KeitaNakamura/tex-conceal.vim", ft = { "markdown", "tex", "ipynb", "org" } })
-		use({ "cmhughes/latexindent.pl", ft = { "markdown", "tex", "ipynb", "org" } })
 		use({ "jbyuki/nabla.nvim", ft = { "markdown", "tex", "ipynb", "org" } })
 
 		use({ "plasticboy/vim-markdown", ft = { "markdown", "tex", "ipynb" } }) -- " MarkDown
@@ -440,6 +440,7 @@ return require("packer").startup({
 		use({ "goerz/jupytext.vim", ft = { "markdown", "tex", "ipynb" } })
 
 		-- use("vim-pandoc/vim-pandoc")
+		-- use({ "cmhughes/latexindent.pl", ft = { "markdown", "tex", "ipynb", "org" } })
 		-- use({
 		-- 	"godlygeek/tabular",
 		-- 	ft = { "markdown", "tex", "ipynb", "org", "json" },
@@ -458,7 +459,6 @@ return require("packer").startup({
 					enable = true, -- boolean: enable transparent
 					extra_groups = { -- table/string: additional groups that should be cleared
 						-- In particular, when you set it to 'all', that means all available groups
-
 						-- example of akinsho/nvim-bufferline.lua
 						"BufferLineTabClose",
 						"BufferlineBufferSelected",
@@ -500,7 +500,7 @@ return require("packer").startup({
 		use({ "MunifTanjim/nui.nvim" })
 		use({ "nvim-lua/plenary.nvim" })
 		use({ "RishabhRD/popfix" })
-		use("machakann/vim-highlightedyank") --highlight yank region
+		use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 		use({ "rcarriga/nvim-notify" })
 
 		-- "-------------------=== LSP ===-------------------------------
@@ -509,7 +509,8 @@ return require("packer").startup({
 
 		-- "-------------------=== Games ===--------------------------
 		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) --"game
-		use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
+
+		-- use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Other ===-------------------------------
 		use({ "tami5/sqlite.lua" })

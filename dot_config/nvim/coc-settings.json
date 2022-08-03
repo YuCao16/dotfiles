@@ -1,9 +1,9 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
-  "signature.floatConfig": { "border": true },
+  "signature.floatConfig": { "border": true, "rounded": true },
   "suggest.floatConfig": { "border": true, "rounded": true },
-  "hover.floatConfig": { "border": true },
-  "diagnostic.floatConfig": { "border": true },
+  "hover.floatConfig": { "border": true, "rounded": true },
+  "diagnostic.floatConfig": { "border": true, "rounded": true },
   "coc.preferences.formatOnSaveFiletypes": ["python", "markdown", "lua"],
   "lightbulb.only": ["quickfix"],
   "coc.source.vimtex.filetypes": [

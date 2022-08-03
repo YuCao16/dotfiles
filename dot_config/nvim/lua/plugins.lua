@@ -482,18 +482,18 @@ return require("packer").startup({
 		use({ "sainnhe/edge", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
 		use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
-		use({ "arcticicestudio/nord-vim", event = { "BufAdd", "InsertEnter" } })
 		use({ "dracula/vim", event = { "BufAdd", "InsertEnter" } })
 		use({ "sickill/vim-monokai", event = { "BufAdd", "InsertEnter" } })
 		use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
 		use({ "tomasiser/vim-code-dark", event = { "BufAdd", "InsertEnter" } })
 		use({ "marko-cerovac/material.nvim", event = { "BufAdd", "InsertEnter" } })
-		use({ "olimorris/onedarkpro.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
 		use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
 
+		-- use({ "arcticicestudio/nord-vim", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "olimorris/onedarkpro.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 
 		-- "-------------------=== UI ===-------------------------------

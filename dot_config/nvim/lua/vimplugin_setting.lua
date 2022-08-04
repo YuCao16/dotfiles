@@ -89,7 +89,7 @@ g['gruvbox_materiala_background'] = "hard"
 -- "=====================================================
 -- "" registers.nvim settings
 -- "=====================================================
-g['registers_delay'] = 300
+g['registers_delay'] = 200
 g['registers_window_border'] = "rounded"
 g['system_clip'] = 1
 g["peekup_open"] = '"'

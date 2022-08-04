@@ -14,6 +14,17 @@ autocmd FileType dashboard nnoremap <buffer> <up> k
 autocmd FileType dashboard nnoremap <buffer> <down> j
 ]])
 
+-- highlight yank use build in command
+vim.cmd([[
+autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
+]])
+-- vim.cmd([[
+-- augroup highlight_yank
+--     autocmd!
+--     au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=800 }
+-- augroup END
+-- ]])
+
 -- config toggleterm
 vim.cmd([[
 autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<cr>
@@ -24,7 +35,6 @@ tnoremap <silent> <ESC> <C-\><C-n>
 vim.cmd([[
 autocmd FileType startify :lua require"nvim-tree".toggle(false, true)
 ]])
-
 
 -- auto config scrollbar
 vim.cmd([[

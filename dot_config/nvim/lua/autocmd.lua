@@ -15,9 +15,15 @@ autocmd FileType dashboard nnoremap <buffer> <down> j
 ]])
 
 -- highlight yank use build in command
-vim.cmd([[
-autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
-]])
+-- vim.cmd([[
+-- augroup highlight_yank
+-- 	autocmd!
+-- 	au TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
+-- augroup END
+-- ]])
+-- vim.cmd([[
+-- autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
+-- ]])
 -- vim.cmd([[
 -- augroup highlight_yank
 --     autocmd!
@@ -86,3 +92,11 @@ autocmd FileType markdown set textwidth=80
 vim.cmd([[
 autocmd bufenter * if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif
 ]])
+
+-- learn lua autocmd api
+-- local group = vim.api.nvim_create_augroup("mytest", {clear = true})
+-- vim.api.nvim_create_autocmd("BufEnter", {command = "echo 'hello'", group = group})
+-- vim.api.nvim_create_autocmd("BufEnter", {command = "echo 'hello'"})
+-- vim.cmd([[
+-- autocmd BufEnter :echo 'hello'<cr>
+-- ]])

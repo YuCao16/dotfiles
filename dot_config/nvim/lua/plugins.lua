@@ -100,6 +100,7 @@ return require("packer").startup({
 			end,
 		})
 		use({ "lewis6991/impatient.nvim" })
+
 		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Utile ===-------------
@@ -115,7 +116,6 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		use({ "antoinemadec/FixCursorHold.nvim" })
 		use({ "famiu/bufdelete.nvim", event = { "BufAdd" } })
 		use({
@@ -252,7 +252,7 @@ return require("packer").startup({
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Code/Project navigation ===-------------
-		use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
+		use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		use({
 			"windwp/nvim-autopairs",
 			-- event = { "BufAdd", "InsertEnter" },
@@ -341,6 +341,7 @@ return require("packer").startup({
 		use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		-- " use 'sirver/ultisnips'
 		-- use({
 		-- 	"lewis6991/spellsitter.nvim",
@@ -419,12 +420,6 @@ return require("packer").startup({
 			end,
 		})
 		use({
-			"lukas-reineke/headlines.nvim",
-			-- config = function()
-			-- 	require("headlines").setup()
-			-- end,
-		})
-		use({
 			"dhruvasagar/vim-table-mode",
 			ft = { "markdown", "tex", "ipynb", "org" },
 			event = { "BufAdd", "InsertEnter" },
@@ -438,6 +433,21 @@ return require("packer").startup({
 		-- 	"godlygeek/tabular",
 		-- 	ft = { "markdown", "tex", "ipynb", "org", "json" },
 		-- 	event = { "BufAdd", "InsertEnter" },
+		-- })
+		-- use({
+		-- 	"lukas-reineke/headlines.nvim",
+		-- 	config = function()
+		-- 		vim.cmd([[highlight Headline1 guibg=#1e2718]])
+		-- 		vim.cmd([[highlight Headline2 guibg=#21262d]])
+		-- 		vim.cmd([[highlight CodeBlock guibg=#1c1c1c]])
+		-- 		vim.cmd([[highlight Dash guibg=#D19A66 gui=bold]])
+  --
+		-- 		require("headlines").setup({
+		-- 			org = {
+		-- 				headline_highlights = { "Headline1", "Headline2" },
+		-- 			},
+		-- 		})
+		-- 	end,
 		-- })
 
 		-- "-------------------=== Color/Theme ===-------------------
@@ -460,7 +470,9 @@ return require("packer").startup({
 						"BufferLineSeparator",
 						"BufferLineIndicatorSelected",
 					},
-					exclude = {}, -- table: groups you don't want to clear
+					exclude = {
+						"WinSeparator"
+					}, -- table: groups you don't want to clear
 				})
 			end,
 		})
@@ -490,18 +502,18 @@ return require("packer").startup({
 		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 
 		-- "-------------------=== UI ===-------------------------------
-		use({ "MunifTanjim/nui.nvim" })
 		use({ "nvim-lua/plenary.nvim" })
-		use({ "RishabhRD/popfix" })
-		use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 		use({ "rcarriga/nvim-notify" })
+		use({ "MunifTanjim/nui.nvim" })
+		-- use({ "RishabhRD/popfix" })
+		-- use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 
 		-- "-------------------=== LSP ===-------------------------------
 		use({ "neovim/nvim-lspconfig", event = { "BufAdd", "InsertEnter" } })
 		use({ "williamboman/nvim-lsp-installer" })
 
 		-- "-------------------=== Games ===--------------------------
-		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) --"game
+		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) -- game
 
 		-- use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
 

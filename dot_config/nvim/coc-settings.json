@@ -14,7 +14,8 @@
     "*.ipynb"
   ],
   "Lua.diagnostics.enable": false,
-  //"cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
+  "cSpell.enabled": false,
+  "cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
   "suggest.completionItemKindLabels": {

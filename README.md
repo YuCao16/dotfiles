@@ -8,8 +8,8 @@ works.
 
 ## Screenshots
 
-1. Transparent [overall](img/transparent.png)
+1. Transparent ![Transparent](img/transparent.png)
 
-2. Lazygit[overall](img/lazygit.png)
+2. Lazygit ![Lazygit](img/lazygit.png)
 
-3. Btop[overall](img/btop.png)
+3. Btop ![Btop](img/btop.png)

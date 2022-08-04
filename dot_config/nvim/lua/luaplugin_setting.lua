@@ -65,7 +65,16 @@ db.custom_center = {
 -- Org Mode settings
 --=====================================================
 require("orgmode").setup_ts_grammar()
+require("orgmode").setup({
+	org_highlight_latex_and_related = "entities",
+	-- org_agenda_files = {'~/Dropbox/org/*', '~/org/**/*'},
+	org_agenda_files = {'~/Dropbox/org/*'},
+	-- org_indent_mode = 'noindent',
+})
 
+--=====================================================
+-- Treesitter settings
+--=====================================================
 require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "maintained",
 	ensure_installed = {'org','python','norg'},
@@ -73,7 +82,7 @@ require("nvim-treesitter.configs").setup({
 	ignore_install = { "javascript" },
 	highlight = {
 		enable = true,
-		disable = { "c", "rust", "org" },
+		disable = { "c", "rust", "org" }, -- note connot remove org
 		additional_vim_regex_highlighting = false,
 		-- additional_vim_regex_highlighting = { "org" },
 	},
@@ -83,7 +92,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	endwise = {
 		enable = true,
-		disable = {"lua"}
+		disable = {"javascript"}
 	},
 	playground = {
 		enable = true,
@@ -108,13 +117,10 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-require("orgmode").setup({
-	org_highlight_latex_and_related = "entities",
-	-- org_agenda_files = {'~/Dropbox/org/*', '~/org/**/*'},
-	org_agenda_files = {'~/Dropbox/org/*'},
-	-- org_indent_mode = 'noindent',
-})
 
+--=====================================================
+-- Neorg settings
+--=====================================================
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 parser_configs.norg_meta = {
 	install_info = {

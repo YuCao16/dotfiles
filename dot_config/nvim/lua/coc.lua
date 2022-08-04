@@ -57,7 +57,7 @@ g.coc_global_extensions = {
 	"coc-lists",
 	"coc-highlight",
 	"coc-cspell-dicts",
-	"coc-spell-checker"
+	"coc-spell-checker",
 }
 
 function _G.check_back_space()
@@ -114,12 +114,12 @@ local mappings = {
 		{ "<tab>", "<CMD>lua _G.show_docs()<CR>", { silent = true } },
 		{ "[g", "<Plug>(coc-diagnostic-prev)", { noremap = false } },
 		{ "]g", "<Plug>(coc-diagnostic-next)", { noremap = false } },
-		-- { "gb", "<Plug>(coc-cursors-word)", { noremap = false } },
 		{ "gd", "<Plug>(coc-definition)", { noremap = false } },
 		{ "gy", "<Plug>(coc-type-definition)", { noremap = false } },
 		{ "gi", "<Plug>(coc-implementation)", { noremap = false } },
 		{ "gr", "<Plug>(coc-references)", { noremap = false } },
 		{ "rn", "<Plug>(coc-rename)", { noremap = false } },
+		{ "<leader>ca", ":call CocActionAsync('codeAction','cursor')<cr>", { noremap = false, silent = false } },
 
 		{
 			"<down>",
@@ -131,6 +131,7 @@ local mappings = {
 			'coc#float#has_scroll() ? coc#float#scroll(0) : "<up>"',
 			{ expr = true, silent = true, nowait = true },
 		},
+		-- { "gb", "<Plug>(coc-cursors-word)", { noremap = false } },
 	},
 	o = {},
 	t = { -- Terminal mode

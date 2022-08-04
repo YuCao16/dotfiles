@@ -99,6 +99,17 @@ return require("packer").startup({
 				})
 			end,
 		})
+		use({
+			"folke/which-key.nvim",
+			config = function()
+				require("which-key").setup({
+					window = {
+						border = "rounded",
+						-- position = "top",
+					}
+				})
+			end,
+		})
 		use({ "lewis6991/impatient.nvim" })
 
 		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
@@ -441,7 +452,7 @@ return require("packer").startup({
 		-- 		vim.cmd([[highlight Headline2 guibg=#21262d]])
 		-- 		vim.cmd([[highlight CodeBlock guibg=#1c1c1c]])
 		-- 		vim.cmd([[highlight Dash guibg=#D19A66 gui=bold]])
-  --
+		--
 		-- 		require("headlines").setup({
 		-- 			org = {
 		-- 				headline_highlights = { "Headline1", "Headline2" },
@@ -471,7 +482,7 @@ return require("packer").startup({
 						"BufferLineIndicatorSelected",
 					},
 					exclude = {
-						"WinSeparator"
+						"WinSeparator",
 					}, -- table: groups you don't want to clear
 				})
 			end,
@@ -505,8 +516,8 @@ return require("packer").startup({
 		use({ "nvim-lua/plenary.nvim" })
 		use({ "rcarriga/nvim-notify" })
 		use({ "MunifTanjim/nui.nvim" })
+		use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 		-- use({ "RishabhRD/popfix" })
-		-- use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 
 		-- "-------------------=== LSP ===-------------------------------
 		use({ "neovim/nvim-lspconfig", event = { "BufAdd", "InsertEnter" } })

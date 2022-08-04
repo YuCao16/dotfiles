@@ -27,7 +27,6 @@ require("lualine").setup({
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { "filename" },
-		-- lualine_x = { "encoding" },
 		lualine_x = { getWords },
 		lualine_y = { "filetype", "filesize", "progress" },
 		lualine_z = {

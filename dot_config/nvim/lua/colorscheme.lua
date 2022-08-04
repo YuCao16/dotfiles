@@ -22,14 +22,16 @@ autocmd ColorScheme * call s:setup_org_colors()
 ]])
 
 -- add a red line one column 80
-cmd([[
-hi ColorColumn guibg=#ff3131 ctermbg=236
-]])
+-- cmd([[
+-- hi ColorColumn guibg=#ff3131 ctermbg=236
+-- ]])
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
 
 -- set windows separator to None
-cmd([[
-hi WinSeparator guibg = NONE
-]])
+-- cmd([[
+-- hi WinSeparator guibg = NONE
+-- ]])
+vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 require("gitsigns").setup({
 	signs = {
@@ -64,7 +66,7 @@ require("gitsigns").setup({
 	max_file_length = 40000,
 	preview_config = {
 		-- Options passed to nvim_open_win
-		border = "single",
+		border = "rounded",
 		style = "minimal",
 		relative = "cursor",
 		row = 0,

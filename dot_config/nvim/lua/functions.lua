@@ -9,14 +9,14 @@
 
 -- handle nvimtree, if nvimtree open then focus, if no nvimtree then toggle nvimtree
 function Handle_nvimtree()
-	if require'nvim-tree.view'.is_visible() then
+	if require("nvim-tree.view").is_visible() then
 		if vim.bo.filetype == "NvimTree" then
-			require'nvim-tree'.toggle()
+			require("nvim-tree").toggle()
 		else
-			require'nvim-tree'.focus()
+			require("nvim-tree").focus()
 		end
 	else
-		require'nvim-tree'.open()
+		require("nvim-tree").open()
 	end
 end
 

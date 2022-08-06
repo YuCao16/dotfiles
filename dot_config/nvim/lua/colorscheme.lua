@@ -35,11 +35,11 @@ vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 require("gitsigns").setup({
 	signs = {
-		add = { hl = "GitGutterAdd", text = "+" },
-		change = { hl = "GitGutterChange", text = "~" },
-		delete = { hl = "GitGutterDelete", text = "_" },
-		topdelete = { hl = "GitGutterDelete", text = "‾" },
-		changedelete = { hl = "GitGutterChange", text = "~" },
+		add = { hl = "GitGutterAdd", text = " +" },
+		change = { hl = "GitGutterChange", text = " ~" },
+		delete = { hl = "GitGutterDelete", text = " _" },
+		topdelete = { hl = "GitGutterDelete", text = " ‾" },
+		changedelete = { hl = "GitGutterChange", text = " ~" },
 	},
 	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 	numhl = false, -- Toggle with `:Gitsigns toggle_numhl`

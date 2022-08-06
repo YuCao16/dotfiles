@@ -21,26 +21,19 @@ end
 
 -- g.coc_global_extensions = {
 --    'coc-git',
---    'coc-highlight',
---    'coc-json',
---    'coc-lua',
 --    'coc-marketplace',
 --    'coc-metals',
 --    'coc-prettier',
---    'coc-pyright',
---    'coc-snippets',
 --    'coc-solargraph',
 --    'coc-sourcekit',
 --    'coc-styled-components',
 --    'coc-tailwindcss',
 --    'coc-tslint-plugin',
---    'coc-tsserver',
 --    'coc-vetur',
 --    'coc-vimlsp',
 --    'coc-webpack',
 --    'coc-word',
 --    'coc-xml',
---    'coc-lists',
 -- }
 
 g.coc_global_extensions = {
@@ -58,6 +51,7 @@ g.coc_global_extensions = {
 	"coc-highlight",
 	"coc-cspell-dicts",
 	"coc-spell-checker",
+	"@yaegassy/coc-pylsp",
 }
 
 function _G.check_back_space()

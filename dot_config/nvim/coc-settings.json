@@ -1,10 +1,14 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
+  "highlight.colors.enable": true,
   "signature.floatConfig": { "border": true, "rounded": true },
   "suggest.floatConfig": { "border": true, "rounded": true },
   "hover.floatConfig": { "border": true, "rounded": true },
   "diagnostic.floatConfig": { "border": true, "rounded": true },
-  "coc.preferences.formatOnSaveFiletypes": ["python", "markdown", "lua"],
+  "coc.preferences.formatOnSaveFiletypes": ["python"],
+  "pylsp.plugins.pycodestyle.enabled": false,
+  "pylsp.plugins.rope_completion.enabled": true,
+  "pylsp.plugins.pyflakes.enabled": false,
   "lightbulb.only": ["quickfix"],
   "coc.source.vimtex.filetypes": [
     "tex",
@@ -45,50 +49,4 @@
     "constructor": "  ",
     "value": "  ",
     "enumMember": "  "
-  },
-  // be careful not to condense the hierarchy as it breaks pyls
-  "languageserver": {
-    "python": {
-      "command": "/usr/bin/python3",
-      "args": ["-mpyls", "-vv", "--log-file", "/tmp/lsp_python.log"],
-      "trace.server": "verbose",
-      "filetypes": ["python"],
-      "settings": {
-        "pyls": {
-          "enable": true,
-          "trace": {
-            "server": "verbose"
-          },
-          "commandPath": "",
-          "configurationSources": ["pycodestyle"],
-          "plugins": {
-            "mccabe": {
-              "enabled": true,
-              "threshold": 15
-            },
-            "preload": {
-              "enabled": false
-            },
-            "pycodestyle": {
-              "enabled": true
-            },
-            "pydocstyle": {
-              "enabled": false,
-              "match": "(?!test_).*\\.py",
-              "matchDir": "[^\\.].*"
-            },
-            "pyflakes": {
-              "enabled": false
-            },
-            "rope_completion": {
-              "enabled": true
-            },
-            "yapf": {
-              "enabled": false
-            }
-          }
-        }
-      }
-    }
-  }
-}
+  }}

@@ -64,13 +64,13 @@ db.custom_center = {
 --=====================================================
 -- Org Mode settings
 --=====================================================
-require("orgmode").setup_ts_grammar()
-require("orgmode").setup({
-	org_highlight_latex_and_related = "entities",
-	-- org_agenda_files = {'~/Dropbox/org/*', '~/org/**/*'},
-	org_agenda_files = {'~/Dropbox/org/*'},
-	-- org_indent_mode = 'noindent',
-})
+-- require("orgmode").setup_ts_grammar()
+-- require("orgmode").setup({
+-- 	org_highlight_latex_and_related = "entities",
+-- 	-- org_agenda_files = {'~/Dropbox/org/*', '~/org/**/*'},
+-- 	org_agenda_files = {'~/Dropbox/org/*'},
+-- 	-- org_indent_mode = 'noindent',
+-- })
 
 --=====================================================
 -- Treesitter settings

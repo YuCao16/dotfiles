@@ -13,6 +13,13 @@ autocmd FileType dashboard nnoremap <buffer> q :lua Handle_dashboard()<CR>
 autocmd FileType dashboard nnoremap <buffer> <up> k
 autocmd FileType dashboard nnoremap <buffer> <down> j
 ]])
+vim.cmd([[
+augroup cocautocmd
+	autocmd!
+  " Update signature help on jump placeholder
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+]])
 
 -- highlight yank use build in command
 -- vim.cmd([[

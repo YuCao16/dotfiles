@@ -139,6 +139,8 @@ vim.cmd([[
     command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 ]])
 vim.api.nvim_set_keymap("i", "<C-t>", "<C-r>=CocActionAsync('showSignatureHelp')<CR>", {})
+-- vim.api.nvim_set_keymap("i", "<C-t>", "<c-r>=CocActionAsync('doHover')<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-t>", ":call CocActionAsync('showSignatureHelp')<CR>", {})
 
 -- require("utils").define_augroups({
 -- 	_coc = {

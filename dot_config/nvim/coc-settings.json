@@ -1,5 +1,6 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
+  "signature.triggerSignatureWait": 1000,
   "highlight.colors.enable": true,
   "signature.floatConfig": { "border": true, "rounded": true },
   "suggest.floatConfig": { "border": true, "rounded": true },

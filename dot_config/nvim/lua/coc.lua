@@ -21,23 +21,15 @@ end
 
 -- g.coc_global_extensions = {
 --    'coc-git',
---    'coc-marketplace',
---    'coc-metals',
---    'coc-prettier',
---    'coc-solargraph',
---    'coc-sourcekit',
 --    'coc-styled-components',
---    'coc-tailwindcss',
 --    'coc-tslint-plugin',
---    'coc-vetur',
 --    'coc-vimlsp',
---    'coc-webpack',
---    'coc-word',
---    'coc-xml',
 -- }
 
 g.coc_global_extensions = {
 	"coc-pyright",
+	"coc-marketplace",
+	"coc-word",
 	"coc-jedi",
 	"coc-json",
 	"coc-lightbulb",
@@ -146,6 +138,7 @@ vim.cmd([[
     " Add `:OR` command for organize imports of the current buffer.
     command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 ]])
+vim.api.nvim_set_keymap("i", "<C-t>", "<C-r>=CocActionAsync('showSignatureHelp')<CR>", {})
 
 -- require("utils").define_augroups({
 -- 	_coc = {

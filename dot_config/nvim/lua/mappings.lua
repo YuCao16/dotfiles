@@ -55,7 +55,7 @@ map("n", "<S-J>", ":exe 'resize +5'<CR>", { noremap = true, silent = true })
 map("x", "<leader>l", ":Limelight!!<CR>", { noremap = false, silent = false })
 map("x", "ga", "<Plug>(EasyAlign)", {})
 
--- map("i", "<C-y>", "<Plug>(coc-snippets-expand)", {})
+-- inoremap <silent> ,s <C-r>=CocActionAsync('showSignatureHelp')<CR>
 -- map("n", "<leader>ca", ":call CocActionAsync('codeAction','cursor')<cr>", { noremap = false, silent = false })
 -- cmd([[inoremap <silent><nowait><expr> <down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<down>"]])
 -- cmd([[inoremap <silent><nowait><expr> <up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<up>"]])

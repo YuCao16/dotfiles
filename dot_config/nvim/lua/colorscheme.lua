@@ -3,6 +3,10 @@ local cmd = vim.cmd -- Execute Vim commands
 -- 	transparent = false,
 -- 	dark_sidebar = false,
 -- })
+require("kanagawa").setup({
+	transparent = false,
+})
+vim.g.catppuccin_flavour = "mocha"
 cmd([[colorscheme kanagawa]])
 
 cmd([[
@@ -35,11 +39,11 @@ vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 require("gitsigns").setup({
 	signs = {
-		add = { hl = "GitGutterAdd", text = " +" },
-		change = { hl = "GitGutterChange", text = " ~" },
-		delete = { hl = "GitGutterDelete", text = " _" },
-		topdelete = { hl = "GitGutterDelete", text = " ‾" },
-		changedelete = { hl = "GitGutterChange", text = " ~" },
+		add = { hl = "GitSignsAdd", text = " +" },
+		change = { hl = "GitSignsChange", text = " ~" },
+		delete = { hl = "GitSignsDelete", text = " _" },
+		topdelete = { hl = "GitSignsDelete", text = " ‾" },
+		changedelete = { hl = "GitSignsChange", text = " ~" },
 	},
 	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 	numhl = false, -- Toggle with `:Gitsigns toggle_numhl`

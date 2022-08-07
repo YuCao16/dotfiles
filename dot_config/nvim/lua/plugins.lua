@@ -111,6 +111,7 @@ return require("packer").startup({
 			end,
 		})
 		use({ "lewis6991/impatient.nvim" })
+		-- use { 'dstein64/vim-startuptime' }
 
 		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
@@ -508,16 +509,11 @@ return require("packer").startup({
 
 		use({ "projekt0n/github-nvim-theme" })
 		use({ "rebelot/kanagawa.nvim" })
-		use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
+		use { 'Mofiqul/vscode.nvim' }
 		use({ "sainnhe/everforest", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/edge", event = { "BufAdd", "InsertEnter" } })
-		use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
-		use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
-		use({ "dracula/vim", event = { "BufAdd", "InsertEnter" } })
-		use({ "sickill/vim-monokai", event = { "BufAdd", "InsertEnter" } })
 		use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
-		use({ "tomasiser/vim-code-dark", event = { "BufAdd", "InsertEnter" } })
 		use({ "marko-cerovac/material.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
 		use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
@@ -525,8 +521,14 @@ return require("packer").startup({
 		use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
 
 		-- use({ "arcticicestudio/nord-vim", event = { "BufAdd", "InsertEnter" } })
-		-- use({ "olimorris/onedarkpro.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
+		-- use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
+		-- use { 'navarasu/onedark.nvim' }
+		-- use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "dracula/vim", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "sickill/vim-monokai", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "tomasiser/vim-code-dark", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== UI ===-------------------------------
 		use({ "nvim-lua/plenary.nvim" })

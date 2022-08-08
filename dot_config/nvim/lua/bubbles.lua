@@ -15,6 +15,27 @@ local function getWords()
 	end
 end
 
+function Split(s, delimiter)
+	result = {}
+	for match in (s .. delimiter):gmatch("(.-)" .. delimiter) do
+		table.insert(result, match)
+	end
+	return result
+end
+
+local function getPath()
+	local filepath = vim.fn.expand('%:p')
+	split_string = Split(filepath, "/")
+	filename = split_string[#split_string]
+	if string.len(filepath) < 50 then
+		return filepath
+	elseif vim.bo.filetype == "help" then 
+		return filename
+	else
+		return filename
+	end
+end
+
 require("lualine").setup({
 	options = {
 		component_separators = "|",
@@ -26,7 +47,7 @@ require("lualine").setup({
 			{ "mode", separator = { left = "" }, right_padding = 2 },
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { "filename" },
+		lualine_c = { getPath },
 		lualine_x = { getWords },
 		lualine_y = { "filetype", "filesize", "progress" },
 		lualine_z = {
@@ -42,5 +63,5 @@ require("lualine").setup({
 		lualine_z = { "location" },
 	},
 	tabline = {},
-	extensions = {},
+	extensions = { "toggleterm", "nvim-tree", "nvim-dap-ui" },
 })

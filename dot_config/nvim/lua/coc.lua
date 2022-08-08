@@ -43,7 +43,7 @@ g.coc_global_extensions = {
 	"coc-highlight",
 	"coc-cspell-dicts",
 	"coc-spell-checker",
-	"@yaegassy/coc-pylsp",
+	-- "@yaegassy/coc-pylsp",
 }
 
 function _G.check_back_space()

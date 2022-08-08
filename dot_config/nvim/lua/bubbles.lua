@@ -27,6 +27,7 @@ local function getPath()
 	local filepath = vim.fn.expand('%:p')
 	split_string = Split(filepath, "/")
 	filename = split_string[#split_string]
+	-- filename = vim.fn.expand('%:t')
 	if string.len(filepath) < 50 then
 		return filepath
 	elseif vim.bo.filetype == "help" then 

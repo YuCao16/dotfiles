@@ -6,35 +6,19 @@ local cmd = vim.cmd -- Execute Vim commands
 require("kanagawa").setup({
 	transparent = false,
 })
-vim.g.catppuccin_flavour = "mocha"
+-- vim.g.catppuccin_flavour = "mocha"
 cmd([[colorscheme kanagawa]])
 
-cmd([[
-hi! link StatusLine Normal
-hi OrgDONE guifg=green
-hi CocSearch ctermfg=12 guifg=#18A3FF
-hi CocMenuSel ctermbg=109 guibg=#13354A
-]])
+-- cmd([[hi! link StatusLine Normal]])
 
--- config orgmode Done symbol
-cmd([[
-function! s:setup_org_colors() abort
-  hi OrgDONE guifg=green
-endfunction
-
-autocmd ColorScheme * call s:setup_org_colors()
-]])
+-- config CocSearch and CocMenuSel
+-- vim.api.nvim_set_hl(0, "CocSearch", { bg = "#13354A", ctermbg = 12 })
+vim.api.nvim_set_hl(0, "CocMenuSel", { bg = "#13354A", ctermbg = 109 })
 
 -- add a red line one column 80
--- cmd([[
--- hi ColorColumn guibg=#ff3131 ctermbg=236
--- ]])
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
 
 -- set windows separator to None
--- cmd([[
--- hi WinSeparator guibg = NONE
--- ]])
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
 require("gitsigns").setup({

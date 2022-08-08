@@ -1,17 +1,16 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
-  "pylsp.plugins.jedi_signature_help.enabled": true,
-  "jedi.startupMessage": true,
-  "pyright.disableCompletion": true,
-  "tabnine.limit": 3,
-  "highlight.colors.enable": true,
+  // Float Config
   "signature.floatConfig": { "border": true, "rounded": true },
   "suggest.floatConfig": { "border": true, "rounded": true },
   "hover.floatConfig": { "border": true, "rounded": true },
   "diagnostic.floatConfig": { "border": true, "rounded": true },
-  "pylsp.plugins.pycodestyle.enabled": false,
-  "pylsp.plugins.rope_completion.enabled": true,
-  "pylsp.plugins.pyflakes.enabled": false,
+  // Python
+  "pyright.disableCompletion": false,
+  "pyright.disableDocumentation": true,
+  "tabnine.limit": 5,
+  "highlight.colors.enable": true,
+  // Others
   "lightbulb.only": ["quickfix"],
   "coc.source.vimtex.filetypes": [
     "tex",
@@ -25,6 +24,7 @@
   "cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
+  // Completion Item Icons
   "suggest.completionItemKindLabels": {
     "default": "\uf29c",
     "method": "  ",
@@ -52,4 +52,5 @@
     "constructor": "  ",
     "value": "  ",
     "enumMember": "  "
-  }}
+  }
+}

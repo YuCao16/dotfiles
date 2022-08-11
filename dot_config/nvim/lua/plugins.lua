@@ -188,7 +188,7 @@ return require("packer").startup({
 				require("substitute").setup()
 			end,
 		})
-		use({ "tversteeg/registers.nvim" })
+		use({ "yucao16/registers.nvim" })
 
 		-- use({ "camspiers/animate.vim", event = { "BufAdd" } }) -- " window resizer
 		-- use({ "junegunn/limelight.vim", event = { "BufAdd", "InsertEnter" } })

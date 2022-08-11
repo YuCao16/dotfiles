@@ -44,7 +44,11 @@ g["csv_delim"] = ","
 -- "=====================================================
 -- "" VimTex settings
 -- "=====================================================
-g["vimtex_view_method"] = "skim"
+if vim.fn.has("macunix") == 1 then --make sure skim for macos only
+	g["vimtex_view_method"] = "skim"
+else
+	g["vimtex_view_method"] = "general"
+end
 g["vimtex_compiler_method"] = "latexmk"
 
 -- "=====================================================

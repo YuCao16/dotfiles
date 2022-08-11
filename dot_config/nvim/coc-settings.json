@@ -24,6 +24,7 @@
   "cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
+  "markdownlint.config": { "line-length": false },
   // Completion Item Icons
   "suggest.completionItemKindLabels": {
     "default": "\uf29c",

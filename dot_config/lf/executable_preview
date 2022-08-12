@@ -26,7 +26,7 @@ function check_cache {
 }
 
 function hash_filename {
-	TMP_FILE="$HOME/.cache/lf/$(echo ${1%.*} | sed -e 's|/|\!|g').$2"
+	TMP_FILE="$HOME/.cache/lf/$(echo ${1%.*} | sed -e 's|/|\_|g').$2"
 }
 
 function draw_clear {
@@ -70,8 +70,8 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 *.torrent) transmission-show "$1" ;;
 *.iso) iso-info --no-header -l "$1" ;;
 *.odt | *.ods | *.odp | *.sxw) odt2txt "$1" ;;
-*.doc) 
-	# catdoc "$1" 
+*.doc)
+	# catdoc "$1"
 	textutil -stdout -cat txt "$1"
 	;;
 # *.docx) docx2txt "$1" ;;
@@ -81,7 +81,7 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	glow -s dark "${TMP_FILE}"
 	;;
 
-*.xml | *.html) 
+*.xml | *.html)
 	hash_filename "$1" "md"
 	pandoc -s "$1" -t markdown -o ${TMP_FILE}
 	# glow -s dark "${TMP_FILE}" # Very time consuming
@@ -99,16 +99,6 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	draw_image "${TMP_FILE}" "$2" "$3" "$4" "$5"
 	exit 1
 	;;
-# *.epub)
-# 	[ ! -f "$CACHE" ] && \
-# 		epub-thumbnailer "$1" "$CACHE" 1024
-# 	draw_image "$CACHE" "$2" "$3" "$4" "$5"
-# 	;;
-# *.cbz|*.cbr|*.cbt)
-# 	[ ! -f "$CACHE" ] && \
-# 		comicthumb "$1" "$CACHE" 1024
-# 	draw_image "$CACHE" "$2" "$3" "$4" "$5"
-# 	;;
 
 *.avi | *.mp4 | *.wmv | *.dat | *.3gp | *.ogv | *.mkv | *.mpg | *.mpeg | *.vob | *.fl[icv] | *.m2v | *.mov | *.webm | *.ts | *.mts | *.m4v | *.r[am] | *.qt | *.divx)
 	hash_filename "$1" "jpg"
@@ -121,13 +111,28 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
 	exit 1
 	;;
 *.svg)
-	[ ! -f "${TMP_FILE}.jpg" ] &&
-		rsvg-convert -h 500 "$1" >"${TMP_FILE}.jpg"
-	draw_image "${TMP_FILE}.jpg" "$2" "$3" "$4" "$5"
+	hash_filename "$1" "jpg"
+	if [ "${TMP_FILE}" -ot "$1" ]; then
+		rsvg-convert -h 500 "$1" >"${TMP_FILE}"
+	fi
+	draw_image "${TMP_FILE}" "$2" "$3" "$4" "$5"
+	exit 1
 	;;
 *.ino)
 	batorcat --language=cpp "$1"
 	;;
+
+# *.epub)
+# 	[ ! -f "$CACHE" ] && \
+# 		epub-thumbnailer "$1" "$CACHE" 1024
+# 	draw_image "$CACHE" "$2" "$3" "$4" "$5"
+# 	;;
+# *.cbz|*.cbr|*.cbt)
+# 	[ ! -f "$CACHE" ] && \
+# 		comicthumb "$1" "$CACHE" 1024
+# 	draw_image "$CACHE" "$2" "$3" "$4" "$5"
+# 	;;
+
 *)
 	batorcat "$1"
 	;;

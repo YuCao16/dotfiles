@@ -251,3 +251,6 @@ let g:ycm_confirm_extra_conf=0
 
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>d :YcmCompleter GoToDefinition<CR>
+let g:tex_indent_items=0
+let g:tex_indent_and=0
+let g:tex_indent_brace=0

@@ -281,7 +281,7 @@ return require("packer").startup({
 			config = function()
 				local remap = vim.api.nvim_set_keymap
 				local npairs = require("nvim-autopairs")
-				npairs.setup({ map_cr = false })
+				npairs.setup({ map_cr = false, disabled_filetypes = { "latex", "tex" } })
 
 				-- skip it, if you use another global object
 				_G.MUtils = {}
@@ -334,9 +334,12 @@ return require("packer").startup({
 				vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
 
 				vim.opt.list = true
+				vim.opt.listchars:append("space:⋅")
 				vim.opt.listchars:append("eol:↴")
 				require("indent_blankline").setup({
 					space_char_blankline = " ",
+					show_current_context = true,
+					show_current_context_start = true,
 					filetype_exclude = { "dashboard", "lsp-installer", "peek" },
 					buftype_exclude = { "terminal" },
 					char_highlight_list = {
@@ -473,6 +476,14 @@ return require("packer").startup({
 
 		use({ "goerz/jupytext.vim", ft = { "markdown", "tex", "ipynb" } })
 
+		-- use({
+		-- 	"iamcco/markdown-preview.nvim",
+		-- 	run = function()
+		-- 		vim.fn["mkdp#util#install"]()
+		-- 	end,
+		-- 	ft = { "markdown", "tex", "ipynb" },
+		-- })
+		-- use({ "dkarter/bullets.vim", ft = { "markdown", "tex", "latex" } })
 		-- use("vim-pandoc/vim-pandoc")
 		-- use({ "cmhughes/latexindent.pl", ft = { "markdown", "tex", "ipynb", "org" } })
 		-- use({
@@ -562,7 +573,7 @@ return require("packer").startup({
 		-- use { 'ray-x/lsp_signature.nvim',
 		-- 	config = function ()
 		-- 		require "lsp_signature".setup()
-		-- 		
+		--
 		-- 	end
 		-- }
 

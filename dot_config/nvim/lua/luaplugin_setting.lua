@@ -92,7 +92,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	endwise = {
 		enable = true,
-		disable = {"javascript"}
+		disable = {"cpp"}
 	},
 	playground = {
 		enable = true,

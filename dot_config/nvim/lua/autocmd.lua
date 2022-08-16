@@ -72,7 +72,7 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
-autocmd FileType markdown setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType markdown setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 autocmd FileType journal setlocal shiftwidth=4 tabstop=4 softtabstop=4
 ]])
 

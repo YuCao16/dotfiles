@@ -43,6 +43,7 @@ g.coc_global_extensions = {
 	"coc-highlight",
 	"coc-cspell-dicts",
 	"coc-spell-checker",
+	"coc-texlab",
 	-- "@yaegassy/coc-pylsp",
 }
 

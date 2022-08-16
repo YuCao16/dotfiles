@@ -108,3 +108,34 @@ g["registers_delay"] = 200
 g["registers_window_border"] = "rounded"
 g["system_clip"] = 1
 g["peekup_open"] = '"'
+
+-- "=====================================================
+-- "" latex settings
+-- "=====================================================
+-- ignore latex itemize autoindent
+g["tex_indent_items"] = 0
+g["tex_indent_and"] = 0
+g["tex_indent_brace"] = 0
+
+-- "=====================================================
+-- "" bullets.vim settings
+-- "=====================================================
+g["bullets_line_spacing"] = 2
+-- g["bullets_outline_level"] = ['num', 'abc', 'std-']
+
+-- "=====================================================
+-- "" neoformat settings
+-- "=====================================================
+-- cmd([[
+-- let g:neoformat_markdown_prettier = {'exe':'prettier --tab-width 4 '}
+-- let g:neoformat_enabled_markdown = ['prettier']
+-- ]])
+cmd([[
+let g:neoformat_markdown_prettier = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--write', '--prose-wrap=always','--tab-width=4'],
+      \ 'replace': 1
+      \ }
+let g:neoformat_enabled_markdown = ['prettier']
+
+]])

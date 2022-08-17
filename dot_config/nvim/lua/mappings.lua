@@ -44,7 +44,21 @@ map(
 	{ noremap = false, silent = false }
 )
 map("n", "<leader>do", ":lua require'dapui'.toggle()<CR>", { noremap = false, silent = false })
-map("n", "<leader><tab>", ":lua require('nvim-window').pick()<CR>", { noremap = false, silent = false })
+-- map("n", "<leader><tab>", ":lua require('nvim-window').pick()<CR>", { noremap = false, silent = true })
+map("n", "<leader><tab>", "", {
+	callback = function()
+		pcall(vim.cmd, [[:lua require('nvim-window').pick()]])
+		-- local ok, err = pcall(vim.cmd, t([[:lua require('nvim-window').pick()]]))
+		-- if not ok then
+		-- 	vim.cmd([[:lua require('nvim-window').pick()]])
+		-- else
+		-- 	vim.api.nvim_err_writeln("nvim-window has not been loaded!")
+		-- end
+	end,
+	noremap = false,
+	silent = true,
+})
+
 map("n", "<leader>0", ":lua require('nabla').popup({ border = 'single' })<CR>", { noremap = true, silent = false })
 map("n", "ga", "<Plug>(EasyAlign)", { noremap = false })
 map("n", "<S-L>", ":exe 'vertical resize +5'<CR>", { noremap = true, silent = true })
@@ -53,6 +67,7 @@ map("n", "<S-K>", ":exe 'resize -5'<CR>", { noremap = true, silent = true })
 map("n", "<S-J>", ":exe 'resize +5'<CR>", { noremap = true, silent = true })
 map("x", "<leader>l", ":Limelight!!<CR>", { noremap = false, silent = false })
 map("x", "ga", "<Plug>(EasyAlign)", {})
+map("t", "<ESC>", [[<C-\><C-n>]], { silent = true })
 
 -- map("n", "<leader>t", "gt<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>ca", ":call CocActionAsync('codeAction','cursor')<cr>", { noremap = false, silent = false })

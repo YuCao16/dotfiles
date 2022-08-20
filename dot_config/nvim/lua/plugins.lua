@@ -86,6 +86,11 @@ return require("packer").startup({
 					view = {
 						hide_root_folder = false,
 					},
+					renderer = {
+						indent_markers = {
+							enable = true,
+						},
+					},
 					filters = {
 						dotfiles = true,
 					},
@@ -354,7 +359,7 @@ return require("packer").startup({
 					space_char_blankline = " ",
 					show_current_context = true,
 					show_current_context_start = true,
-					filetype_exclude = { "dashboard", "lsp-installer", "peek", "tagbar" },
+					filetype_exclude = { "dashboard", "lsp-installer", "peek", "tagbar", "NvimTree" },
 					buftype_exclude = { "terminal" },
 					char_highlight_list = {
 						"IndentBlanklineIndent1",

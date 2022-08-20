@@ -34,16 +34,20 @@ g.coc_global_extensions = {
 	"coc-json",
 	"coc-lightbulb",
 	"coc-lua",
+	"coc-sumneko-lua",
 	"coc-markdownlint",
 	"coc-prettier",
 	"coc-snippets",
 	"coc-tabnine",
 	"coc-vimtex",
 	"coc-lists",
-	"coc-highlight",
+	-- "coc-highlight",
 	"coc-cspell-dicts",
 	"coc-spell-checker",
 	"coc-texlab",
+	"coc-clangd",
+	"coc-cmake",
+	"coc-tsserver"
 	-- "@yaegassy/coc-pylsp",
 }
 

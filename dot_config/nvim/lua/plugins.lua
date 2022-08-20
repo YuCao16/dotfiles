@@ -7,7 +7,22 @@
 --            ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝		  --
 --++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
 vim.cmd([[packadd packer.nvim]])
-
+local workflow_filetype = {
+	"python",
+	"markdown",
+	"tex",
+	"latex",
+	"ipynb",
+	"org",
+	"json",
+	"html",
+	"javascript",
+	"css",
+	"lua",
+	"cc",
+	"cpp",
+	"c",
+}
 return require("packer").startup({
 	function()
 		use({ "wbthomason/packer.nvim" })
@@ -17,7 +32,7 @@ return require("packer").startup({
 			"neoclide/coc.nvim",
 			branch = "release",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua", "cc", "cpp", "c" },
+			ft = workflow_filetype,
 		})
 		use({
 			"nvim-lualine/lualine.nvim",
@@ -26,7 +41,7 @@ return require("packer").startup({
 		use({
 			"sidebar-nvim/sidebar.nvim",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "org", "json", "lua" },
+			ft = workflow_filetype,
 			config = function()
 				require("sidebar-nvim").setup({
 					sections = {
@@ -99,7 +114,7 @@ return require("packer").startup({
 		use({
 			"petertriho/nvim-scrollbar",
 			event = { "WinScrolled" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json" },
+			ft = workflow_filetype,
 			config = function()
 				require("scrollbar").setup()
 			end,
@@ -107,7 +122,7 @@ return require("packer").startup({
 		use({
 			"folke/zen-mode.nvim",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json" },
+			ft = workflow_filetype,
 			config = function()
 				require("zen-mode").setup({
 					window = {
@@ -118,7 +133,7 @@ return require("packer").startup({
 		})
 		use({
 			"folke/which-key.nvim",
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
+			ft = workflow_filetype,
 			event = { "CmdlineEnter", "InsertEnter", "BufAdd" },
 			config = function()
 				require("which-key").setup({
@@ -136,7 +151,7 @@ return require("packer").startup({
 		})
 		use({
 			"karb94/neoscroll.nvim",
-			ft = { "python", "markdown", "tex", "json", "lua" },
+			ft = workflow_filetype,
 			event = { "BufAdd", "InsertEnter" },
 			config = function()
 				require("neoscroll").setup()
@@ -178,12 +193,12 @@ return require("packer").startup({
 		use({
 			"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "lua", "markdown", "org", "tex" },
+			ft = workflow_filetype,
 		})
 		use({
 			"gbprod/substitute.nvim",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "lua", "markdown", "org", "tex" },
+			ft = workflow_filetype,
 			config = function()
 				require("substitute").setup()
 			end,
@@ -272,12 +287,12 @@ return require("packer").startup({
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Code/Project navigation ===-------------
-		use({ "majutsushi/tagbar", ft = { "python", "markdown", "tex", "ipynb", "org" } })
+		use({ "majutsushi/tagbar", ft = workflow_filetype })
 		use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		use({
 			"windwp/nvim-autopairs",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "lua", "tex", "markdown", "org" },
+			ft = workflow_filetype,
 			config = function()
 				local remap = vim.api.nvim_set_keymap
 				local npairs = require("nvim-autopairs")
@@ -306,7 +321,7 @@ return require("packer").startup({
 		use({
 			"sbdchd/neoformat",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "tex", "markdown", "lua", "cpp", "cc", "c" },
+			ft = workflow_filetype,
 		}) -- " Format everything
 		use({
 			"numToStr/Comment.nvim",
@@ -318,12 +333,12 @@ return require("packer").startup({
 			"mg979/vim-visual-multi",
 			branch = "master",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "lua", "markdown", "org", "tex" },
+			ft = workflow_filetype,
 		})
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "lua" },
+			ft = workflow_filetype,
 			config = function()
 				vim.opt.termguicolors = true
 				vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
@@ -356,7 +371,7 @@ return require("packer").startup({
 			"michaelb/sniprun",
 			run = "bash install.sh",
 			-- event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "ipynb", "org", "lua" },
+			ft = workflow_filetype,
 			config = function()
 				require("sniprun").setup({
 					display = { "NvimNotify" },
@@ -369,7 +384,7 @@ return require("packer").startup({
 		use({
 			"kylechui/nvim-surround",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
+			ft = workflow_filetype,
 			config = function()
 				require("nvim-surround").setup({
 					-- Configuration here, or leave empty to use defaults

@@ -1,15 +1,8 @@
 local cmd = vim.cmd -- Execute Vim commands
--- require("github-theme").setup({
--- 	transparent = false,
--- 	dark_sidebar = false,
--- })
 require("kanagawa").setup({
 	transparent = false,
 })
--- vim.g.catppuccin_flavour = "mocha"
 cmd([[colorscheme kanagawa]])
-
--- cmd([[hi! link StatusLine Normal]])
 
 -- config CocSearch and CocMenuSel
 -- vim.api.nvim_set_hl(0, "CocSearch", { bg = "#13354A", ctermbg = 12 })
@@ -21,6 +14,7 @@ vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
 -- set windows separator to None
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 
+-- config gitsigns
 require("gitsigns").setup({
 	signs = {
 		add = { hl = "GitSignsAdd", text = " +" },
@@ -74,3 +68,12 @@ parser_config.org = {
 	},
 	filetype = "org",
 }
+
+-- require("github-theme").setup({
+-- 	transparent = false,
+-- 	dark_sidebar = false,
+-- })
+
+-- vim.g.catppuccin_flavour = "mocha"
+
+-- cmd([[hi! link StatusLine Normal]])

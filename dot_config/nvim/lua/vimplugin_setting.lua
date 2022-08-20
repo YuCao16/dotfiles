@@ -126,10 +126,6 @@ g["bullets_line_spacing"] = 2
 -- "=====================================================
 -- "" neoformat settings
 -- "=====================================================
--- cmd([[
--- let g:neoformat_markdown_prettier = {'exe':'prettier --tab-width 4 '}
--- let g:neoformat_enabled_markdown = ['prettier']
--- ]])
 cmd([[
 let g:neoformat_markdown_prettier = {
       \ 'exe': 'prettier',
@@ -137,5 +133,4 @@ let g:neoformat_markdown_prettier = {
       \ 'replace': 1
       \ }
 let g:neoformat_enabled_markdown = ['prettier']
-
 ]])

@@ -17,7 +17,7 @@ return require("packer").startup({
 			"neoclide/coc.nvim",
 			branch = "release",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
+			ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua", "cc", "cpp", "c" },
 		})
 		use({
 			"nvim-lualine/lualine.nvim",
@@ -306,7 +306,7 @@ return require("packer").startup({
 		use({
 			"sbdchd/neoformat",
 			event = { "BufAdd", "InsertEnter" },
-			ft = { "python", "tex", "markdown", "lua" },
+			ft = { "python", "tex", "markdown", "lua", "cpp", "cc", "c" },
 		}) -- " Format everything
 		use({
 			"numToStr/Comment.nvim",

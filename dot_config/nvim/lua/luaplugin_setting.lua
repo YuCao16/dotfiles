@@ -79,7 +79,7 @@ require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "maintained",
 	ensure_installed = {'org','python','norg'},
 	sync_install = false,
-	ignore_install = { "javascript" },
+	ignore_install = { "ruby" },
 	highlight = {
 		enable = true,
 		disable = { "c", "rust", "org" }, -- note connot remove org

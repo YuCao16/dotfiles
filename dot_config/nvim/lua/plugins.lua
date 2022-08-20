@@ -524,6 +524,12 @@ return require("packer").startup({
 		-- "-------------------=== Color/Theme ===-------------------
 		use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
 		use({
+			"norcalli/nvim-colorizer.lua",
+			config = function()
+				require("colorizer").setup()
+			end,
+		})
+		use({
 			"xiyaowong/nvim-transparent",
 			event = {
 				"BufAdd",

@@ -55,12 +55,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "tex", "vim", "lua", "journal" },
+	pattern = { "tex", "vim", "lua", "journal", "cpp", "cc", "c", "htmldjango" },
 	command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
 	group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "html", "css", "xml", "htmldjango", "json" },
+	pattern = { "css", "xml", "json", "html", "js", "javascript" },
 	command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
 	group = tabstop,
 })
@@ -84,11 +84,24 @@ vim.api.nvim_create_autocmd(
 	{ pattern = { "markdown", "latex", "tex" }, command = "set textwidth=80", group = textwidth }
 )
 vim.api.nvim_create_autocmd("FileType", { pattern = "python", command = "set colorcolumn=80", group = python })
+
 -- This line map run python with <,2> and close python shell after running
+local nvimrun = vim.api.nvim_create_augroup("python", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	command = "map <buffer> <leader>2 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>",
-	group = python,
+	group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {"js", "javascript"},
+	command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
+	group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {"cc","cpp","c"},
+	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
+	command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
+	group = nvimrun,
 })
 
 -- quit nvimtree if it's the only buffer left

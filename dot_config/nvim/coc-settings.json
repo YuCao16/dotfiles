@@ -9,7 +9,6 @@
   "pyright.disableCompletion": false,
   "pyright.disableDocumentation": true,
   "tabnine.limit": 5,
-  "highlight.colors.enable": true,
   // Others
   "lightbulb.only": ["quickfix"],
   "coc.source.vimtex.filetypes": [

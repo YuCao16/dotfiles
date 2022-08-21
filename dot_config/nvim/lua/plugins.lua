@@ -199,6 +199,13 @@ return require("packer").startup({
 			"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
+			require('illuminate').configure({
+				filetypes_denylist = {
+					'NvimTree',
+					'dashboard',
+					'SidebarNvim',
+				}
+			})
 		})
 		use({
 			"gbprod/substitute.nvim",

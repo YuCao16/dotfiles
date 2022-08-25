@@ -15,6 +15,7 @@ if impatient_ok then
 end
 
 local oks = {
+	-- core
 	["general_settings"] = pcall(require, "core.general_settings"),
 	["plugins"] = pcall(require, "core.plugins"),
 	["colorscheme"] = pcall(require, "core.colorscheme"),
@@ -23,14 +24,15 @@ local oks = {
 	["mappings"] = pcall(require, "core.mappings"),
 	["autocmd"] = pcall(require, "core.autocmd"),
 	["functions"] = pcall(require, "core.functions"),
+	-- configs
 	["dashboard"] = pcall(require, "configs.dashboard"),
 	["nvimtree"] = pcall(require, "configs.nvimtree"),
 	["lualine"] = pcall(require, "configs.lualine"),
-	-- ["lualine"] = pcall(require, "configs.evil_lualine"),
+	["bufferline"] = pcall(require, "configs.bufferline"),
 	["treesitter"] = pcall(require, "configs.treesitter"),
 	["coc"] = pcall(require, "configs.coc"),
 	["gitsigns"] = pcall(require, "configs.gitsign"),
-	["neotree"] = pcall(require, "configs.neotree"),
+	-- ["neotree"] = pcall(require, "configs.neotree"),
 }
 
 notif_ok, vim.notify = pcall(require, "notify")

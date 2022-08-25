@@ -37,16 +37,42 @@ return require("packer").startup({
 		use({ "wbthomason/packer.nvim" })
 
 		-- "-------------------=== Core ===-------------
+		use({ "lewis6991/impatient.nvim" })
 		use({
 			"neoclide/coc.nvim",
 			branch = "release",
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 		})
+		use({ "glepnir/dashboard-nvim" })
 		use({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
+		use({
+			"akinsho/bufferline.nvim",
+			requires = "kyazdani42/nvim-web-devicons",
+		})
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = { "nvim-lua/plenary.nvim" },
+		})
+		use({
+			"akinsho/toggleterm.nvim",
+			config = function()
+				require("toggleterm").setup({
+					float_opts = {
+						border = "rounded"
+					}
+				})
+			end,
+		})
+
+		-- use({"nvim-neo-tree/neo-tree.nvim"})
+		-- use { 'dstein64/vim-startuptime' }
+		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
+
+		-- "-------------------=== Utile ===-------------
 		use({
 			"sidebar-nvim/sidebar.nvim",
 			event = { "BufAdd", "InsertEnter" },
@@ -55,34 +81,6 @@ return require("packer").startup({
 				require("configs.sidebar")
 			end,
 		})
-		use({
-			"akinsho/toggleterm.nvim",
-			config = function()
-				require("toggleterm").setup()
-			end,
-		})
-		use({
-			"akinsho/bufferline.nvim",
-			requires = "kyazdani42/nvim-web-devicons",
-			config = function()
-				require("configs.bufferline")
-			end,
-		})
-		use({ "glepnir/dashboard-nvim" })
-		use({
-			"kyazdani42/nvim-tree.lua",
-			requires = { "nvim-lua/plenary.nvim" },
-			-- config = function()
-			-- 	require("configs.nvimtree")
-			-- end,
-		})
-		use({ "lewis6991/impatient.nvim" })
-
-		-- use({"nvim-neo-tree/neo-tree.nvim"})
-		-- use { 'dstein64/vim-startuptime' }
-		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
-
-		-- "-------------------=== Utile ===-------------
 		use({
 			"petertriho/nvim-scrollbar",
 			event = { "WinScrolled" },
@@ -262,7 +260,7 @@ return require("packer").startup({
 				require("treesitter-context").setup()
 			end,
 		})
-		use({ "p00f/nvim-ts-rainbow", event = { "BufAdd", "InsertEnter" } })
+		use({ "p00f/nvim-ts-rainbow" })
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Code/Project navigation ===-------------
@@ -463,25 +461,27 @@ return require("packer").startup({
 				require("configs.transparent")
 			end,
 		})
-
 		use({ "kyazdani42/nvim-web-devicons" })
+
 		use({ "projekt0n/github-nvim-theme" })
 		use({ "rebelot/kanagawa.nvim" })
+		use({ "catppuccin/nvim" })
 		use({ "Mofiqul/vscode.nvim", event = { "BufAdd", "InsertEnter" } })
-		use({ "sainnhe/everforest", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 		use({ "sainnhe/edge", event = { "BufAdd", "InsertEnter" } })
 		use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
 		use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
 		use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
-		use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
+		-- use({ "catppuccin/nvim", event = { "BufAdd", "InsertEnter" } })
 
+		-- use({ "sainnhe/everforest", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "marko-cerovac/material.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "arcticicestudio/nord-vim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
 		-- use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
 		-- use { 'navarasu/onedark.nvim' }
+		-- use({ "lunarvim/horizon.nvim" })
 		-- use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "dracula/vim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "sickill/vim-monokai", event = { "BufAdd", "InsertEnter" } })

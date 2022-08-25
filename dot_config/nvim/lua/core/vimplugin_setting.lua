@@ -11,11 +11,6 @@ local g = vim.g -- Global variables
 local cmd = vim.cmd -- Execute Vim commands
 
 -- "=====================================================
--- "" Coc Configurations
--- "=====================================================
--- g["coc_snippet_next"] = "<tab>"
-
--- "=====================================================
 -- "" tagbar settings
 -- "=====================================================
 g["tagbar_width"] = 34
@@ -26,6 +21,9 @@ g["tagbar_compact"] = 1
 -- "=====================================================
 g["lens#animate"] = 0
 g["animate#duration"] = 100.0
+g["lens#disable_buftypes"] = {
+	"terminal"
+}
 g["lens#disabled_filetypes"] = {
 	"tagbar",
 	"NvimTree",
@@ -100,6 +98,7 @@ g["tex_flavor"] = "latex"
 -- "" everforest settings
 -- "=====================================================
 g["everforest_background"] = "hard"
+g["edge_style"] = "hard"
 g["gruvbox_materiala_background"] = "hard"
 
 -- "=====================================================
@@ -135,3 +134,8 @@ let g:neoformat_markdown_prettier = {
       \ }
 let g:neoformat_enabled_markdown = ['prettier']
 ]])
+
+-- "=====================================================
+-- "" Coc Configurations
+-- "=====================================================
+-- g["coc_snippet_next"] = "<tab>"

@@ -1,21 +1,9 @@
-local cmd = vim.cmd -- Execute Vim commands
-require("kanagawa").setup({
-	transparent = false,
-})
-cmd([[colorscheme kanagawa]])
+local status_ok, gitsigns = pcall(require, "gitsigns")
+if not status_ok then
+  return
+end
 
--- config CocSearch and CocMenuSel
--- vim.api.nvim_set_hl(0, "CocSearch", { bg = "#13354A", ctermbg = 12 })
-vim.api.nvim_set_hl(0, "CocMenuSel", { bg = "#13354A", ctermbg = 109 })
-
--- add a red line one column 80
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
-
--- set windows separator to None
-vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
-
--- config gitsigns
-require("gitsigns").setup({
+gitsigns.setup({
 	signs = {
 		add = { hl = "GitSignsAdd", text = " +" },
 		change = { hl = "GitSignsChange", text = " ~" },
@@ -58,22 +46,3 @@ require("gitsigns").setup({
 		enable = false,
 	},
 })
-
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.org = {
-	install_info = {
-		url = "https://github.com/milisims/tree-sitter-org",
-		revision = "main",
-		files = { "src/parser.c", "src/scanner.cc" },
-	},
-	filetype = "org",
-}
-
--- require("github-theme").setup({
--- 	transparent = false,
--- 	dark_sidebar = false,
--- })
-
--- vim.g.catppuccin_flavour = "mocha"
-
--- cmd([[hi! link StatusLine Normal]])

@@ -6,7 +6,15 @@
 --            ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║		  --
 --            ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝		  --
 --++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
-vim.cmd([[packadd packer.nvim]])
+
+local fn = vim.fn
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+	packer_bootstrap =
+		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+	vim.cmd([[packadd packer.nvim]])
+end
+
 local workflow_filetype = {
 	"python",
 	"markdown",
@@ -23,8 +31,9 @@ local workflow_filetype = {
 	"cpp",
 	"c",
 }
+
 return require("packer").startup({
-	function()
+	function(use)
 		use({ "wbthomason/packer.nvim" })
 
 		-- "-------------------=== Core ===-------------
@@ -43,19 +52,7 @@ return require("packer").startup({
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 			config = function()
-				require("sidebar-nvim").setup({
-					sections = {
-						"datetime",
-						"git",
-						"symbols",
-						"todos",
-						"files",
-						"buffers",
-					},
-					symbols = {
-						icon = "ƒ",
-					},
-				})
+				require("configs.sidebar")
 			end,
 		})
 		use({
@@ -68,51 +65,21 @@ return require("packer").startup({
 			"akinsho/bufferline.nvim",
 			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
-				require("bufferline").setup({
-					options = {
-						close_command = "Bdelete!",
-					},
-				})
+				require("configs.bufferline")
 			end,
 		})
 		use({ "glepnir/dashboard-nvim" })
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("nvim-tree").setup({
-					auto_close = ture,
-					-- show_on_startup = true,
-					view = {
-						hide_root_folder = false,
-					},
-					renderer = {
-						indent_markers = {
-							enable = true,
-						},
-					},
-					filters = {
-						dotfiles = true,
-					},
-					git = {
-						enable = true,
-						ignore = true,
-					},
-					view = {
-						width = 30,
-					},
-					actions = {
-						open_file = {
-							quit_on_open = false,
-							resize_window = false,
-						},
-					},
-				})
-			end,
+			-- config = function()
+			-- 	require("configs.nvimtree")
+			-- end,
 		})
 		use({ "lewis6991/impatient.nvim" })
-		-- use { 'dstein64/vim-startuptime' }
 
+		-- use({"nvim-neo-tree/neo-tree.nvim"})
+		-- use { 'dstein64/vim-startuptime' }
 		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
 		-- "-------------------=== Utile ===-------------
@@ -131,7 +98,7 @@ return require("packer").startup({
 			config = function()
 				require("zen-mode").setup({
 					window = {
-						width = 0.75, -- width will be 85% of the editor width
+						width = 0.75, -- width will be 75% of the editor width
 					},
 				})
 			end,
@@ -151,8 +118,12 @@ return require("packer").startup({
 		use({ "antoinemadec/FixCursorHold.nvim" })
 		use({
 			"famiu/bufdelete.nvim",
-			-- event = { "BufAdd" },
-			-- ft = { "python", "markdown", "tex", "json", "lua" },
+		})
+		use({
+			"tiagovla/scope.nvim",
+			config = function()
+				require("scope").setup()
+			end,
 		})
 		use({
 			"karb94/neoscroll.nvim",
@@ -172,8 +143,6 @@ return require("packer").startup({
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "WinNew" } })
 		use({
 			"kevinhwang91/nvim-hlslens",
-			-- ft = { "python", "markdown", "tex", "ipynb", "org", "json", "html", "lua" },
-			-- event = { "BufAdd", "InsertEnter" },
 		})
 		use({
 			"Shatur/neovim-session-manager",
@@ -192,20 +161,18 @@ return require("packer").startup({
 		})
 		use({
 			"lewis6991/gitsigns.nvim",
-			-- event = { "BufAdd", "InsertEnter" },
-			-- ft = { "python", "markdown", "tex", "org", "json", "lua" },
 		})
 		use({
 			"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
-			require('illuminate').configure({
+			require("illuminate").configure({
 				filetypes_denylist = {
-					'NvimTree',
-					'dashboard',
-					'SidebarNvim',
-				}
-			})
+					"NvimTree",
+					"dashboard",
+					"SidebarNvim",
+				},
+			}),
 		})
 		use({
 			"gbprod/substitute.nvim",
@@ -306,21 +273,7 @@ return require("packer").startup({
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 			config = function()
-				local remap = vim.api.nvim_set_keymap
-				local npairs = require("nvim-autopairs")
-				npairs.setup({ map_cr = false, disabled_filetypes = { "latex", "tex" } })
-
-				-- skip it, if you use another global object
-				_G.MUtils = {}
-				MUtils.completion_confirm = function()
-					-- if vim.fn.pumvisible() ~= 0 then
-					if vim.fn["coc#pum#visible"]() ~= 0 then
-						return vim.fn["coc#_select_confirm"]()
-					else
-						return npairs.autopairs_cr()
-					end
-				end
-				remap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
+				require("configs.autopairs")
 			end,
 		})
 		use({
@@ -331,10 +284,10 @@ return require("packer").startup({
 			end,
 		})
 		use({
-			"sbdchd/neoformat",
+			"sbdchd/neoformat", -- " Format everything
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
-		}) -- " Format everything
+		})
 		use({
 			"numToStr/Comment.nvim",
 			config = function()
@@ -352,37 +305,12 @@ return require("packer").startup({
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 			config = function()
-				vim.opt.termguicolors = true
-				vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
-				vim.cmd([[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]])
-				vim.cmd([[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]])
-				vim.cmd([[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]])
-				vim.cmd([[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]])
-				vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
-
-				vim.opt.list = true
-				vim.opt.listchars:append("eol:↴")
-				require("indent_blankline").setup({
-					space_char_blankline = " ",
-					show_current_context = true,
-					show_current_context_start = true,
-					filetype_exclude = { "dashboard", "lsp-installer", "peek", "tagbar", "NvimTree" },
-					buftype_exclude = { "terminal" },
-					char_highlight_list = {
-						"IndentBlanklineIndent1",
-						"IndentBlanklineIndent2",
-						"IndentBlanklineIndent3",
-						"IndentBlanklineIndent4",
-						"IndentBlanklineIndent5",
-						"IndentBlanklineIndent6",
-					},
-				})
+				require("configs.indent-line")
 			end,
 		})
 		use({
 			"michaelb/sniprun",
 			run = "bash install.sh",
-			-- event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 			config = function()
 				require("sniprun").setup({
@@ -405,6 +333,13 @@ return require("packer").startup({
 		})
 		use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 
+		-- use({
+		-- 	"simrat39/symbols-outline.nvim",
+		-- 	ft = workflow_filetype,
+		-- 	config = function()
+		-- 		require("symbols-outline").setup()
+		-- 	end,
+		-- })
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		-- " use 'sirver/ultisnips'
@@ -429,7 +364,6 @@ return require("packer").startup({
 		use({
 			"mfussenegger/nvim-dap-python",
 			ft = { "python" },
-			-- event = { "BufAdd", "InsertEnter" },
 			config = function()
 				require("dap-python").setup("/usr/bin/python3")
 				require("dapui").setup()
@@ -481,17 +415,7 @@ return require("packer").startup({
 			"akinsho/org-bullets.nvim",
 			after = "orgmode",
 			config = function()
-				require("org-bullets").setup({
-					concealcursor = true,
-					symbols = {
-						headlines = { "◉", "○", "✸", "✿" },
-						checkboxes = {
-							cancelled = { "", "OrgCancelled" },
-							todo = { "-", "OrgTODO" },
-							done = { "✓", "OrgDone" },
-						},
-					},
-				})
+				require("configs.org-bullets")
 			end,
 		})
 		use({
@@ -520,16 +444,7 @@ return require("packer").startup({
 		-- use({
 		-- 	"lukas-reineke/headlines.nvim",
 		-- 	config = function()
-		-- 		vim.cmd([[highlight Headline1 guibg=#1e2718]])
-		-- 		vim.cmd([[highlight Headline2 guibg=#21262d]])
-		-- 		vim.cmd([[highlight CodeBlock guibg=#1c1c1c]])
-		-- 		vim.cmd([[highlight Dash guibg=#D19A66 gui=bold]])
-		--
-		-- 		require("headlines").setup({
-		-- 			org = {
-		-- 				headline_highlights = { "Headline1", "Headline2" },
-		-- 			},
-		-- 		})
+		-- 		require("headlines").setup()
 		-- 	end,
 		-- })
 
@@ -543,32 +458,13 @@ return require("packer").startup({
 		})
 		use({
 			"xiyaowong/nvim-transparent",
-			event = {
-				"BufAdd",
-				"InsertEnter",
-			},
+			event = { "BufAdd", "InsertEnter" },
 			config = function()
-				require("transparent").setup({
-					enable = true, -- boolean: enable transparent
-					extra_groups = { -- table/string: additional groups that should be cleared
-						-- In particular, when you set it to 'all', that means all available groups
-						-- example of akinsho/nvim-bufferline.lua
-						"BufferLineTabClose",
-						"BufferlineBufferSelected",
-						"BufferLineFill",
-						"BufferLineBackground",
-						"BufferLineSeparator",
-						"BufferLineIndicatorSelected",
-					},
-					exclude = {
-						"WinSeparator",
-					}, -- table: groups you don't want to clear
-				})
+				require("configs.transparent")
 			end,
 		})
 
 		use({ "kyazdani42/nvim-web-devicons" })
-
 		use({ "projekt0n/github-nvim-theme" })
 		use({ "rebelot/kanagawa.nvim" })
 		use({ "Mofiqul/vscode.nvim", event = { "BufAdd", "InsertEnter" } })
@@ -596,6 +492,7 @@ return require("packer").startup({
 		use({ "nvim-lua/plenary.nvim" })
 		use({ "rcarriga/nvim-notify" })
 		use({ "MunifTanjim/nui.nvim" })
+
 		-- use({ "RishabhRD/popfix" })
 
 		-- "-------------------=== LSP ===-------------------------------
@@ -617,6 +514,10 @@ return require("packer").startup({
 		-- " use 'TaDaa/vimade'                       " Eye Protection
 		-- use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "svermeulen/vimpeccable", event = { "BufAdd", "InsertEnter" } })
+
+		if packer_bootstrap then
+			require("packer").sync()
+		end
 	end,
 	config = {
 		-- compile_path = "~/.local/share/packer_compiled/packer_compiled.lua",

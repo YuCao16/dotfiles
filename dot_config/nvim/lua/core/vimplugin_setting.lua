@@ -28,7 +28,7 @@ g["lens#animate"] = 0
 g["animate#duration"] = 100.0
 g["lens#disabled_filetypes"] = {
 	"tagbar",
-	"nvimtree",
+	"NvimTree",
 	"dapui_watches",
 	"dapui_stacks",
 	"dapui_breakpoints",

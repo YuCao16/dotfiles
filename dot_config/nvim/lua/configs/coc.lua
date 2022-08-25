@@ -19,13 +19,6 @@ local function register_mappings(mappings, default_options)
 	end
 end
 
--- g.coc_global_extensions = {
---    'coc-git',
---    'coc-styled-components',
---    'coc-tslint-plugin',
---    'coc-vimlsp',
--- }
-
 g.coc_global_extensions = {
 	"coc-pyright",
 	"coc-marketplace",
@@ -41,14 +34,18 @@ g.coc_global_extensions = {
 	"coc-tabnine",
 	"coc-vimtex",
 	"coc-lists",
-	-- "coc-highlight",
 	"coc-cspell-dicts",
 	"coc-spell-checker",
 	"coc-texlab",
 	"coc-clangd",
 	"coc-cmake",
-	"coc-tsserver"
+	"coc-tsserver",
 	-- "@yaegassy/coc-pylsp",
+	-- "coc-highlight",
+	-- "coc-git",
+	-- "coc-styled-components",
+	-- "coc-tslint-plugin",
+	-- "coc-vimlsp",
 }
 
 function _G.check_back_space()
@@ -94,6 +91,11 @@ local mappings = {
 			"<CR>",
 			'coc#pum#visible() ? coc#pum#confirm() : "<C-g>u<CR><c-r>=coc#on_enter()<CR>" ',
 			{ expr = true, silent = true },
+		},
+		{
+			"<c-j>",
+			"<Plug>(coc-snippets-expand-jump)",
+			{ expr = false, silent = true },
 		},
 		-- {
 		-- 	"<C-x><C-z>",
@@ -143,9 +145,10 @@ vim.cmd([[
     " Add `:OR` command for organize imports of the current buffer.
     command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 ]])
+
 vim.api.nvim_set_keymap("i", "<C-t>", "<C-r>=CocActionAsync('showSignatureHelp')<CR>", {})
--- vim.api.nvim_set_keymap("i", "<C-t>", "<c-r>=CocActionAsync('doHover')<CR>", {})
 vim.api.nvim_set_keymap("n", "<C-t>", ":call CocActionAsync('showSignatureHelp')<CR>", {})
+-- vim.api.nvim_set_keymap("i", "<C-t>", "<c-r>=CocActionAsync('doHover')<CR>", {})
 
 -- require("utils").define_augroups({
 -- 	_coc = {

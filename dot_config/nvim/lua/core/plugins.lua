@@ -62,8 +62,8 @@ return require("packer").startup({
 			config = function()
 				require("toggleterm").setup({
 					float_opts = {
-						border = "rounded"
-					}
+						border = "rounded",
+					},
 				})
 			end,
 		})
@@ -330,14 +330,16 @@ return require("packer").startup({
 			end,
 		})
 		use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
+		use({
+			"simrat39/symbols-outline.nvim",
+			ft = workflow_filetype,
+			config = function()
+				require("symbols-outline").setup({
+					show_guides = true,
+				})
+			end,
+		})
 
-		-- use({
-		-- 	"simrat39/symbols-outline.nvim",
-		-- 	ft = workflow_filetype,
-		-- 	config = function()
-		-- 		require("symbols-outline").setup()
-		-- 	end,
-		-- })
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
 		-- " use 'sirver/ultisnips'
@@ -496,16 +498,28 @@ return require("packer").startup({
 		-- use({ "RishabhRD/popfix" })
 
 		-- "-------------------=== LSP ===-------------------------------
-		use({ "neovim/nvim-lspconfig", event = { "BufAdd", "InsertEnter" } })
-		use({ "williamboman/nvim-lsp-installer" })
+		use({ "neovim/nvim-lspconfig" })
+		use({ "williamboman/mason.nvim" })
+		use({ "williamboman/mason-lspconfig.nvim" })
 
-		-- use { 'ray-x/lsp_signature.nvim',
-		-- 	config = function ()
-		-- 		require "lsp_signature".setup()
-		--
-		-- 	end
-		-- }
+		-- "-------------------=== LSP.cmp ===-------------------------------
+		use({"hrsh7th/nvim-cmp"})
+		use({"hrsh7th/cmp-cmdline"})
+		-- use({
+		-- 	"glepnir/lspsaga.nvim",
+		-- 	branch = "main",
+		-- 	config = function()
+		-- 		local saga = require("lspsaga")
+  --
+		-- 		saga.init_lsp_saga({
+		-- 			-- your configuration
+		-- 			border_style = "rounded"
+		-- 		})
+		-- 	end,
+		-- })
 
+		-- "-------------------=== Dev ===-------------------------------
+		use({ "folke/lua-dev.nvim" })
 		-- "-------------------=== Other ===-------------------------------
 		use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) -- game
 		use({ "neomake/neomake", event = { "BufAdd", "InsertEnter" } })

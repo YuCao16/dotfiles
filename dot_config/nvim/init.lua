@@ -32,6 +32,7 @@ local oks = {
 	["treesitter"] = pcall(require, "configs.treesitter"),
 	["coc"] = pcall(require, "configs.coc"),
 	["gitsigns"] = pcall(require, "configs.gitsign"),
+	["lsp"] = pcall(require, "configs.lsp"),
 	-- ["neotree"] = pcall(require, "configs.neotree"),
 }
 

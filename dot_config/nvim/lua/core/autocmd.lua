@@ -93,12 +93,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"js", "javascript"},
+	pattern = { "js", "javascript" },
 	command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
 	group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"cc","cpp","c"},
+	pattern = { "cc", "cpp", "c" },
 	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
 	command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
 	group = nvimrun,

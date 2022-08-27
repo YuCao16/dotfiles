@@ -1,10 +1,27 @@
 {
   "coc.preferences.willSaveHandlerTimeout": 2000,
   // Float Config
-  "signature.floatConfig": { "border": true, "rounded": true, "maxWidth": 50 },
-	"suggest.floatConfig": { "border": true, "rounded": true, "maxWidth":50 },
-  "hover.floatConfig": { "border": true, "rounded": true, "maxWidth": 50 },
-  "diagnostic.floatConfig": { "border": true, "rounded": true, "maxWidth": 50 },
+  "signature.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "maxWidth": 80
+  },
+  "suggest.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "maxWidth": 80,
+    "borderhighlight": "Error1"
+  },
+  "hover.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "maxWidth": 80
+  },
+  "diagnostic.floatConfig": {
+    "border": true,
+    "rounded": true,
+    "maxWidth": 80
+  },
   // Python
   "pyright.disableCompletion": false,
   "pyright.disableDocumentation": true,
@@ -23,7 +40,9 @@
   "cSpell.enabledLanguageIds": ["latex", "markdown", "org", "neorg"],
   "cSpellExt.enableDictionaries": ["catalan"],
   "cSpell.language": "en,ca",
-  "markdownlint.config": { "line-length": false },
+  "markdownlint.config": {
+    "line-length": false
+  },
   // Completion Item Icons
   "suggest.completionItemKindLabels": {
     "default": "\uf29c",

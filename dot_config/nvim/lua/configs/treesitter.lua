@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "maintained",
-	ensure_installed = {'org','python','norg'},
+	ensure_installed = { "org", "python", "norg" },
 	sync_install = false,
 	ignore_install = { "ruby" },
 	highlight = {
@@ -9,13 +9,18 @@ require("nvim-treesitter.configs").setup({
 		additional_vim_regex_highlighting = false,
 		-- additional_vim_regex_highlighting = { "org" },
 	},
+	autopairs = {
+		enable = true,
+	},
+	textobjects = {
+		enable = true,
+	},
 	indent = {
 		enable = true,
-		-- disable = { "org" }
 	},
 	endwise = {
 		enable = true,
-		disable = {"cpp"}
+		disable = { "rust" },
 	},
 	playground = {
 		enable = true,

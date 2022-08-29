@@ -37,6 +37,23 @@ local function getPath()
 	end
 end
 
+-- I don't know how to center this line in lualine
+local function show_lsp()
+	local msg = " LSP: No Active Lsp"
+	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+	local clients = vim.lsp.get_active_clients()
+	if next(clients) == nil then
+		return msg
+	end
+	for _, client in ipairs(clients) do
+		local filetypes = client.config.filetypes
+		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+			return client.name
+		end
+	end
+	return msg
+end
+
 require("lualine").setup({
 	options = {
 		component_separators = "|",
@@ -49,6 +66,7 @@ require("lualine").setup({
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { getPath },
+		-- lualine_c = { show_lsp },
 		lualine_x = { getWords },
 		lualine_y = { "filetype", "filesize", "progress" },
 		lualine_z = {

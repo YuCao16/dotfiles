@@ -22,7 +22,7 @@ g["tagbar_compact"] = 1
 g["lens#animate"] = 0
 g["animate#duration"] = 100.0
 g["lens#disable_buftypes"] = {
-	"terminal"
+	"terminal",
 }
 g["lens#disabled_filetypes"] = {
 	"tagbar",
@@ -33,6 +33,7 @@ g["lens#disabled_filetypes"] = {
 	"dapui_scopes",
 	"dapui_console",
 	"dap-repl",
+	"Outline",
 }
 
 -- "=====================================================
@@ -122,6 +123,11 @@ g["tex_indent_brace"] = 0
 -- "=====================================================
 g["bullets_line_spacing"] = 2
 -- g["bullets_outline_level"] = ['num', 'abc', 'std-']
+
+-- "=====================================================
+-- "" Code action menu settings
+-- "=====================================================
+g["code_action_menu_window_border"] = "rounded"
 
 -- "=====================================================
 -- "" neoformat settings

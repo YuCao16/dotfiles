@@ -30,9 +30,9 @@ local oks = {
 	["lualine"] = pcall(require, "configs.lualine"),
 	["bufferline"] = pcall(require, "configs.bufferline"),
 	["treesitter"] = pcall(require, "configs.treesitter"),
-	["coc"] = pcall(require, "configs.coc"),
 	["gitsigns"] = pcall(require, "configs.gitsign"),
 	["lsp"] = pcall(require, "configs.lsp"),
+	-- ["coc"] = pcall(require, "configs.coc"),
 	-- ["neotree"] = pcall(require, "configs.neotree"),
 }
 

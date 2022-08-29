@@ -27,6 +27,7 @@ opt.hlsearch = true
 opt.laststatus = 3
 vim.o.pumheight = 20
 vim.o.scrolloff = 10
+-- vim.cmd([[set spelllang=en]])
 vim.cmd([[set enc=utf-8]])
 vim.cmd([[set t_Co=256]])
 -- vim.cmd([[set nofoldenable]])

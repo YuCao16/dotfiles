@@ -19,6 +19,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = dashboard,
 })
 
+-- quick exit from lspsaga
+local lspsaga = vim.api.nvim_create_augroup("lspsaga", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "lspsagaoutline" },
+	command = "nnoremap <buffer> q :q<cr>",
+	group = lspsaga,
+})
+
 -- Update signature help on jump placeholder
 local cocautocmd = vim.api.nvim_create_augroup("cocautocmd", { clear = true })
 vim.api.nvim_create_autocmd("User", {

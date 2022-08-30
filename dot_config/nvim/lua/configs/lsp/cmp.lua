@@ -13,6 +13,9 @@ end
 require("luasnip.loaders.from_vscode").lazy_load({
 	paths = "~/.local/share/nvim/site/pack/packer/opt/friendly-snippets",
 })
+require("luasnip.loaders.from_vscode").lazy_load({
+	paths = { "./snippets/" },
+})
 
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -47,12 +50,12 @@ local kind_icons = {
 	TypeParameter = "",
 }
 
-local ELLIPSIS_CHAR = '…'
+local ELLIPSIS_CHAR = "…"
 local MAX_LABEL_WIDTH = 30
 local MAX_KIND_WIDTH = 14
 
-local get_ws = function (max, len)
-  return (" "):rep(max - len)
+local get_ws = function(max, len)
+	return (" "):rep(max - len)
 end
 
 cmp.setup({
@@ -84,6 +87,7 @@ cmp.setup({
 				path = "[Path]",
 				cmp_tabnine = "[TN]",
 				orgmode = "[ORG]",
+				latex_symbols = "[TEX]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -93,11 +97,14 @@ cmp.setup({
 		documentation = cmp.config.window.bordered("rounded"),
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{ name = "nvim_lsp", max_item_count = 15 },
+		{ name = "luasnip", max_item_count = 15 },
 		{ name = "path" },
-		{ name = "cmp_tabnine" },
+		{ name = "cmp_tabnine", max_item_count = 5 },
 		{ name = "orgmode" },
+		{ name = "nvim_lua" },
+		{ name = "latex_symbols", max_item_count = 3 },
+		-- { name = "latex_symbols", keyword_length = 5 },
 		-- { name = "dictionary" },
 		-- { name = "treesitter" },
 		-- { name = "buffer" },

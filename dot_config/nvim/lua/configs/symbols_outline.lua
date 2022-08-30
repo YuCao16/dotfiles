@@ -5,7 +5,7 @@ end
 local opts = {
 	highlight_hovered_item = true,
 	show_guides = true,
-	auto_preview = false,
+	auto_preview = true,
 	position = "right",
 	relative_width = true,
 	width = 25,
@@ -31,7 +31,7 @@ local opts = {
 		unfold_all = "E",
 		fold_reset = "R",
 	},
-	lsp_blacklist = { "python-lsp-server", "pyls", "pylsp" },
+	lsp_blacklist = { "python-lsp-server", "pylsp" },
 	symbol_blacklist = {},
 	symbols = {
 		File = { icon = " ", hl = "TSURI" },

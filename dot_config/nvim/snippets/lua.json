@@ -1,0 +1,8 @@
+{
+  "packeruse": {
+    "body": "use({ '${1:repo/plugins}' })",
+    "description": "packer use command",
+    "prefix": "use",
+    "scope": "source.lua"
+  }
+}

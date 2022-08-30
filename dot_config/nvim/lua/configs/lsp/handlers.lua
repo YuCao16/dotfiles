@@ -51,41 +51,31 @@ local lsp_handlers = function()
 end
 
 local on_attach = function(client, bufnr)
-	-- ---------------
 	-- Setup handlers
-	-- ---------------
 	lsp_handlers()
 
-	-- ---------------
 	-- GENERAL
-	-- ---------------
 	client.config.flags.allow_incremental_sync = true
 
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-	-- ---------------
 	-- keybindings
-	-- ---------------
 	local function buf_set_keymap(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
 
 	local opts = { noremap = true, silent = true }
 
-	buf_set_keymap("n", "<tab>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	-- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "<leader>gs", ":SymbolsOutline<CR>", { noremap = false, silent = false })
+	-- buf_set_keymap("n", "<tab>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	-- buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 
-	-- ---------------
 	-- Custome Command
-	-- ---------------
 	vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 
-	-- ---------------
 	-- AutoCmd
-	-- ---------------
 	local lspLineDiagnosticsGroup = vim.api.nvim_create_augroup("LspLineDiagnostics", { clear = true })
 	vim.api.nvim_create_autocmd("CursorHold", {
 		group = lspLineDiagnosticsGroup,
@@ -134,7 +124,8 @@ end
 local server_settings = {
 	tsserver = require("configs.lsp.settings.tsserver"),
 	pyright = require("configs.lsp.settings.pyright"),
-	pylsp = require("configs.lsp.settings.pylsp"),
+	jedi_language_server = require("configs.lsp.settings.jedi"),
+	-- pylsp = require("configs.lsp.settings.pylsp"),
 	sumneko_lua = require("configs.lsp.settings.sumneko_lua"),
 }
 
@@ -176,6 +167,11 @@ if mason_exists then
 	mason.setup({
 		ui = {
 			border = "rounded",
+			icons = {
+				package_installed = "✓",
+				package_pending = "➜",
+				package_uninstalled = "✗",
+			},
 		},
 	})
 end
@@ -190,8 +186,11 @@ if mason_lspconfig_exists then
 				vim.tbl_deep_extend("force", has_settings and server_settings[server_name] or {}, config)
 
 			nvim_lsp[server_name].setup(current_server_settings)
+
 			if server_name == "sumneko_lua" then
 				require("lua-dev").setup(current_server_settings)
+			-- elseif server_name == "pyright" then
+			-- 	require("lspconfig").jedi_language_server.setup({})
 			end
 		end,
 	})

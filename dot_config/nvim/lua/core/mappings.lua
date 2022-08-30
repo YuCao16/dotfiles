@@ -58,10 +58,16 @@ map("n", "<leader>w", "<C-w>", { noremap = false, silent = false })
 map("t", "<ESC>", [[<C-\><C-n>]], { silent = true })
 map("n", "<leader><leader>", ":noh<CR>", { noremap = false, silent = true })
 
+-- Lspsaga
+map("n", "<leader>ca", ":Lspsaga code_action<CR>", { noremap = false, silent = false })
+map("n", "<leader>rn", ":Lspsaga rename<CR>", { noremap = false, silent = false })
+map("n", "<leader>gf", ":Lspsaga lsp_finder<CR>", { noremap = false, silent = false })
+map("n", "<tab>", ":Lspsaga hover_doc<CR>", { noremap = false, silent = false })
+
 -- Ohters
 map("n", "<leader>p", ":TagbarToggle<CR>", { noremap = false, silent = false })
 map("n", "<leader>tr", ":TroubleToggle<CR>", { noremap = false, silent = false })
-map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
+-- map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
 map("n", "<leader>a", ":SidebarNvimToggle<CR>", { noremap = false, silent = false })
 map("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = false })
 map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", { noremap = false, silent = false })

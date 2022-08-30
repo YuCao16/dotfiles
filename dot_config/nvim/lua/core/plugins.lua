@@ -229,12 +229,13 @@ return require("packer").startup({
 			"nvim-telescope/telescope.nvim",
 			requires = { { "nvim-lua/plenary.nvim" } },
 		})
-		use({
-			"nvim-telescope/telescope-file-browser.nvim",
-			config = function()
-				require("telescope").load_extension("file_browser")
-			end,
-		})
+
+		-- use({
+		-- 	"nvim-telescope/telescope-file-browser.nvim",
+		-- 	config = function()
+		-- 		require("telescope").load_extension("file_browser")
+		-- 	end,
+		-- })
 		-- use({
 		-- 	"crispgm/telescope-heading.nvim",
 		-- 	config = function()
@@ -489,25 +490,27 @@ return require("packer").startup({
 		use({ "neovim/nvim-lspconfig" })
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })
+		use({ "glepnir/lspsaga.nvim", branch = "main" })
 		use({
 			"j-hui/fidget.nvim",
 			config = function()
 				require("fidget").setup({})
 			end,
 		})
-
-		-- use({
-		-- 	"glepnir/lspsaga.nvim",
-		-- 	branch = "main",
-		-- 	config = function()
-		-- 		local saga = require("lspsaga")
-		--
-		-- 		saga.init_lsp_saga({
-		-- 			-- your configuration
-		-- 			border_style = "rounded",
-		-- 		})
-		-- 	end,
-		-- })
+		use({
+			"ray-x/lsp_signature.nvim",
+			config = function()
+				require("lsp_signature").setup()
+			end,
+		})
+		use({
+			"folke/trouble.nvim",
+			config = function()
+				require("trouble").setup({
+					mode = "document_diagnostics",
+				})
+			end,
+		})
 
 		-- "-------------------=== CMP ===-------------------------------
 		use({ "hrsh7th/nvim-cmp" })
@@ -517,21 +520,8 @@ return require("packer").startup({
 		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 		use({ "saadparwaiz1/cmp_luasnip" })
 		use({ "folke/lua-dev.nvim" })
-		use({
-			"ray-x/lsp_signature.nvim",
-			config = function()
-				require("lsp_signature").setup()
-			end,
-		})
-		use({ "weilbith/nvim-code-action-menu" })
-		use({ "folke/trouble.nvim",
-		config = function()
-			require("trouble").setup({
-				mode = "document_diagnostics",
-			})
-		end
-	})
 
+		-- use({ "weilbith/nvim-code-action-menu" })
 		-- use({"jose-elias-alvarez/null-ls.nvim"})
 		-- use({ "hrsh7th/cmp-buffer" })
 		-- use({ "hrsh7th/cmp-nvim-lua" })

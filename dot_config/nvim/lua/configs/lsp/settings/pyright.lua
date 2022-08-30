@@ -2,7 +2,11 @@ return {
 	settings = {
 		python = {
 			analysis = {
-				typeCheckingMode = "off",
+				typeCheckingMode = "basic",
+				inlayHints = {
+					variableTypes = true,
+					functionReturnTypes = true,
+				}
 			},
 		},
 	},

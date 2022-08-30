@@ -23,8 +23,10 @@ require("indent_blankline").setup({
 		"glowpreview",
 		"mason",
 		"Trouble",
+		"code-action-menu-menu",
+		"help",
 	},
-	buftype_exclude = { "terminal" },
+	buftype_exclude = { 'terminal', 'nofile', 'prompt' },
 	char_highlight_list = {
 		"IndentBlanklineIndent1",
 		"IndentBlanklineIndent2",

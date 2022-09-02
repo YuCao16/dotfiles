@@ -9,17 +9,21 @@ return {
 					enabled = false,
 				},
 				jedi_signature_help = {
-					enabled = false,
+					enabled = true,
 				},
 				jedi_definition = {
-					enabled = false,
+					enabled = true,
 				},
 				jedi_hover = {
-					enabled = false,
+					enabled = true,
 				},
 				pycodestyle = {
 					enabled = true,
 				},
+				-- jedi = {
+				-- 	environment = "/usr/bin/python3",
+				-- 	extra_paths = "usr/bin/python3"
+				-- },
 			},
 		},
 	},

@@ -12,3 +12,5 @@ cmd([[colorscheme kanagawa]])
 -- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 -- cmd([[colorscheme catppuccin]])
 -- cmd([[hi! link StatusLine Normal]])
+
+-- cmd([[colorscheme github_dark]])

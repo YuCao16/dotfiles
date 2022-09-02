@@ -41,10 +41,10 @@ local lsp_handlers = function()
 		update_in_insert = false, -- update diagnostics insert mode
 		float = {
 			focusable = false,
-			style = "minimal",
+			-- style = "minimal",
 			border = "rounded",
 			source = "always",
-			header = "",
+			header = "🙀Diagnostics:",
 			prefix = "",
 		},
 	})
@@ -67,10 +67,22 @@ local on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true }
 
 	buf_set_keymap("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>gs", ":SymbolsOutline<CR>", { noremap = false, silent = false })
+	buf_set_keymap("n", "<leader>go", ":SymbolsOutline<CR>", { noremap = false, silent = false })
+	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
+	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
+
 	-- buf_set_keymap("n", "<tab>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	-- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	-- buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	-- buf_set_keymap("n", "C-k", "<cmd>lua vim.lsp.signature_help()", opts)
+	-- buf_set_keymap("n", "<leader>LD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.setloclist()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>lp", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+	-- buf_set_keymap("n", "<leader>lwd", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 
 	-- Custome Command
 	vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
@@ -82,7 +94,12 @@ local on_attach = function(client, bufnr)
 		pattern = "*",
 		callback = function()
 			-- if change scope to "line", then diagnostic will toggle the whole line
-			vim.diagnostic.open_float(0, { scope = "cursor", focusable = false })
+			vim.diagnostic.open_float(0, {
+				scope = "cursor",
+				focusable = false,
+			})
+			-- if using lspsaga
+			-- require'lspsaga.diagnostic'.show_cursor_diagnostics()
 		end,
 	})
 
@@ -118,6 +135,14 @@ local on_attach = function(client, bufnr)
 			end,
 			buffer = 0,
 		})
+	end
+
+	-- try virtual type
+	-- require("virtualtypes").on_attach(client, bufnr)
+
+	if client.name == "pyright" then
+		client.resolved_capabilities.hover = false
+		-- client.server_capabilities.hover = false
 	end
 end
 
@@ -173,8 +198,10 @@ if mason_exists then
 				package_uninstalled = "✗",
 			},
 		},
+		log_level = vim.log.levels.DEBUG,
 	})
 end
+-- require'nvim_lsp'.ocamllsp.setup{on_attach=require'virtualtypes'.on_attach}
 
 if mason_lspconfig_exists then
 	mason_lspconfig.setup()
@@ -189,11 +216,16 @@ if mason_lspconfig_exists then
 
 			if server_name == "sumneko_lua" then
 				require("lua-dev").setup(current_server_settings)
-			-- elseif server_name == "pyright" then
-			-- 	require("lspconfig").jedi_language_server.setup({})
 			end
 		end,
 	})
 end
+
+-- example to load a nonexist lsp
+-- if nvim_lsp_exists then
+-- 	nvim_lsp.jedi_language_server.setup({
+-- 		on_attach = on_attach,
+-- 	})
+-- end
 
 return M

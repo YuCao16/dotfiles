@@ -6,3 +6,4 @@
 **/.vscode/*
 **/.ipynb_checkpoints/*
 **/.ztr-directory
+**/packer_compiled.lua

@@ -72,7 +72,25 @@ return require("packer").startup({
 		-- use({ "dstein64/vim-startuptime" })
 		-- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
-		-- "-------------------=== Utile ===-------------
+		-- "-------------------=== Nvim Fix/Improve ===-------------
+		use({ "antoinemadec/FixCursorHold.nvim" })
+		use({ "famiu/bufdelete.nvim" })
+		use({
+			"karb94/neoscroll.nvim",
+			ft = workflow_filetype,
+			event = { "BufAdd", "InsertEnter" },
+			config = function()
+				require("neoscroll").setup()
+			end,
+		})
+		use({
+			"gbprod/cutlass.nvim",
+			config = function()
+				require("cutlass").setup({ cut_key = "c" })
+			end,
+		})
+
+		-- "-------------------=== Util ===-------------
 		use({
 			"sidebar-nvim/sidebar.nvim",
 			event = { "BufAdd", "InsertEnter" },
@@ -113,26 +131,10 @@ return require("packer").startup({
 				})
 			end,
 		})
-		use({ "antoinemadec/FixCursorHold.nvim" })
-		use({ "famiu/bufdelete.nvim" })
 		use({
 			"tiagovla/scope.nvim",
 			config = function()
 				require("scope").setup()
-			end,
-		})
-		use({
-			"karb94/neoscroll.nvim",
-			ft = workflow_filetype,
-			event = { "BufAdd", "InsertEnter" },
-			config = function()
-				require("neoscroll").setup()
-			end,
-		})
-		use({
-			"gbprod/cutlass.nvim",
-			config = function()
-				require("cutlass").setup({ cut_key = "c" })
 			end,
 		})
 		use({ "camspiers/lens.vim", event = { "WinNew" } })
@@ -154,20 +156,20 @@ return require("packer").startup({
 			end,
 		})
 		use({ "lewis6991/gitsigns.nvim" })
-		use({
-			"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
-			event = { "BufAdd", "InsertEnter" },
-			ft = workflow_filetype,
-			require("illuminate").configure({
-				filetypes_denylist = {
-					"NvimTree",
-					"dashboard",
-					"SidebarNvim",
-				},
-			}),
-		})
 		use({ "yucao16/registers.nvim" })
 
+		-- use({
+		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
+		-- 	event = { "BufAdd", "InsertEnter" },
+		-- 	ft = workflow_filetype,
+		-- 	require("illuminate").configure({
+		-- 		filetypes_denylist = {
+		-- 			"NvimTree",
+		-- 			"dashboard",
+		-- 			"SidebarNvim",
+		-- 		},
+		-- 	}),
+		-- })
 		-- use({
 		-- 	"gbprod/substitute.nvim",
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -202,7 +204,6 @@ return require("packer").startup({
 		-- 			auto_restore_enabled = false,
 		-- 			auto_session_suppress_dirs = nil,
 		-- 		}
-		--
 		-- 		require("auto-session").setup(opts)
 		-- 	end,
 		-- })
@@ -328,6 +329,7 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({ "APZelos/blamer.nvim", ft = workflow_filetype })
 		-- use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
@@ -422,8 +424,6 @@ return require("packer").startup({
 		-- 	ft = { "markdown", "tex", "ipynb" },
 		-- })
 		-- use({ "dkarter/bullets.vim", ft = { "markdown", "tex", "latex" } })
-		-- use("vim-pandoc/vim-pandoc")
-		-- use({ "cmhughes/latexindent.pl", ft = { "markdown", "tex", "ipynb", "org" } })
 		-- use({
 		-- 	"godlygeek/tabular",
 		-- 	ft = { "markdown", "tex", "ipynb", "org", "json" },
@@ -491,6 +491,8 @@ return require("packer").startup({
 		use({ "williamboman/mason.nvim" })
 		use({ "williamboman/mason-lspconfig.nvim" })
 		use({ "glepnir/lspsaga.nvim", branch = "main" })
+		use({ "jose-elias-alvarez/null-ls.nvim" })
+
 		use({
 			"j-hui/fidget.nvim",
 			config = function()
@@ -512,6 +514,14 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({ "jubnzv/virtual-types.nvim" })
+		-- use({
+		-- 	"ray-x/navigator.lua",
+		-- 	requires = {
+		-- 		{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+		-- 		{ "neovim/nvim-lspconfig" },
+		-- 	},
+		-- })
 		-- "-------------------=== CMP ===-------------------------------
 		use({ "hrsh7th/nvim-cmp" })
 		use({ "hrsh7th/cmp-cmdline" })
@@ -524,7 +534,6 @@ return require("packer").startup({
 		use({ "folke/lua-dev.nvim" })
 
 		-- use({ "weilbith/nvim-code-action-menu" })
-		-- use({"jose-elias-alvarez/null-ls.nvim"})
 		-- use({ "hrsh7th/cmp-buffer" })
 		-- use({ "uga-rosa/cmp-dictionary" })
 
@@ -546,7 +555,6 @@ return require("packer").startup({
 		end
 	end,
 	config = {
-		-- compile_path = "~/.local/share/packer_compiled/packer_compiled.lua",
-		-- compile_path = vim.fn.stdpath("data") .. "/site/pack/loader/start/packer.nvim/plugin/packer.lua",
+		compile_path = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 	},
 })

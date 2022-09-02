@@ -7,8 +7,6 @@
 --            ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝		  --
 --++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
 
-vim.cmd([[let g:python3_host_prog="/usr/bin/python3"]])
-
 local impatient_ok, impatient = pcall(require, "impatient")
 if impatient_ok then
 	impatient.enable_profile()
@@ -16,15 +14,15 @@ end
 
 local oks = {
 	-- core
-	["general_settings"] = pcall(require, "core.general_settings"),
+	["options"] = pcall(require, "core.options"),
 	["plugins"] = pcall(require, "core.plugins"),
 	["colorscheme"] = pcall(require, "core.colorscheme"),
 	["highlight"] = pcall(require, "core.highlight"),
-	["vimplugin_setting"] = pcall(require, "core.vimplugin_setting"),
 	["mappings"] = pcall(require, "core.mappings"),
 	["autocmd"] = pcall(require, "core.autocmd"),
 	["functions"] = pcall(require, "core.functions"),
 	-- configs
+	["vimplugin_setting"] = pcall(require, "configs.vimplugin_configs"),
 	["dashboard"] = pcall(require, "configs.dashboard"),
 	["nvimtree"] = pcall(require, "configs.nvimtree"),
 	["lualine"] = pcall(require, "configs.lualine"),

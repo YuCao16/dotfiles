@@ -19,6 +19,7 @@ saga.init_lsp_saga({
 	-- entry is a table type has these filed
 	-- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
 	diagnostic_header = { " ", " ", " ", "ﴞ " },
+	-- diagnostic_header = { "😡", "😥", "😤", "😐" },
 	-- show diagnostic source
 	show_diagnostic_source = true,
 	-- add bracket or something with diagnostic source, just have 2 elements
@@ -48,11 +49,11 @@ saga.init_lsp_saga({
 	-- finder do lsp request timeout
 	-- if your project big enough or your server very slow
 	-- you may need to increase this value
-	finder_request_timeout = 1500,
+	finder_request_timeout = 2000,
 	-- set antoher colorscheme in preview window
 	finder_preview_hl_ns = 0,
 	finder_action_keys = {
-		open = "o",
+		open = "<CR>",
 		vsplit = "s",
 		split = "i",
 		tabe = "t",

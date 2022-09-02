@@ -1,6 +1,6 @@
 require("bufferline").setup({
 	options = {
-		diagnostics = "coc",
+		diagnostics = "nvim_lsp",
 		close_command = function(bufnum)
 			require("bufdelete").bufdelete(bufnum, true)
 		end,

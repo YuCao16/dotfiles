@@ -2,6 +2,7 @@ local oks = {
 	["cmp"] = pcall(require, "configs.lsp.cmp"),
 	["lsp handlers"] = pcall(require, "configs.lsp.handlers"),
 	["lspsaga"] = pcall(require, "configs.lsp.lsp_saga"),
+	["null-ls"] = pcall(require, "configs.lsp.null"),
 }
 
 for name, item in pairs(oks) do

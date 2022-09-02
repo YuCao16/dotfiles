@@ -19,7 +19,6 @@ map("n", "<leader>sg", ":Telescope live_grep<CR>", { noremap = false, silent = f
 map("n", "<leader>sb", ":Telescope buffers<CR>", { noremap = false, silent = false })
 map("n", "<leader>sh", ":Telescope help_tags<CR>", { noremap = false, silent = false })
 map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = false })
-map("n", "<leader>sl", ":SessionManager load_last_session<CR>", { noremap = false, silent = false })
 
 -- Nvimtree
 map("n", "<leader>q", ":lua Handle_nvimtree()<CR>", { noremap = false, silent = true })
@@ -64,17 +63,20 @@ map("n", "<leader>rn", ":Lspsaga rename<CR>", { noremap = false, silent = false 
 map("n", "<leader>gf", ":Lspsaga lsp_finder<CR>", { noremap = false, silent = false })
 map("n", "<tab>", ":Lspsaga hover_doc<CR>", { noremap = false, silent = false })
 
+-- Trouble
+map("n", "<leader>gt", ":TroubleToggle document_diagnostics<CR>", { noremap = false, silent = false })
+
 -- Ohters
+map("n", "<leader>sl", ":SessionManager load_last_session<CR>", { noremap = false, silent = false })
 map("n", "<leader>p", ":TagbarToggle<CR>", { noremap = false, silent = false })
 map("n", "<leader>tr", ":TroubleToggle<CR>", { noremap = false, silent = false })
--- map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
 map("n", "<leader>a", ":SidebarNvimToggle<CR>", { noremap = false, silent = false })
 map("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = false })
 map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", { noremap = false, silent = false })
 map("n", "<leader>f", ":Neoformat<cr>", { noremap = true, silent = false })
 map("n", "<leader>0", "", {
 	callback = function()
-		ok, _ = pcall(vim.cmd, [[:lua require('nabla').popup({ border = 'single' })]])
+		ok, _ = pcall(vim.cmd, [[:lua require('nabla').popup({ border = 'rounded' })]])
 		if not ok then
 			vim.error("Put cursor inside latex expression")
 		end
@@ -90,6 +92,7 @@ map("n", "<leader><tab>", "", {
 	silent = true,
 })
 
+-- map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>0", ":lua require('nabla').popup({ border = 'single' })<CR>", { noremap = true, silent = false })
 -- map("n", "<leader>l", ":Limelight!!<CR>", { noremap = false, silent = false })
 -- map("n", "ga", "<Plug>(EasyAlign)", { noremap = false })

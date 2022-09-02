@@ -5,7 +5,7 @@ require("nvim-treesitter.configs").setup({
 	ignore_install = { "ruby" },
 	highlight = {
 		enable = true,
-		disable = { "c", "rust", "org" }, -- note connot remove org
+		disable = { "rust", "org", "tex", "latex" }, -- note connot remove org
 		additional_vim_regex_highlighting = false,
 		-- additional_vim_regex_highlighting = { "org" },
 	},

@@ -26,6 +26,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "nnoremap <buffer> q :q<cr>",
 	group = lspsaga,
 })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "sagacodeaction", "nil", "nofile" },
+	command = "nnoremap <buffer> <ESC> :q<cr>",
+	group = lspsaga,
+})
 
 -- Update signature help on jump placeholder
 local cocautocmd = vim.api.nvim_create_augroup("cocautocmd", { clear = true })
@@ -56,6 +61,7 @@ vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave", "BufWinLeave", "FocusLost"
 	group = ScrollbarInit,
 })
 
+-- tabstop for filetypes
 local tabstop = vim.api.nvim_create_augroup("tabstop", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
@@ -120,12 +126,22 @@ vim.api.nvim_create_autocmd(
 )
 
 -- highlight yank use build in command
+-- local highlightyank = vim.api.nvim_create_augroup("highlightyank", { clear = true })
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	group = highlighyank,
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 600 })
+-- 	end,
+-- })
+
 -- vim.cmd([[
 -- augroup highlight_yank
 -- 	autocmd!
 -- 	au TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
 -- augroup END
 -- ]])
+
 -- vim.cmd([[
 -- autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=750}
 -- ]])

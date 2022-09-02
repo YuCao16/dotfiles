@@ -68,23 +68,28 @@ cmp.setup({
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
 			local content = vim_item.abbr
-			-- local kind_symbol = symbols[item.kind]
-			-- item.kind = kind_symbol .. get_ws(MAX_KIND_WIDTH, #kind_symbol)
 
+			-- max width
 			if #content > MAX_LABEL_WIDTH then
 				vim_item.abbr = vim.fn.strcharpart(content, 0, MAX_LABEL_WIDTH) .. ELLIPSIS_CHAR
 			else
 				vim_item.abbr = content .. get_ws(MAX_LABEL_WIDTH, #content)
 			end
+
 			-- Kind icons
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+
+			-- This concatonates the icons with the name of the item kind
+			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[LUA]",
 				luasnip = "[Snippet]",
-				buffer = "[Buffer]",
+				buffer = "[Buf]",
 				path = "[Path]",
+				dictionary = "[Dic]",
+				treesitter = "[Tree]",
 				cmp_tabnine = "[TN]",
 				orgmode = "[ORG]",
 				latex_symbols = "[TEX]",
@@ -103,8 +108,7 @@ cmp.setup({
 		{ name = "cmp_tabnine", max_item_count = 5 },
 		{ name = "orgmode" },
 		{ name = "nvim_lua" },
-		{ name = "latex_symbols", max_item_count = 3 },
-		-- { name = "latex_symbols", keyword_length = 5 },
+		{ name = "latex_symbols", max_item_count = 5 },
 		-- { name = "dictionary" },
 		-- { name = "treesitter" },
 		-- { name = "buffer" },
@@ -141,6 +145,13 @@ cmp.setup({
 			"i",
 			"s",
 		}),
+	},
+})
+
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
 	},
 })
 

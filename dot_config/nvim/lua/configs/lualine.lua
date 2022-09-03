@@ -1,7 +1,5 @@
 -- Bubbles config for lualine
 
-local navic = require('nvim-navic')
-
 -- Allows display of word count in md/text files
 local function getWords()
 	if vim.bo.filetype == "md" or vim.bo.filetype == "txt" or vim.bo.filetype == "markdown" then
@@ -25,7 +23,7 @@ function Split(s, delimiter)
 	return result
 end
 
-local function getPath()
+local function getPath() -- have been moved to winbar
 	local filepath = vim.fn.expand("%:p")
 	split_string = Split(filepath, "/")
 	filename = split_string[#split_string]
@@ -39,22 +37,6 @@ local function getPath()
 	end
 end
 
-local function navic_location()
-	local none_display = "🙈🙊🙉"
-	if navic.is_available() then
-		local l = navic.get_location()
-		return (l ~= "") and l or none_display
-	else
-		return none_display
-	end
-end
-
-local winbar = {
-	lualine_a = {
-		{ navic_location },
-	},
-}
-
 -- I don't know how to center this line in lualine
 local function showLsp()
 	local msg = " LSP: No Active Lsp"
@@ -66,7 +48,7 @@ local function showLsp()
 	for _, client in ipairs(clients) do
 		local filetypes = client.config.filetypes
 		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-			return " LSP:" .. client.name
+			return " LSP: " .. client.name
 		end
 	end
 	return msg
@@ -101,5 +83,4 @@ require("lualine").setup({
 	},
 	tabline = {},
 	extensions = { "toggleterm", "nvim-tree", "nvim-dap-ui" },
-	-- winbar = winbar,
 })

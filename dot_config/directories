@@ -10,3 +10,4 @@ sc	~/.local/bin
 src 	~/.local/src
 moives	~/Movies
 git     ~/github
+dotfile ~/.config/nvim

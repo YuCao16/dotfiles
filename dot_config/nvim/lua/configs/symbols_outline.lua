@@ -32,7 +32,7 @@ local opts = {
 		unfold_all = "E",
 		fold_reset = "R",
 	},
-	lsp_blacklist = { "python-lsp-server", "pylsp" },
+	lsp_blacklist = { "python-lsp-server", "pylsp", "pyright" },
 	symbol_blacklist = {},
 	symbols = {
 		File = { icon = " ", hl = "TSURI" },

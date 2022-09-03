@@ -6,6 +6,25 @@ local navic_exists, navic = pcall(require, "nvim-navic")
 local diagnostic = vim.diagnostic
 local lsp = vim.lsp
 
+-- List of servers
+local navic_server_list = {
+	"jedi_language_server",
+	"marksman",
+	"texlab",
+	"sumneko_lua",
+}
+
+-- Check if current lsp supports document syntax
+local function support_navic(server_list, server_name)
+	for index, value in ipairs(server_list) do
+		if value == server_name then
+			return true
+		end
+	end
+
+	return false
+end
+
 if not nvim_lsp_exists then
 	vim.notify("LSP config failed to setup", vim.log.levels.INFO, { title = ":: Local ::" })
 	return
@@ -140,16 +159,14 @@ local on_attach = function(client, bufnr)
 		})
 	end
 
+	if support_navic(navic_server_list, client.name) then
+		navic.attach(client, bufnr)
+		require("configs.navic").show_winbar()
+	end
+
 	if client.name == "pyright" then
 		-- I have to say, sometimes, pyright is shit!
 		client.server_capabilities.hoverProvider = false
-		-- client.resolved_capabilities.hover = false
-	elseif client.name == "sumneko_lua" then
-		navic.attach(client, bufnr)
-		require("configs.navic").show_winbar()
-	elseif client.name == "jedi_language_server" then
-		navic.attach(client, bufnr)
-		require("configs.navic").show_winbar()
 	end
 end
 
@@ -157,9 +174,9 @@ local server_settings = {
 	tsserver = require("configs.lsp.settings.tsserver"),
 	jedi_language_server = require("configs.lsp.settings.jedi"),
 	sourcery = require("configs.lsp.settings.sourcery"),
-	-- pylsp = require("configs.lsp.settings.pylsp"),
 	sumneko_lua = require("configs.lsp.settings.sumneko_lua"),
 	pyright = require("configs.lsp.settings.pyright"),
+	-- pylsp = require("configs.lsp.settings.pylsp"),
 }
 
 local function make_config()

@@ -6,6 +6,7 @@
 --            ██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║		  --
 --            ╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝		  --
 --++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+
 -- quick exit from dashboard
 local dashboard = vim.api.nvim_create_augroup("dashboard", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -124,6 +125,14 @@ vim.api.nvim_create_autocmd(
 	"bufenter",
 	{ pattern = "*", command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif', group = nvimtree }
 )
+
+-- Save session when vimleave
+local session = vim.api.nvim_create_augroup("session", { clear = true })
+vim.api.nvim_create_autocmd("vimleave", { pattern = "*", command = "SessionManager save_current_session", group = session })
+
+-- Some fix for neovim nightly
+local nightly = vim.api.nvim_create_augroup("nightly", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
 
 -- highlight yank use build in command
 -- local highlightyank = vim.api.nvim_create_augroup("highlightyank", { clear = true })

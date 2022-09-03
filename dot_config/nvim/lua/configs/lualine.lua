@@ -1,5 +1,7 @@
 -- Bubbles config for lualine
 
+local navic = require('nvim-navic')
+
 -- Allows display of word count in md/text files
 local function getWords()
 	if vim.bo.filetype == "md" or vim.bo.filetype == "txt" or vim.bo.filetype == "markdown" then
@@ -37,8 +39,24 @@ local function getPath()
 	end
 end
 
+local function navic_location()
+	local none_display = "🙈🙊🙉"
+	if navic.is_available() then
+		local l = navic.get_location()
+		return (l ~= "") and l or none_display
+	else
+		return none_display
+	end
+end
+
+local winbar = {
+	lualine_a = {
+		{ navic_location },
+	},
+}
+
 -- I don't know how to center this line in lualine
-local function show_lsp()
+local function showLsp()
 	local msg = " LSP: No Active Lsp"
 	local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 	local clients = vim.lsp.get_active_clients()
@@ -48,7 +66,7 @@ local function show_lsp()
 	for _, client in ipairs(clients) do
 		local filetypes = client.config.filetypes
 		if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-			return client.name
+			return " LSP:" .. client.name
 		end
 	end
 	return msg
@@ -65,8 +83,8 @@ require("lualine").setup({
 			{ "mode", separator = { left = "" }, right_padding = 2 },
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
-		lualine_c = { getPath },
-		-- lualine_c = { show_lsp },
+		-- lualine_c = { getPath },
+		lualine_c = { showLsp },
 		lualine_x = { getWords },
 		lualine_y = { "filetype", "filesize", "progress" },
 		lualine_z = {
@@ -83,4 +101,5 @@ require("lualine").setup({
 	},
 	tabline = {},
 	extensions = { "toggleterm", "nvim-tree", "nvim-dap-ui" },
+	-- winbar = winbar,
 })

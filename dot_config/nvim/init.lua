@@ -31,8 +31,10 @@ local oks = {
 	["bufferline"] = pcall(require, "configs.bufferline"),
 	["treesitter"] = pcall(require, "configs.treesitter"),
 	["telescope"] = pcall(require, "configs.telescope"),
-	["gitsigns"] = pcall(require, "configs.gitsign"),
-	["lsp"] = pcall(require, "configs.lsp"),
+	-- ["gitsigns"] = pcall(require, "configs.gitsign"),
+	-- ["lsp"] = pcall(require, "configs.lsp"),
+
+	-- currenyly not using
 	-- ["coc"] = pcall(require, "configs.coc"),
 	-- ["neotree"] = pcall(require, "configs.neotree"),
 }

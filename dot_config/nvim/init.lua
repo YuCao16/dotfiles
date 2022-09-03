@@ -13,6 +13,7 @@ if impatient_ok then
 end
 
 local oks = {
+
 	-- core
 	["options"] = pcall(require, "core.options"),
 	["plugins"] = pcall(require, "core.plugins"),
@@ -21,6 +22,7 @@ local oks = {
 	["mappings"] = pcall(require, "core.mappings"),
 	["autocmd"] = pcall(require, "core.autocmd"),
 	["functions"] = pcall(require, "core.functions"),
+
 	-- configs
 	["vimplugin_setting"] = pcall(require, "configs.vimplugin_configs"),
 	["dashboard"] = pcall(require, "configs.dashboard"),
@@ -28,6 +30,7 @@ local oks = {
 	["lualine"] = pcall(require, "configs.lualine"),
 	["bufferline"] = pcall(require, "configs.bufferline"),
 	["treesitter"] = pcall(require, "configs.treesitter"),
+	["telescope"] = pcall(require, "configs.telescope"),
 	["gitsigns"] = pcall(require, "configs.gitsign"),
 	["lsp"] = pcall(require, "configs.lsp"),
 	-- ["coc"] = pcall(require, "configs.coc"),
@@ -35,7 +38,12 @@ local oks = {
 }
 
 notif_ok, vim.notify = pcall(require, "notify")
-require("notify").setup({})
+require("notify").setup({
+	on_open = function(win)
+		-- set vim.notify() not focusable
+		-- vim.api.nvim_win_set_config(win, { focusable = false })
+	end,
+})
 
 for name, item in pairs(oks) do
 	local ok, _ = item

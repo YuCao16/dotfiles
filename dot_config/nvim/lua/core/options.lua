@@ -25,17 +25,19 @@ opt.incsearch = true
 opt.hlsearch = true
 opt.laststatus = 3
 opt.pumheight = 20
-opt.scrolloff = 10
+opt.scrolloff = 12 -- set for signature, make sure it can always display above current line
 opt.encoding = "utf-8"
+opt.cmdheight = 1
 
 -- tab behavior
 opt.tabstop = 4
 opt.shiftwidth = 4
-opt.conceallevel=2
+opt.conceallevel = 2
 
+-- Others
 opt.wildignore = "*.png,*.gif,*.jpeg,*.jpg,*.DS_Store,*.zip"
-
 vim.g.python3_host_prog = "/usr/bin/python3.10"
+
 -- vim.cmd([[set enc=utf-8]])
 -- vim.cmd([[set spelllang=en]])
 -- vim.cmd([[set nofoldenable]])

@@ -30,6 +30,7 @@ local workflow_filetype = {
 	"cc",
 	"cpp",
 	"c",
+	"vim",
 }
 
 return require("packer").startup({
@@ -155,7 +156,14 @@ return require("packer").startup({
 				require("nvim-lastplace").setup()
 			end,
 		})
-		use({ "lewis6991/gitsigns.nvim" })
+		use({
+			"lewis6991/gitsigns.nvim",
+			ft = workflow_filetype,
+			event = { "CursorMoved", "CursorHold", "InsertEnter", "CmdlineEnter" },
+			config = function()
+				require("configs.gitsign")
+			end,
+		})
 		use({ "yucao16/registers.nvim" })
 
 		-- use({ "RRethy/vim-illuminate" })
@@ -231,7 +239,13 @@ return require("packer").startup({
 			"nvim-telescope/telescope.nvim",
 			requires = { { "nvim-lua/plenary.nvim" } },
 		})
-		use({ "crispgm/telescope-heading.nvim" })
+		use({
+			"crispgm/telescope-heading.nvim",
+			ft = workflow_filetype,
+			config = function()
+				require("telescope").load_extension("heading")
+			end,
+		})
 
 		-- use({
 		-- 	"nvim-telescope/telescope-file-browser.nvim",
@@ -490,23 +504,59 @@ return require("packer").startup({
 		-- use({ "RishabhRD/popfix" })
 
 		-- "-------------------=== LSP ===-------------------------------
-		use({ "neovim/nvim-lspconfig" })
-		use({ "williamboman/mason.nvim" })
-		use({ "williamboman/mason-lspconfig.nvim" })
-		use({ "glepnir/lspsaga.nvim", branch = "main" })
-		use({ "jose-elias-alvarez/null-ls.nvim" })
+		-- NOTE:
+		-- The loading structure below is:
+		-- First load mason based on rules:
+		-- 1. filetype
+		-- 2. event: CmdlineEnter, InsertEnter
+		-- If ruled satisfied, then a list of plugins such as mason-lspconfig will be loaded
+		-- Secondly, nvim-lspconfig will be loaded and then load config file: configs.lsp
+		-- Finally, nvim-cmp will be loaded after lsp being configed, a list of cmp plugins
+		-- will be loaded as well.
+		-- NOTE: If mason not be loaded, a list of event(plugins loaded) will not happen.
+		-- so if add one programming language server, be aware of adding filetype to
+		-- workflow_filetype list!
+		use({
+			"neovim/nvim-lspconfig",
+			after = {
+				"mason.nvim",
+				"mason-lspconfig.nvim",
+				"null-ls.nvim",
+				"lsp_signature.nvim",
+				"lspsaga.nvim",
+				"fidget.nvim",
+				"nvim-navic",
+			},
+			config = function()
+				pcall(require, "configs.lsp")
+			end,
+		})
+		use({
+			"williamboman/mason.nvim",
+			ft = workflow_filetype,
+			event = { "CmdlineEnter", "InsertEnter", "CursorHold" },
+		})
+		use({
+			"williamboman/mason-lspconfig.nvim",
+			after = "mason.nvim",
+		})
+		use({ "glepnir/lspsaga.nvim", branch = "main", after = "mason.nvim" })
+		use({ "jose-elias-alvarez/null-ls.nvim", after = "mason.nvim" })
 
 		use({
 			"j-hui/fidget.nvim",
+			after = "mason.nvim",
 			config = function()
 				require("fidget").setup({})
 			end,
 		})
 		use({
 			"ray-x/lsp_signature.nvim",
+			after = "mason.nvim",
 		})
 		use({
 			"folke/trouble.nvim",
+			ft = workflow_filetype,
 			config = function()
 				require("trouble").setup({
 					mode = "document_diagnostics",
@@ -515,7 +565,8 @@ return require("packer").startup({
 		})
 		use({
 			"SmiteshP/nvim-navic",
-			requires = "neovim/nvim-lspconfig",
+			-- requires = "neovim/nvim-lspconfig",
+			after = "mason.nvim",
 			config = function()
 				require("configs.navic").enable()
 			end,
@@ -536,14 +587,25 @@ return require("packer").startup({
 		-- 	},
 		-- })
 		-- "-------------------=== CMP ===-------------------------------
-		use({ "hrsh7th/nvim-cmp" })
-		use({ "hrsh7th/cmp-cmdline" })
-		use({ "hrsh7th/cmp-path" })
-		use({ "hrsh7th/cmp-nvim-lsp" })
-		use({ "hrsh7th/cmp-nvim-lua" })
-		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
-		use({ "saadparwaiz1/cmp_luasnip" })
-		use({ "kdheepak/cmp-latex-symbols" })
+		use({
+			"hrsh7th/nvim-cmp",
+			-- event = { "CmdlineEnter", "InsertEnter" },
+			-- ft = workflow_filetype,
+			after = "nvim-lspconfig",
+			config = function()
+				cmp_ok, _ = pcall(require, "configs.lsp.cmp")
+				if not cmp_ok then
+					vim.notify("cmp loading failed", "error", { title = "configs/lsp/cmp.lua", render = "minimal" })
+				end
+			end,
+		})
+		use({ "hrsh7th/cmp-cmdline", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-path", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" })
+		use({ "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" })
+		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", ft = workflow_filetype })
+		use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
+		use({ "kdheepak/cmp-latex-symbols", ft = { "latex", "tex" } })
 		use({ "folke/lua-dev.nvim" })
 
 		-- use({ "weilbith/nvim-code-action-menu" })

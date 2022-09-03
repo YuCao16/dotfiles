@@ -3,6 +3,7 @@
 --=====================================================
 local home = os.getenv("HOME")
 local db = require("dashboard")
+db.session_directory = "~/.local/share/nvim/sessions/"
 db.custom_header = {
 	"███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
 	"████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
@@ -28,7 +29,8 @@ db.custom_center = {
 		icon = "  ",
 		desc = "Recently latest session                 ",
 		shortcut = "SPC s l",
-		action = "SessionManager load_last_session",
+		-- action = "SessionManager load_last_session",
+		action = "SessionLoad",
 	},
 	{
 		icon = "  ",

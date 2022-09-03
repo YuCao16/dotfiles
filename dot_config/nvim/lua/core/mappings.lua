@@ -19,6 +19,12 @@ map("n", "<leader>sg", ":Telescope live_grep<CR>", { noremap = false, silent = f
 map("n", "<leader>sb", ":Telescope buffers<CR>", { noremap = false, silent = false })
 map("n", "<leader>sh", ":Telescope help_tags<CR>", { noremap = false, silent = false })
 map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = false })
+map(
+	"n",
+	"<leader>sd",
+	":lua require('telescope.builtin').find_files({ cwd = '~/.config/nvim', hidden=true })<CR>",
+	{ noremap = false, silent = false }
+)
 
 -- Nvimtree
 map("n", "<leader>q", ":lua Handle_nvimtree()<CR>", { noremap = false, silent = true })
@@ -53,6 +59,7 @@ map("n", "<leader>b", ":BufferLineCycleNext<CR>", { noremap = false, silent = tr
 map("n", "<leader>B", ":BufferLineCyclePrev<CR>", { noremap = false, silent = true })
 
 -- Utils
+map("n", "<leader>9", ":exec 'source '.bufname('%')<cr>", { silent = false }) -- source current file
 map("n", "<leader>w", "<C-w>", { noremap = false, silent = false })
 map("t", "<ESC>", [[<C-\><C-n>]], { silent = true })
 map("n", "<leader><leader>", ":noh<CR>", { noremap = false, silent = true })

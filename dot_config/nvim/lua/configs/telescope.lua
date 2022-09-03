@@ -41,6 +41,6 @@ telescope.setup({
 	},
 })
 -- load extension
-telescope.load_extension("heading")
+-- telescope.load_extension("heading")
 -- telescope.load_extension("dotfiles")
 -- telescope.load_extension("gosource")

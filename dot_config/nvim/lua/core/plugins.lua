@@ -41,7 +41,7 @@ return require("packer").startup({
 		use({ "glepnir/dashboard-nvim" })
 		use({
 			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+			requires = { "kyazdani42/nvim-web-devicons" },
 		})
 		use({
 			"akinsho/bufferline.nvim",
@@ -158,6 +158,7 @@ return require("packer").startup({
 		use({ "lewis6991/gitsigns.nvim" })
 		use({ "yucao16/registers.nvim" })
 
+		-- use({ "RRethy/vim-illuminate" })
 		-- use({
 		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -230,17 +231,12 @@ return require("packer").startup({
 			"nvim-telescope/telescope.nvim",
 			requires = { { "nvim-lua/plenary.nvim" } },
 		})
+		use({ "crispgm/telescope-heading.nvim" })
 
 		-- use({
 		-- 	"nvim-telescope/telescope-file-browser.nvim",
 		-- 	config = function()
 		-- 		require("telescope").load_extension("file_browser")
-		-- 	end,
-		-- })
-		-- use({
-		-- 	"crispgm/telescope-heading.nvim",
-		-- 	config = function()
-		-- 		require("telescope").load_extension("heading")
 		-- 	end,
 		-- })
 
@@ -250,10 +246,11 @@ return require("packer").startup({
 			run = ":TSUpdate",
 		})
 		use({ "RRethy/nvim-treesitter-endwise" })
-		use({ "romgrk/nvim-treesitter-context" })
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "p00f/nvim-ts-rainbow" })
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
+
+		-- use({ "romgrk/nvim-treesitter-context" })
 
 		-- "-------------------=== Code/Project navigation ===-------------
 		use({ "majutsushi/tagbar", ft = workflow_filetype })
@@ -282,6 +279,12 @@ return require("packer").startup({
 			"numToStr/Comment.nvim",
 			config = function()
 				require("Comment").setup()
+			end,
+		})
+		use({
+			"folke/todo-comments.nvim",
+			config = function()
+				require("todo-comments").setup()
 			end,
 		})
 		use({
@@ -501,9 +504,6 @@ return require("packer").startup({
 		})
 		use({
 			"ray-x/lsp_signature.nvim",
-			config = function()
-				require("lsp_signature").setup()
-			end,
 		})
 		use({
 			"folke/trouble.nvim",
@@ -513,7 +513,20 @@ return require("packer").startup({
 				})
 			end,
 		})
+		use({
+			"SmiteshP/nvim-navic",
+			requires = "neovim/nvim-lspconfig",
+			config = function()
+				require("configs.navic").enable()
+			end,
+		})
 
+		-- use({
+		-- 	"b0o/incline.nvim",
+		-- 	config = function()
+		-- 		require("configs.incline")
+		-- 	end,
+		-- })
 		-- use({ "jubnzv/virtual-types.nvim" })
 		-- use({
 		-- 	"ray-x/navigator.lua",

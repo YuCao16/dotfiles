@@ -22,7 +22,7 @@ map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = fa
 map(
 	"n",
 	"<leader>sd",
-	":lua require('telescope.builtin').find_files({ cwd = '~/.config/nvim', hidden=true })<CR>",
+	":lua require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })<CR>",
 	{ noremap = false, silent = false }
 )
 
@@ -49,17 +49,17 @@ map(
 map("n", "<leader>do", ":lua require'dapui'.toggle()<CR>", { noremap = false, silent = false })
 
 -- Windows resizer
-map("n", "<S-L>", ":exe 'vertical resize +5'<CR>", { noremap = true, silent = true })
-map("n", "<S-H>", ":exe 'vertical resize -5'<CR>", { noremap = true, silent = true })
-map("n", "<S-K>", ":exe 'resize -5'<CR>", { noremap = true, silent = true })
-map("n", "<S-J>", ":exe 'resize +5'<CR>", { noremap = true, silent = true })
+map("n", "<S-L>", ":exe 'vertical resize +3'<CR>", { noremap = true, silent = true })
+map("n", "<S-H>", ":exe 'vertical resize -3'<CR>", { noremap = true, silent = true })
+map("n", "<S-K>", ":exe 'resize -3'<CR>", { noremap = true, silent = true })
+map("n", "<S-J>", ":exe 'resize +3'<CR>", { noremap = true, silent = true })
 
 -- Bufferline
 map("n", "<leader>b", ":BufferLineCycleNext<CR>", { noremap = false, silent = true })
 map("n", "<leader>B", ":BufferLineCyclePrev<CR>", { noremap = false, silent = true })
 
 -- Utils
-map("n", "<leader>9", ":exec 'source '.bufname('%')<cr>", { silent = false }) -- source current file
+map("n", "<leader>9", ":exec 'source '.bufname('%')<CR>", { silent = false }) -- source current file
 map("n", "<leader>w", "<C-w>", { noremap = false, silent = false })
 map("t", "<ESC>", [[<C-\><C-n>]], { silent = true })
 map("n", "<leader><leader>", ":noh<CR>", { noremap = false, silent = true })
@@ -80,7 +80,7 @@ map("n", "<leader>tr", ":TroubleToggle<CR>", { noremap = false, silent = false }
 map("n", "<leader>a", ":SidebarNvimToggle<CR>", { noremap = false, silent = false })
 map("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = false })
 map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", { noremap = false, silent = false })
-map("n", "<leader>f", ":Neoformat<cr>", { noremap = true, silent = false })
+map("n", "<leader>f", ":Neoformat<CR>", { noremap = true, silent = false })
 map("n", "<leader>0", "", {
 	callback = function()
 		ok, _ = pcall(vim.cmd, [[:lua require('nabla').popup({ border = 'rounded' })]])
@@ -107,9 +107,9 @@ map("n", "<leader><tab>", "", {
 -- map("n", "<leader><tab>", ":lua require('nvim-window').pick()<CR>", { noremap = false, silent = true })
 -- map("x", "<leader>l", ":Limelight!!<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>t", "gt<CR>", { noremap = false, silent = false })
--- map("n", "<leader>ca", ":call CocActionAsync('codeAction','cursor')<cr>", { noremap = false, silent = false })
--- cmd([[inoremap <silent><nowait><expr> <down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<down>"]])
--- cmd([[inoremap <silent><nowait><expr> <up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<up>"]])
+-- map("n", "<leader>ca", ":call CocActionAsync('codeAction','cursor')<CR>", { noremap = false, silent = false })
+-- cmd([[inoremap <silent><nowait><expr> <down> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<CR>" : "\<down>"]])
+-- cmd([[inoremap <silent><nowait><expr> <up> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<CR>" : "\<up>"]])
 -- cmd([[nnoremap <silent><nowait><expr> <down> coc#float#has_scroll() ? coc#float#scroll(1) : "\<down>"]])
 -- cmd([[nnoremap <silent><nowait><expr> <up> coc#float#has_scroll() ? coc#float#scroll(0) : "\<up>"]])
 -- map('n','<leader>p','\|', { noremap = false, silent = false })

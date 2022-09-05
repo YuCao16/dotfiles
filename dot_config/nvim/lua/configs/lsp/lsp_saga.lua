@@ -66,7 +66,7 @@ saga.init_lsp_saga({
 		exec = "<CR>",
 	},
 	rename_action_quit = "<ESC>",
-	rename_in_select = true,
+	rename_in_select = false,
 	definition_preview_icon = "  ",
 	-- show symbols in winbar must nightly
 	symbol_in_winbar = {
@@ -86,7 +86,7 @@ saga.init_lsp_saga({
 		auto_enter = true,
 		auto_preview = true,
 		virt_text = "┃",
-		jump_key = "o",
+		jump_key = "<CR>",
 		-- auto refresh when change buffer
 		auto_refresh = true,
 	},

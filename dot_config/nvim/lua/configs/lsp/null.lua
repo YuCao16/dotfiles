@@ -1,7 +1,4 @@
-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
-if not null_ls_status_ok then
-	return
-end
+local null_ls = require("null-ls")
 
 local is_executable = function(cmd_name, cond)
 	local u = require("null-ls.utils")
@@ -25,6 +22,8 @@ null_ls.setup({
 			extra_args = { "--ignore-missing-imports" },
 			condition = is_executable("mypy"),
 		}),
+		null_ls.builtins.formatting.eslint,
+		-- null_ls.builtins.formatting.clang_format,
 		-- null_ls.builtins.diagnostics.pylint.with({
 		-- 	extra_args = { "--disable=missing-docstring", "--errors-only" },
 		-- 	condition = is_executable('pylint')

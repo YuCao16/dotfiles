@@ -1,12 +1,14 @@
 -- safely load cmp.nvim
 local cmp_ok, cmp = pcall(require, "cmp")
 if not cmp_ok then
+	vim.notify("nvim-cmp failed", "error", { render = "minimal" })
 	return
 end
 
 -- safely load luasnip.nvim
 local snip_ok, luasnip = pcall(require, "luasnip")
 if not snip_ok then
+	vim.notify("luasnip failed", "error", { render = "minimal" })
 	return
 end
 

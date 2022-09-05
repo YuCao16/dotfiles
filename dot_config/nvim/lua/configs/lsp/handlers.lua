@@ -1,6 +1,14 @@
--- LSP settings
+-- LSP handlers settings
+
+-- Ensure safely requrie dependencies
 local nvim_lsp_exists, nvim_lsp = pcall(require, "lspconfig")
+local mason_exists, mason = pcall(require, "mason")
+local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
+
+if not (nvim_lsp_exists and mason_exists and mason_lspconfig_exists and navic_exists) then
+	vim.notify("Error when loading handlers dependencies", "error", { render = "minimal" })
+end
 
 -- Pulling out things from
 local diagnostic = vim.diagnostic
@@ -12,6 +20,10 @@ local navic_server_list = {
 	"marksman",
 	"texlab",
 	"sumneko_lua",
+	"gopls",
+	"tsserver",
+	"jsonls",
+	"clangd",
 }
 
 -- Check if current lsp supports document syntax
@@ -86,26 +98,14 @@ local on_attach = function(client, bufnr)
 
 	local opts = { noremap = true, silent = true }
 
-	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-	buf_set_keymap("n", "<leader>go", ":symbolsoutline<cr>", { noremap = false, silent = false })
-	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<cr>', opts)
-	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<cr>', opts)
-
-	-- buf_set_keymap("n", "<tab>", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-	-- buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-	-- buf_set_keymap("n", "c-k", "<cmd>lua vim.lsp.signature_help()", opts)
-	-- buf_set_keymap("n", "<leader>ld", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.setloclist()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>lp", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", opts)
-	-- buf_set_keymap("n", "<leader>lwd", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", opts)
+	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
+	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
+	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
 
 	-- custome command
-	vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
+	vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
 
 	-- autocmd
 	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
@@ -124,7 +124,6 @@ local on_attach = function(client, bufnr)
 	})
 
 	-- underline highlight
-	-- if client.resolved_capabilities.documentformattingprovider then
 	if client.server_capabilities.documentformattingprovider then
 		vim.api.nvim_set_hl(0, "lspreferenceread", { link = "specialkey" })
 		vim.api.nvim_set_hl(0, "lspreferencetext", { link = "specialkey" })
@@ -138,16 +137,15 @@ local on_attach = function(client, bufnr)
 			end,
 			buffer = 0,
 		})
-		-- vim.api.nvim_create_autocmd({ "cursorhold" }, {
-		-- 	group = lspdocumenthighlightgroup,
-		-- 	callback = function()
-		-- 		vim.lsp.buf.document_highlight()
-		-- 	end,
-		-- 	buffer = 0,
-		-- })
+		vim.api.nvim_create_autocmd({ "cursorhold" }, {
+			group = lspdocumenthighlightgroup,
+			callback = function()
+				vim.lsp.buf.document_highlight()
+			end,
+			buffer = 0,
+		})
 	end
 
-	-- if client.resolved_capabilities.codelensprovider then
 	if client.server_capabilities.codelensprovider then
 		local lspcodelensgroup = vim.api.nvim_create_augroup("lspcodelens", { clear = true })
 		vim.api.nvim_create_autocmd({ "cursorhold", "bufenter", "insertleave" }, {
@@ -158,6 +156,9 @@ local on_attach = function(client, bufnr)
 			buffer = 0,
 		})
 	end
+
+	-- try virtual type by rarely supported by lsp
+	-- require("virtualtypes").on_attach(client)
 
 	if support_navic(navic_server_list, client.name) then
 		navic.attach(client, bufnr)
@@ -210,9 +211,6 @@ local function make_config()
 	}
 end
 
-local mason_exists, mason = pcall(require, "mason")
-local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
-
 if mason_exists then
 	mason.setup({
 		ui = {
@@ -253,11 +251,22 @@ if mason_lspconfig_exists then
 	})
 end
 
--- example to load a nonexist lsp
+return M
+-- example to load a nonMason lsp
 -- if nvim_lsp_exists then
 -- 	nvim_lsp.jedi_language_server.setup({
 -- 		on_attach = on_attach,
 -- 	})
 -- end
 
-return M
+-- buf_set_keymap("n", "<tab>", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+-- buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+-- buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+-- buf_set_keymap("n", "c-k", "<cmd>lua vim.lsp.signature_help()", opts)
+-- buf_set_keymap("n", "<leader>ld", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+-- buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+-- buf_set_keymap("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- buf_set_keymap("n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.setloclist()<CR>", opts)
+-- buf_set_keymap("n", "<leader>lp", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+-- buf_set_keymap("n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+-- buf_set_keymap("n", "<leader>lwd", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)

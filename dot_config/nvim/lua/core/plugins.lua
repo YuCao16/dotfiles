@@ -31,6 +31,8 @@ local workflow_filetype = {
 	"cpp",
 	"c",
 	"vim",
+	"go",
+	"typescript",
 }
 
 return require("packer").startup({
@@ -166,7 +168,7 @@ return require("packer").startup({
 		})
 		use({ "yucao16/registers.nvim" })
 
-		-- use({ "RRethy/vim-illuminate" })
+		-- use({ "RRethy/vim-illuminate", event = { "LspAttach" } })
 		-- use({
 		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -346,6 +348,12 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({
+		-- 	"stevearc/aerial.nvim",
+		-- 	config = function()
+		-- 		require("aerial").setup()
+		-- 	end,
+		-- })
 		-- use({ "APZelos/blamer.nvim", ft = workflow_filetype })
 		-- use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
 		-- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
@@ -474,9 +482,10 @@ return require("packer").startup({
 		use({ "projekt0n/github-nvim-theme" })
 		use({ "rebelot/kanagawa.nvim" })
 		use({ "catppuccin/nvim" })
+		use({ "EdenEast/nightfox.nvim" })
 		use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
-		use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 
+		-- use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "Mofiqul/vscode.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
@@ -504,7 +513,7 @@ return require("packer").startup({
 		-- use({ "RishabhRD/popfix" })
 
 		-- "-------------------=== LSP ===-------------------------------
-		-- NOTE:
+		-- NOTE: Lsp Lazy Loading Logid
 		-- The loading structure below is:
 		-- First load mason based on rules:
 		-- 1. filetype
@@ -572,6 +581,7 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({ "jubnzv/virtual-types.nvim" })
 		-- use({
 		-- 	"b0o/incline.nvim",
 		-- 	config = function()

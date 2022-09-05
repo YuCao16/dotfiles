@@ -1,6 +1,7 @@
 --=====================================================
 -- Dashborad settings
 --=====================================================
+
 local home = os.getenv("HOME")
 local db = require("dashboard")
 db.session_directory = "~/.local/share/nvim/sessions/"
@@ -30,7 +31,13 @@ db.custom_center = {
 		desc = "Recently latest session                 ",
 		shortcut = "SPC s l",
 		action = "SessionManager load_last_session",
-		-- action = "SessionLoad",
+	},
+	{
+		icon = "  ",
+		desc = "Session History                         ",
+		shortcut = "SPC p u",
+		-- action = "lua require('telescope.builtin').find_files({ cwd = '~/.local/share/nvim/sessions' })",
+		action = "SessionManager load_session",
 	},
 	{
 		icon = "  ",
@@ -44,12 +51,6 @@ db.custom_center = {
 		action = "Telescope find_files find_command=rg,--hidden,--files",
 		shortcut = "SPC f f",
 	},
-	-- {
-	-- 	icon = "  ",
-	-- 	desc = "File Browser                            ",
-	-- 	action = "Telescope file_browser",
-	-- 	shortcut = "SPC f b",
-	-- },
 	{
 		icon = "  ",
 		desc = "Find  word                              ",
@@ -57,19 +58,27 @@ db.custom_center = {
 		shortcut = "SPC f w",
 	},
 	{
-		icon = "  ",
+		icon = "  ",
 		desc = "Change colorscheme                      ",
 		action = "Telescope colorscheme",
 		shortcut = "SPC f d",
 	},
 	{
-		icon = "  ",
-		desc = "Update Plugins                          ",
-		shortcut = "SPC p u",
-		action = "PackerUpdate",
+		icon = "  ",
+		desc = "Open Personal dotfiles                  ",
+		action = "lua require('telescope.builtin').find_files({ cwd = '~/.config/nvim' })",
+		shortcut = "SPC f d",
 	},
-	-- {icon = '  ',
-	-- desc = 'Open Personal dotfiles                  ',
-	-- action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
-	-- shortcut = 'SPC f d'},
+	-- {
+	-- 	icon = "  ",
+	-- 	desc = "File Browser                            ",
+	-- 	action = "Telescope file_browser",
+	-- 	shortcut = "SPC f b",
+	-- },
+	-- {
+	-- 	icon = "  ",
+	-- 	desc = "Update Plugins                          ",
+	-- 	shortcut = "SPC p u",
+	-- 	action = "PackerUpdate",
+	-- },
 }

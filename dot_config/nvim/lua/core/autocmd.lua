@@ -23,13 +23,13 @@ vim.api.nvim_create_autocmd("FileType", {
 -- quick exit from lspsaga
 local lspsaga = vim.api.nvim_create_augroup("lspsaga", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lspsagaoutline" },
-	command = "nnoremap <buffer> q :q<cr>",
+	pattern = { "lspsagaoutline", "notify" },
+	command = "nnoremap <buffer> q :q<CR>",
 	group = lspsaga,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "sagacodeaction", "nil", "nofile" },
-	command = "nnoremap <buffer> <ESC> :q<cr>",
+	pattern = { "sagacodeaction", "nil", "nofile", "notify" },
+	command = "nnoremap <buffer> <ESC> :q<CR>",
 	group = lspsaga,
 })
 
@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd("FileType", {
 local cocautocmd = vim.api.nvim_create_augroup("cocautocmd", { clear = true })
 vim.api.nvim_create_autocmd("User", {
 	pattern = "CocJumpPlaceholder",
-	command = "call CocActionAsync('showSignatureHelp') <cr>",
+	command = "call CocActionAsync('showSignatureHelp') <CR>",
 	group = cocautocmd,
 })
 
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("User", {
 local toggleterm = vim.api.nvim_create_augroup("toggleterm", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "toggleterm",
-	command = "nnoremap <buffer> q :q<cr>",
+	command = "nnoremap <buffer> q :q<CR>",
 	group = cocautocmd,
 })
 
@@ -115,7 +115,18 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "cc", "cpp", "c" },
 	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
-	command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
+	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
+	command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+	group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "go" },
+	command = "map <buffer> <leader>2 :w<CR>:exec '!go run' shellescape(@%, 1)<CR>",
+	group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "lua" },
+	command = "map <buffer> <leader>2 :w<CR>:exec '!lua' shellescape(@%, 1)<CR>",
 	group = nvimrun,
 })
 
@@ -128,7 +139,10 @@ vim.api.nvim_create_autocmd(
 
 -- Save session when vimleave
 local session = vim.api.nvim_create_augroup("session", { clear = true })
-vim.api.nvim_create_autocmd("vimleave", { pattern = "*", command = "SessionManager save_current_session", group = session })
+vim.api.nvim_create_autocmd(
+	"vimleave",
+	{ pattern = "*", command = "SessionManager save_current_session", group = session }
+)
 
 -- Some fix for neovim nightly
 local nightly = vim.api.nvim_create_augroup("nightly", { clear = true })
@@ -216,7 +230,7 @@ vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "set cmdheigh
 
 -- config toggleterm
 -- vim.cmd([[
--- autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<cr>
+-- autocmd FileType toggleterm nnoremap <buffer> <ESC> :q<CR>
 -- tnoremap <silent> <ESC> <C-\><C-n>
 -- ]])
 

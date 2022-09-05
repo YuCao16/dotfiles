@@ -13,6 +13,7 @@ require("kanagawa").setup({
 	transparent = false,
 })
 cmd([[colorscheme kanagawa]])
+-- cmd([[colorscheme carbonfox]])
 
 -- require("github-theme").setup({
 -- 	transparent = false,

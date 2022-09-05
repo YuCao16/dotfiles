@@ -32,6 +32,7 @@ opt.cmdheight = 1
 -- tab behavior
 opt.tabstop = 4
 opt.shiftwidth = 4
+opt.softtabstop = 4
 opt.conceallevel = 2
 
 -- Others

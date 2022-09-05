@@ -27,11 +27,15 @@ vim.api.nvim_set_hl(0, "NormalFloat", {
 	-- fg = "#54546D",
 })
 
+-------------------
 -- Winbar highlight
+-------------------
 vim.api.nvim_set_hl(0, "Winbar", { fg = "#9095a2" })
 -- vim.api.nvim_set_hl(0, "Winbar", { fg = "#A3D4D5" })
 
+-------------------
 -- Navic highlight
+-------------------
 vim.api.nvim_set_hl(0, "NavicIconsFile", { default = false, bg = "", fg = "#ffffff" })
 vim.api.nvim_set_hl(0, "NavicIconsModule", { default = false, bg = "", fg = "#ffffff" })
 vim.api.nvim_set_hl(0, "NavicIconsNamespace", { default = false, bg = "", fg = "#ffffff" })

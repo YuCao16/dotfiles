@@ -1,3 +1,7 @@
+--=====================================================
+-- Treesitter settings
+--=====================================================
+
 require("nvim-treesitter.configs").setup({
 	-- ensure_installed = "maintained",
 	ensure_installed = { "org", "python", "norg" },
@@ -45,10 +49,10 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 --=====================================================
 -- Orgmode parsers
 --=====================================================
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 parser_config.org = {
 	install_info = {
 		url = "https://github.com/milisims/tree-sitter-org",
@@ -61,22 +65,21 @@ parser_config.org = {
 --=====================================================
 -- Neorg parsers
 --=====================================================
-local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-parser_configs.norg_meta = {
+parser_config.norg_meta = {
 	install_info = {
 		url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
 		files = { "src/parser.c" },
 		branch = "main",
 	},
 }
-parser_configs.norg = {
+parser_config.norg = {
 	install_info = {
 		url = "https://github.com/vhyrro/tree-sitter-norg",
 		files = { "src/parser.c", "src/scanner.cc" },
 		branch = "main",
 	},
 }
-parser_configs.norg_table = {
+parser_config.norg_table = {
 	install_info = {
 		url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
 		files = { "src/parser.c" },

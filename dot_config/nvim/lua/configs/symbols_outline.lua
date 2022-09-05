@@ -1,4 +1,6 @@
-if not pcall(require, "symbols-outline") then
+local symbol_outline_ok, symbol_outline = pcall(require, "symbols-outline")
+if not symbol_outline_ok then
+	vim.notify("symbols-outline failed", "error", { render = "minimal" })
 	return
 end
 
@@ -63,5 +65,5 @@ local opts = {
 		TypeParameter = { icon = "𝙏", hl = "TSParameter" },
 	},
 }
-require("symbols-outline").setup(opts)
+symbol_outline.setup(opts)
 -- nnoremap("<leader>sm", "<cmd>SymbolsOutline<CR>", { desc = "Open symbols outline" })

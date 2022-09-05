@@ -1,4 +1,10 @@
-vim.opt.termguicolors = true
+local indent_line_ok, indent_line = pcall(require, "indent_blankline")
+if not indent_line_ok then
+	vim.notify("indent_blankline failed", "error", { render = "minimal" })
+	return
+end
+
+-- vim.opt.termguicolors = true
 vim.cmd([[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]])
 vim.cmd([[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]])
 vim.cmd([[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]])
@@ -8,7 +14,8 @@ vim.cmd([[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]])
 
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
-require("indent_blankline").setup({
+
+indent_line.setup({
 	space_char_blankline = " ",
 	show_current_context = true,
 	-- show_current_context_start = true,
@@ -26,7 +33,7 @@ require("indent_blankline").setup({
 		"code-action-menu-menu",
 		"help",
 	},
-	buftype_exclude = { 'terminal', 'nofile', 'prompt' },
+	buftype_exclude = { "terminal", "nofile", "prompt" },
 	char_highlight_list = {
 		"IndentBlanklineIndent1",
 		"IndentBlanklineIndent2",

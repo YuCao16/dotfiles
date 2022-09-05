@@ -1,3 +1,7 @@
+--=====================================================
+-- Nvimtree settings
+--=====================================================
+
 require("nvim-tree").setup({
 	auto_close = ture,
 	-- show_on_startup = true,

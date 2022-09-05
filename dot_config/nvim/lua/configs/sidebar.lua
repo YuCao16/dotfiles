@@ -1,4 +1,10 @@
-require("sidebar-nvim").setup({
+local sidebar_nvim_ok, sidebar_nvim = pcall(require, "sidebar-nvim")
+if not sidebar_nvim_ok then
+	vim.notify("sidebar-nvim failed", "error", { render = "minimal" })
+	return
+end
+
+sidebar_nvim.setup({
 	sections = {
 		"datetime",
 		"git",

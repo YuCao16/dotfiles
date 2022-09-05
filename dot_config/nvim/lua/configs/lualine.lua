@@ -1,3 +1,6 @@
+--=====================================================
+-- Lualine settings
+--=====================================================
 -- Bubbles config for lualine
 
 -- Allows display of word count in md/text files

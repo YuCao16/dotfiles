@@ -1,9 +1,8 @@
-telescope_exist, telescope = pcall(require, "telescope")
-if not telescope_exist then
-	return
-end
+--=====================================================
+-- Telescope settings
+--=====================================================
 
-telescope.setup({
+require("telescope").setup({
 	-- defaults = {
 	-- 	layout_config = {
 	-- 		prompt_position = "top",

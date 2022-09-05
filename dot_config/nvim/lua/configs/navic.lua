@@ -1,6 +1,10 @@
 local M = {}
 
 local status_ok, navic = pcall(require, "nvim-navic")
+if not status_ok then
+	vim.notify("nvim-navic failed", "error", { render = "minimal" })
+	return
+end
 
 local exclude_filetype = {
 	"help",
@@ -26,18 +30,41 @@ local excludes = function()
 	return false
 end
 
+local clean_filepath = function(filepath)
+	file_path_clean = filepath:gsub("/home/caoyu/", " ~/")
+	return file_path_clean
+end
+
+local get_icon = function()
+	local file_extension = vim.fn.expand("%:e")
+	local icons_ok, icons = pcall(require, "nvim-web-devicons")
+	if not icons_ok then
+		return ""
+	else
+		local icon_ok, icon = pcall(icons.get_icon, file_extension)
+		if not icon_ok then
+			return ""
+		else
+			return icon
+		end
+	end
+end
+
 local show_winbar = function()
 	if excludes() then
 		return
 	end
 
 	if status_ok then
-		local file_symbol = "  "
-		local file_name = "%-.16t"
-		local file_path = "%{%v:lua.vim.fn.expand('%:p')%}"
+		local filetype_icon = " " .. get_icon()
+		-- local filetype_icon = " " .. require("nvim-web-devicons").get_icon(vim.fn.expand("%:e"))
+		-- local file_name = "%-.16t"
+		-- local file_path = "%{%v:lua.vim.fn.expand('%:p')%}"
+		-- local file_path = vim.fn.expand('%:p')
+		local file_path_clean = clean_filepath(vim.fn.expand("%:p"))
 		local separator = " > "
 		local location = "%{%v:lua.require'nvim-navic'.get_location()%}"
-		local value = string.format("%s%s%s%s", file_symbol, file_path, separator, location)
+		local value = string.format("%s%s%s%s", filetype_icon, file_path_clean, separator, location)
 		local set_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
 		if not set_ok then
 			return

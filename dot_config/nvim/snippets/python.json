@@ -1,0 +1,7 @@
+{
+  "packeruse": {
+    "body": "import pandas as pd",
+    "description": "packer use command",
+    "prefix": "impd"
+  }
+}

@@ -31,6 +31,9 @@ local oks = {
 	["bufferline"] = pcall(require, "configs.bufferline"),
 	["treesitter"] = pcall(require, "configs.treesitter"),
 	["telescope"] = pcall(require, "configs.telescope"),
+	["Dap"] = pcall(require, "configs.dap"),
+
+	-- Move to plugin for lazy loading
 	-- ["gitsigns"] = pcall(require, "configs.gitsign"),
 	-- ["lsp"] = pcall(require, "configs.lsp"),
 

@@ -138,6 +138,10 @@ let g:neoformat_markdown_prettier = {
       \ 'args': ['--write', '--prose-wrap=always','--tab-width=4'],
       \ 'replace': 1
       \ }
+let g:neoformat_cpp_clangformat = {
+    \ 'exe': 'clang-format',
+    \ 'args': ['--style="{IndentWidth: 4}"'],
+\}
 let g:neoformat_enabled_markdown = ['prettier']
 ]])
 

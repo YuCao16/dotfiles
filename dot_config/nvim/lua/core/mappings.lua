@@ -49,10 +49,12 @@ map(
 map("n", "<leader>do", ":lua require'dapui'.toggle()<CR>", { noremap = false, silent = false })
 
 -- Windows resizer
-map("n", "<S-L>", ":exe 'vertical resize +3'<CR>", { noremap = true, silent = true })
-map("n", "<S-H>", ":exe 'vertical resize -3'<CR>", { noremap = true, silent = true })
-map("n", "<S-K>", ":exe 'resize -3'<CR>", { noremap = true, silent = true })
-map("n", "<S-J>", ":exe 'resize +3'<CR>", { noremap = true, silent = true })
+map("n", "<S-L>", ":exe 'vertical resize +1'<CR>", { noremap = true, silent = true })
+map("n", "<S-H>", ":exe 'vertical resize -1'<CR>", { noremap = true, silent = true })
+map("n", "<c-j>", ":exe 'resize -1'<CR>", { noremap = true, silent = true })
+map("n", "<c-k>", ":exe 'resize +1'<CR>", { noremap = true, silent = true })
+-- map("n", "<S-K>", ":exe 'resize -1'<CR>", { noremap = true, silent = true })
+-- map("n", "<S-J>", ":exe 'resize +1'<CR>", { noremap = true, silent = true })
 
 -- Bufferline
 map("n", "<leader>b", ":BufferLineCycleNext<CR>", { noremap = false, silent = true })

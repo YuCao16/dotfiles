@@ -1,0 +1,10 @@
+{
+  "packeruse": {
+    "body": [
+      "void ${1:function name}(){",
+      "}"
+    ],
+    "description": "packer use command",
+    "prefix": "void"
+  }
+}

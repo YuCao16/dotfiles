@@ -9,16 +9,12 @@
         "path": "./lua.json"
       },
       {
-        "language": "rust",
-        "path": "./rust.json"
-      },
-      {
         "language": "python",
         "path": "./python.json"
       },
       {
-        "language": "typescriptreact",
-        "path": "./typescriptreact.json"
+        "language": "cpp",
+        "path": "./cpp.json"
       },
       {
         "language": "zig",

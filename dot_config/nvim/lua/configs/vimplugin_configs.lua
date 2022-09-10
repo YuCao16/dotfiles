@@ -34,6 +34,7 @@ g["lens#disabled_filetypes"] = {
 	"dapui_console",
 	"dap-repl",
 	"Outline",
+	"SidebarNvim",
 }
 
 -- "=====================================================

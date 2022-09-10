@@ -7,7 +7,7 @@ end
 sidebar_nvim.setup({
 	sections = {
 		"datetime",
-		"git",
+		-- "git",
 		"symbols",
 		"todos",
 		"files",
@@ -16,4 +16,5 @@ sidebar_nvim.setup({
 	symbols = {
 		icon = "ƒ",
 	},
+	initial_width = 30,
 })

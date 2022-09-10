@@ -116,7 +116,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "cc", "cpp", "c" },
 	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
 	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
-	command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+	command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+	group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "cpp" },
+	command = "map <buffer> <leader>3 :w<CR>:exec '!./run.sh'<CR>",
 	group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -147,6 +153,11 @@ vim.api.nvim_create_autocmd(
 -- Some fix for neovim nightly
 local nightly = vim.api.nvim_create_augroup("nightly", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
+vim.api.nvim_create_autocmd("WinEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
+vim.api.nvim_create_autocmd("BufLeave", { pattern = "*", command = "set cmdheight=1", group = nightly })
+
+-- Custom user command
+vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
 
 -- highlight yank use build in command
 -- local highlightyank = vim.api.nvim_create_augroup("highlightyank", { clear = true })

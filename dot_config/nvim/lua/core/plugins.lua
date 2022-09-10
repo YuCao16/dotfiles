@@ -33,6 +33,8 @@ local workflow_filetype = {
 	"vim",
 	"go",
 	"typescript",
+	"cmake",
+	"sh",
 }
 
 return require("packer").startup({
@@ -166,9 +168,9 @@ return require("packer").startup({
 				require("configs.gitsign")
 			end,
 		})
+		use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
 		use({ "yucao16/registers.nvim" })
 
-		-- use({ "RRethy/vim-illuminate", event = { "LspAttach" } })
 		-- use({
 		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -264,6 +266,7 @@ return require("packer").startup({
 		use({ "RRethy/nvim-treesitter-endwise" })
 		use({ "nvim-treesitter/nvim-treesitter-textobjects" })
 		use({ "p00f/nvim-ts-rainbow" })
+		use({ "windwp/nvim-ts-autotag" })
 		use({ "nvim-treesitter/playground", event = { "BufAdd", "InsertEnter" } })
 
 		-- use({ "romgrk/nvim-treesitter-context" })
@@ -299,6 +302,7 @@ return require("packer").startup({
 		})
 		use({
 			"folke/todo-comments.nvim",
+			ft = workflow_filetype,
 			config = function()
 				require("todo-comments").setup()
 			end,
@@ -349,6 +353,12 @@ return require("packer").startup({
 		})
 
 		-- use({
+		-- 	"ahmedkhalf/project.nvim",
+		-- 	config = function()
+		-- 		require("project_nvim").setup({})
+		-- 	end,
+		-- })
+		-- use({
 		-- 	"stevearc/aerial.nvim",
 		-- 	config = function()
 		-- 		require("aerial").setup()
@@ -370,20 +380,21 @@ return require("packer").startup({
 		-- })
 
 		-- "-------------------=== Debugging navigation ===-------------
-		use({ "mfussenegger/nvim-dap" })
 		use({
-			"rcarriga/nvim-dap-ui",
-			-- config = function()
-			-- 	require("dapui").setup()
-			-- end,
+			"mfussenegger/nvim-dap",
+			after = "nvim-dap-ui",
+			config = function()
+				require("configs.dap")
+			end,
 		})
+		use({ "rcarriga/nvim-dap-ui", ft = { "python", "cpp", "c" } })
 		use({
 			"mfussenegger/nvim-dap-python",
-			ft = { "python" },
-			config = function()
-				require("dap-python").setup("/usr/bin/python3")
-				require("dapui").setup()
-			end,
+			ft = "python",
+			after = { "nvim-dap", "nvim-dap-ui" },
+			-- config = function()
+			-- 	require("dap-python").setup("/usr/bin/python3")
+			-- end,
 		})
 		-- use({ "Pocco81/dap-buddy.nvim" })
 
@@ -440,6 +451,15 @@ return require("packer").startup({
 			event = { "BufAdd", "InsertEnter" },
 		})
 
+		-- use({
+		-- 	"p00f/clangd_extensions.nvim",
+		--           after = "nvim-navic",
+		-- 	ft = { "cpp", "c" },
+		-- 	config = function()
+		--               require("configs.clang_tools")
+		-- 	end,
+		-- })
+		-- use({ 'simrat39/inlay-hints.nvim' })
 		-- use({ "goerz/jupytext.vim", ft = { "markdown", "tex", "ipynb" } })
 		-- use({
 		-- 	"iamcco/markdown-preview.nvim",
@@ -483,8 +503,8 @@ return require("packer").startup({
 		use({ "rebelot/kanagawa.nvim" })
 		use({ "catppuccin/nvim" })
 		use({ "EdenEast/nightfox.nvim" })
-		use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 
+		-- use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "Mofiqul/vscode.nvim", event = { "BufAdd", "InsertEnter" } })
@@ -580,7 +600,14 @@ return require("packer").startup({
 				require("configs.navic").enable()
 			end,
 		})
+		use({ "lvimuser/lsp-inlayhints.nvim" })
 
+		-- use({
+		-- 	"ThePrimeagen/refactoring.nvim",
+		-- 	config = function()
+		-- 		require("refactoring").setup({})
+		-- 	end,
+		-- })
 		-- use({ "jubnzv/virtual-types.nvim" })
 		-- use({
 		-- 	"b0o/incline.nvim",
@@ -618,7 +645,6 @@ return require("packer").startup({
 		use({ "kdheepak/cmp-latex-symbols", ft = { "latex", "tex" } })
 		use({ "folke/lua-dev.nvim" })
 
-		-- use({ "weilbith/nvim-code-action-menu" })
 		-- use({ "hrsh7th/cmp-buffer" })
 		-- use({ "uga-rosa/cmp-dictionary" })
 
@@ -641,5 +667,8 @@ return require("packer").startup({
 	end,
 	config = {
 		compile_path = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
+		display = {
+            prompt_border = "rounded",
+		},
 	},
 })

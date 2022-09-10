@@ -7,6 +7,7 @@ local oks = {
 }
 
 for name, item in pairs(oks) do
+	---@diagnostic disable-next-line: unbalanced-assignments
 	local ok, _ = item
 	if not ok then
 		vim.notify(name .. " failed", "error", { title = name .. ".lua", render = "minimal" })

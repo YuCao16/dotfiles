@@ -1,14 +1,21 @@
+--=====================================================
 -- LSP handlers settings
+--=====================================================
 
 -- Ensure safely requrie dependencies
 local nvim_lsp_exists, nvim_lsp = pcall(require, "lspconfig")
 local mason_exists, mason = pcall(require, "mason")
 local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
+local inlayhints_exists, inlayhints = pcall(require, "lsp-inlayhints")
 
 if not (nvim_lsp_exists and mason_exists and mason_lspconfig_exists and navic_exists) then
 	vim.notify("Error when loading handlers dependencies", "error", { render = "minimal" })
 end
+
+-- setup inlay hint
+opt = require("configs.inlay_hint").configs
+inlayhints.setup(opt)
 
 -- Pulling out things from
 local diagnostic = vim.diagnostic
@@ -24,6 +31,10 @@ local navic_server_list = {
 	"tsserver",
 	"jsonls",
 	"clangd",
+	"html",
+	"cssls",
+	"tailwindcss",
+	"bashls",
 }
 
 -- Check if current lsp supports document syntax
@@ -101,6 +112,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
 	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	buf_set_keymap("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
 	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
 
@@ -168,6 +180,11 @@ local on_attach = function(client, bufnr)
 	if client.name == "pyright" then
 		-- I have to say, sometimes, pyright is shit!
 		client.server_capabilities.hoverProvider = false
+		client.server_capabilities.signatureHelpProvider = false
+	elseif client.name == "jedi_language_server" then
+		client.server_capabilities.completionProvider = false
+	elseif client.name == "clangd" then
+		inlayhints.on_attach(client, bufnr)
 	end
 end
 
@@ -184,20 +201,6 @@ local function make_config()
 	local capabilities = lsp.protocol.make_client_capabilities()
 	capabilities.textDocument.completion.completionItem = {
 		documentationFormat = { "markdown", "plaintext" },
-		snippetSupport = true,
-		preselectSupport = true,
-		insertReplaceSupport = true,
-		labelDetailsSupport = true,
-		deprecatedSupport = true,
-		commitCharactersSupport = true,
-		tagSupport = { valueSet = { 1 } },
-		resolveSupport = {
-			properties = {
-				"documentation",
-				"detail",
-				"additionalTextEdits",
-			},
-		},
 	}
 
 	-- nvim-cmp supports additional completion capabilities
@@ -206,6 +209,7 @@ local function make_config()
 	return {
 		-- enable snippet support
 		capabilities = capabilities,
+
 		-- map buffer local keybindings when the language server attaches
 		on_attach = on_attach,
 	}
@@ -270,3 +274,22 @@ return M
 -- buf_set_keymap("n", "<leader>lp", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 -- buf_set_keymap("n", "<leader>lwa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
 -- buf_set_keymap("n", "<leader>lwd", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+--
+-- function make_config()
+-- capabilities.textDocument.completion.completionItem = {
+-- 	documentationFormat = { "markdown", "plaintext" },
+-- 	snippetSupport = true,
+-- 	preselectSupport = true,
+-- 	insertReplaceSupport = true,
+-- 	labelDetailsSupport = true,
+-- 	deprecatedSupport = true,
+-- 	commitCharactersSupport = true,
+-- 	tagSupport = { valueSet = { 1 } },
+-- 	resolveSupport = {
+-- 		properties = {
+-- 			"documentation",
+-- 			"detail",
+-- 			"additionalTextEdits",
+-- 		},
+-- 	},
+-- }

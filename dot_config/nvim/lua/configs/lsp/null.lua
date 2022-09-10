@@ -16,13 +16,15 @@ null_ls.setup({
 		-- it says buildins, but you still need to use Mason to install
 		null_ls.builtins.diagnostics.markdownlint.with({
 			extra_args = { "--disable=line_length" },
-		}),
-		-- null_ls.builtins.diagnostics.mypy,
-		null_ls.builtins.diagnostics.mypy.with({
-			extra_args = { "--ignore-missing-imports" },
 			condition = is_executable("mypy"),
 		}),
-		null_ls.builtins.formatting.eslint,
+		-- null_ls.builtins.diagnostics.cpplint,
+		-- null_ls.builtins.diagnostics.mypy.with({
+		-- 	extra_args = { "--ignore-missing-imports" },
+		-- 	condition = is_executable("mypy"),
+		-- }),
+		-- null_ls.builtins.formatting.eslint,
+		-- null_ls.builtins.formatting.cmakelang,
 		-- null_ls.builtins.formatting.clang_format,
 		-- null_ls.builtins.diagnostics.pylint.with({
 		-- 	extra_args = { "--disable=missing-docstring", "--errors-only" },

@@ -12,6 +12,7 @@ if not snip_ok then
 	return
 end
 
+-- lazy load luasnip
 require("luasnip.loaders.from_vscode").lazy_load({
 	paths = "~/.local/share/nvim/site/pack/packer/opt/friendly-snippets",
 })
@@ -19,39 +20,16 @@ require("luasnip.loaders.from_vscode").lazy_load({
 	paths = { "./snippets/" },
 })
 
+-- check if there is word before cursor
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local kind_icons = {
-	Text = "",
-	Method = "m",
-	Function = "",
-	Constructor = "",
-	Field = "",
-	Variable = "",
-	Class = "",
-	Interface = "",
-	Module = "",
-	Property = "",
-	Unit = "",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-}
+-- setup icons for cmp
+kind_icons = require("core.ui").kind_icons
 
+-- setup max width for cmp menu
 local ELLIPSIS_CHAR = "…"
 local MAX_LABEL_WIDTH = 30
 local MAX_KIND_WIDTH = 14
@@ -60,12 +38,16 @@ local get_ws = function(max, len)
 	return (" "):rep(max - len)
 end
 
+-- cmp setup
 cmp.setup({
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+	-- completion = {
+	-- 	completeopt = "nenu,menuone",
+	-- },
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
@@ -87,7 +69,7 @@ cmp.setup({
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[LUA]",
-				luasnip = "[Snippet]",
+				luasnip = "[Snip]",
 				buffer = "[Buf]",
 				path = "[Path]",
 				dictionary = "[Dic]",
@@ -104,13 +86,17 @@ cmp.setup({
 		documentation = cmp.config.window.bordered("rounded"),
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp", max_item_count = 15 },
-		{ name = "luasnip", max_item_count = 15 },
-		{ name = "path" },
-		{ name = "cmp_tabnine", max_item_count = 5 },
-		{ name = "orgmode" },
-		{ name = "nvim_lua" },
-		{ name = "latex_symbols", max_item_count = 5 },
+		{ name = "luasnip", max_item_count = 5, priority = 10 },
+		{
+			name = "cmp_tabnine",
+			max_item_count = 3,
+			priority = 9,
+		},
+		{ name = "nvim_lsp", max_item_count = 8, priority = 8 },
+		{ name = "orgmode", priority = 7 },
+		{ name = "nvim_lua", priority = 5 },
+		{ name = "latex_symbols", max_item_count = 5, priority = 7 },
+		{ name = "path", priority = 4 },
 		-- { name = "dictionary" },
 		-- { name = "treesitter" },
 		-- { name = "buffer" },

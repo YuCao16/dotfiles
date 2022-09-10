@@ -31,7 +31,10 @@ local excludes = function()
 end
 
 local clean_filepath = function(filepath)
-	file_path_clean = filepath:gsub("/home/caoyu/", " ~/")
+	local file_path_clean = filepath:gsub("/home/caoyu/", " ~/")
+	local file_name = vim.fn.expand("%:t")
+	file_path_clean = file_path_clean:gsub("/" .. file_name, "")
+	-- file_path_clean = filepath:gsub("/", " 〉")
 	return file_path_clean
 end
 
@@ -41,11 +44,14 @@ local get_icon = function()
 	if not icons_ok then
 		return ""
 	else
-		local icon_ok, icon = pcall(icons.get_icon, file_extension)
-		if not icon_ok then
+		local icon_color_ok, _ = pcall(icons.get_icon_color, file_extension)
+		if not icon_color_ok then
 			return ""
 		else
-			return icon
+			-- return icon
+			local icon, color = require("nvim-web-devicons").get_icon_color(file_extension)
+			vim.api.nvim_set_hl(0, "WinbarIcon", { fg = color })
+			return "%#WinBarIcon#" .. icon .. "%*"
 		end
 	end
 end
@@ -56,15 +62,13 @@ local show_winbar = function()
 	end
 
 	if status_ok then
-		local filetype_icon = " " .. get_icon()
-		-- local filetype_icon = " " .. require("nvim-web-devicons").get_icon(vim.fn.expand("%:e"))
-		-- local file_name = "%-.16t"
-		-- local file_path = "%{%v:lua.vim.fn.expand('%:p')%}"
-		-- local file_path = vim.fn.expand('%:p')
+		-- local filetype_icon = " 〉" .. get_icon() .. " "
+		local filetype_icon = " " .. get_icon() .. " "
 		local file_path_clean = clean_filepath(vim.fn.expand("%:p"))
-		local separator = " > "
+		local file_name = vim.fn.expand("%:t")
+		local separator = " 〉"
 		local location = "%{%v:lua.require'nvim-navic'.get_location()%}"
-		local value = string.format("%s%s%s%s", filetype_icon, file_path_clean, separator, location)
+		local value = string.format("%s%s%s%s%s", file_path_clean, filetype_icon, file_name, separator, location)
 		local set_ok, _ = pcall(vim.api.nvim_set_option_value, "winbar", value, { scope = "local" })
 		if not set_ok then
 			return
@@ -109,7 +113,7 @@ M.enable = function()
 			TypeParameter = " ",
 		},
 		highlight = true,
-		separator = " > ",
+		separator = " 〉",
 		depth_limit = 0,
 		depth_limit_indicator = "..",
 	})

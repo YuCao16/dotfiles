@@ -23,7 +23,8 @@ db.custom_center = {
 	{
 		icon = "  ",
 		desc = "Recently opened files                   ",
-		action = "Telescope oldfiles",
+		action = "lua require('telescope').extensions.recent_files.pick()",
+		-- action = "Telescope oldfiles",
 		shortcut = "SPC s o",
 	},
 	{

@@ -18,7 +18,12 @@ map("n", "<leader>ss", ":Telescope find_files<CR>", { noremap = false, silent = 
 map("n", "<leader>sg", ":Telescope live_grep<CR>", { noremap = false, silent = false })
 map("n", "<leader>sb", ":Telescope buffers<CR>", { noremap = false, silent = false })
 map("n", "<leader>sh", ":Telescope help_tags<CR>", { noremap = false, silent = false })
-map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = false })
+map(
+	"n",
+	"<leader>so",
+	":lua require('telescope').extensions.recent_files.pick()<CR>",
+	{ noremap = false, silent = false }
+)
 map(
 	"n",
 	"<leader>sd",
@@ -35,6 +40,8 @@ map("n", "<leader>cf", ":ToggleTerm direction=float<CR>", { noremap = false, sil
 map("n", "<leader>cv", ":ToggleTerm size=40 direction=vertical<CR>", { noremap = false, silent = false })
 map("n", "<leader>ch", ":ToggleTerm direction=horizontal<CR>", { noremap = false, silent = false })
 map("n", "<leader>ct", ":ToggleTerm direction=tab<CR>", { noremap = false, silent = false })
+map("x", "<leader>cs", ":ToggleTermSendVisualSelection<CR>", { noremap = false, silent = false })
+map("n", "<leader>cs", ":ToggleTermSendVisualSelection<CR>", { noremap = false, silent = false })
 
 -- Dap
 map("n", "<leader>dc", ":lua require'dap'.continue()<CR>", { noremap = false, silent = false })
@@ -101,6 +108,7 @@ map("n", "<leader><tab>", "", {
 	silent = true,
 })
 
+-- map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>0", ":lua require('nabla').popup({ border = 'single' })<CR>", { noremap = true, silent = false })
 -- map("n", "<leader>l", ":Limelight!!<CR>", { noremap = false, silent = false })

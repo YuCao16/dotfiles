@@ -4,6 +4,7 @@ if not cmp_ok then
 	vim.notify("nvim-cmp failed", "error", { render = "minimal" })
 	return
 end
+local compare = require("cmp.config.compare")
 
 -- safely load luasnip.nvim
 local snip_ok, luasnip = pcall(require, "luasnip")
@@ -31,7 +32,7 @@ kind_icons = require("core.ui").kind_icons
 
 -- setup max width for cmp menu
 local ELLIPSIS_CHAR = "…"
-local MAX_LABEL_WIDTH = 30
+local MAX_LABEL_WIDTH = 20
 local MAX_KIND_WIDTH = 14
 
 local get_ws = function(max, len)
@@ -50,6 +51,7 @@ cmp.setup({
 	-- },
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
+		-- fields = { "abbr", "kind", "menu" },
 		format = function(entry, vim_item)
 			local content = vim_item.abbr
 
@@ -64,7 +66,7 @@ cmp.setup({
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 
 			-- This concatonates the icons with the name of the item kind
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+			-- vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
 
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
@@ -86,13 +88,13 @@ cmp.setup({
 		documentation = cmp.config.window.bordered("rounded"),
 	},
 	sources = cmp.config.sources({
-		{ name = "luasnip", max_item_count = 5, priority = 10 },
+		{ name = "luasnip", priority = 11 },
 		{
 			name = "cmp_tabnine",
 			max_item_count = 3,
 			priority = 9,
 		},
-		{ name = "nvim_lsp", max_item_count = 8, priority = 8 },
+		{ name = "nvim_lsp", priority = 8 },
 		{ name = "orgmode", priority = 7 },
 		{ name = "nvim_lua", priority = 5 },
 		{ name = "latex_symbols", max_item_count = 5, priority = 7 },
@@ -101,8 +103,23 @@ cmp.setup({
 		-- { name = "treesitter" },
 		-- { name = "buffer" },
 	}),
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			compare.locality,
+			compare.recently_used,
+			compare.offset,
+			compare.exact,
+			compare.score,
+			require("configs.lsp.cmp-under-comparator").under,
+			compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+		},
+	},
 	mapping = {
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<down>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "s", "c" }),
 		["<up>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "s", "c" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
@@ -137,6 +154,9 @@ cmp.setup({
 })
 
 cmp.setup.cmdline("/", {
+	completion = {
+		completeopt = "nenu,menuone,noselect",
+	},
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
@@ -144,6 +164,9 @@ cmp.setup.cmdline("/", {
 })
 
 cmp.setup.cmdline(":", {
+	completion = {
+		completeopt = "nenu,menuone,noselect",
+	},
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "path" },

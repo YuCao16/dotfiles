@@ -41,12 +41,14 @@ end
 local get_icon = function()
 	local file_extension = vim.fn.expand("%:e")
 	local icons_ok, icons = pcall(require, "nvim-web-devicons")
-	if not icons_ok then
-		return ""
+	if not icons_ok or file_extension == "" then
+		return "/"
+		-- return ""
 	else
 		local icon_color_ok, _ = pcall(icons.get_icon_color, file_extension)
 		if not icon_color_ok then
-			return ""
+			return "/"
+			-- return ""
 		else
 			-- return icon
 			local icon, color = require("nvim-web-devicons").get_icon_color(file_extension)

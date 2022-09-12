@@ -35,6 +35,7 @@ return {
 				preloadFileSize = 50000,
 			},
 			completion = { callSnippet = "Both" },
+			-- completion = { callSnippet = "Replace" },
 			telemetry = { enable = false },
 		},
 	},

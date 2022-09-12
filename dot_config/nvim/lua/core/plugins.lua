@@ -31,6 +31,7 @@ local workflow_filetype = {
 	"cpp",
 	"c",
 	"vim",
+	"julia",
 	"go",
 	"typescript",
 	"cmake",
@@ -63,6 +64,7 @@ return require("packer").startup({
 					float_opts = {
 						border = "rounded",
 					},
+					shade_terminals = true,
 				})
 			end,
 		})
@@ -142,7 +144,8 @@ return require("packer").startup({
 				require("scope").setup()
 			end,
 		})
-		use({ "camspiers/lens.vim", event = { "WinNew" } })
+		-- use({ 'beauwilliams/focus.nvim' })
+		-- use({ "camspiers/lens.vim", event = { "WinNew" } })
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "WinNew" } })
 		use({ "kevinhwang91/nvim-hlslens" })
 		use({
@@ -250,6 +253,7 @@ return require("packer").startup({
 				require("telescope").load_extension("heading")
 			end,
 		})
+		use({ "smartpde/telescope-recent-files", after = "telescope.nvim" })
 
 		-- use({
 		-- 	"nvim-telescope/telescope-file-browser.nvim",
@@ -594,13 +598,17 @@ return require("packer").startup({
 		})
 		use({
 			"SmiteshP/nvim-navic",
-			-- requires = "neovim/nvim-lspconfig",
 			after = "mason.nvim",
 			config = function()
-				require("configs.navic").enable()
+				navic_ok, navic = pcall(require, "configs.navic")
+				if navic_ok then
+					navic.enable()
+				end
+				-- require("configs.navic").enable()
 			end,
 		})
-		use({ "lvimuser/lsp-inlayhints.nvim" })
+		use({ "lvimuser/lsp-inlayhints.nvim", after = "mason.nvim" })
+		use({ "folke/lua-dev.nvim", after = "mason.nvim" })
 
 		-- use({
 		-- 	"ThePrimeagen/refactoring.nvim",
@@ -643,7 +651,6 @@ return require("packer").startup({
 		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", ft = workflow_filetype })
 		use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
 		use({ "kdheepak/cmp-latex-symbols", ft = { "latex", "tex" } })
-		use({ "folke/lua-dev.nvim" })
 
 		-- use({ "hrsh7th/cmp-buffer" })
 		-- use({ "uga-rosa/cmp-dictionary" })
@@ -668,7 +675,7 @@ return require("packer").startup({
 	config = {
 		compile_path = vim.fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 		display = {
-            prompt_border = "rounded",
+			prompt_border = "rounded",
 		},
 	},
 })

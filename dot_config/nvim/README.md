@@ -1,9 +1,17 @@
 # My Neovim Configuration
 
+<!--toc:start-->
+- [My Neovim Configuration](#my-neovim-configuration)
+  - [Screenshot](#screenshot)
+  - [Structure](#structure)
+  - [Requirements](#requirements)
+  - [Usage](#usage)
+<!--toc:end-->
+
 I created this repository because I have two computers, one in the lab and one
 at home, and the two computers share one Neovim configuration. If you happen to
 find this repository and are interested in screenshots, please let me know (e.g.
-give me a star) and I will upload the full configuration method and features
+give me a star), and I will upload the full configuration method and features
 description.
 
 ## Screenshot
@@ -20,7 +28,7 @@ description.
 
 ## Structure
 
-```
+```tree
 ├── after
 │   └── ftplugin
 │       ├── c.lua

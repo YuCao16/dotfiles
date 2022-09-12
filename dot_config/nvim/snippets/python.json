@@ -1,7 +1,12 @@
 {
-  "packeruse": {
+  "import pandas": {
     "body": "import pandas as pd",
     "description": "packer use command",
     "prefix": "impd"
+  },
+  "import jax.numpy": {
+    "body": "import jax.numpy as jnp",
+    "description": "packer use command",
+    "prefix": "imjnp"
   }
 }

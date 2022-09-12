@@ -8,6 +8,7 @@ local mason_exists, mason = pcall(require, "mason")
 local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
 local inlayhints_exists, inlayhints = pcall(require, "lsp-inlayhints")
+local lua_dev_exists, lua_dev = pcall(require, "lua-dev")
 
 if not (nvim_lsp_exists and mason_exists and mason_lspconfig_exists and navic_exists) then
 	vim.notify("Error when loading handlers dependencies", "error", { render = "minimal" })
@@ -35,6 +36,7 @@ local navic_server_list = {
 	"cssls",
 	"tailwindcss",
 	"bashls",
+	"julials",
 }
 
 -- Check if current lsp supports document syntax
@@ -181,6 +183,7 @@ local on_attach = function(client, bufnr)
 		-- I have to say, sometimes, pyright is shit!
 		client.server_capabilities.hoverProvider = false
 		client.server_capabilities.signatureHelpProvider = false
+		-- client.server_capabilities.completionProvider = false
 	elseif client.name == "jedi_language_server" then
 		client.server_capabilities.completionProvider = false
 	elseif client.name == "clangd" then
@@ -234,8 +237,6 @@ if mason_lspconfig_exists then
 		ensure_installed = {
 			"sumneko_lua",
 			"clangd",
-			"tsserver",
-			"html",
 			"pyright",
 		},
 	})
@@ -246,10 +247,24 @@ if mason_lspconfig_exists then
 			local current_server_settings =
 				vim.tbl_deep_extend("force", has_settings and server_settings[server_name] or {}, config)
 
-			nvim_lsp[server_name].setup(current_server_settings)
+			-- nvim_lsp[server_name].setup(current_server_settings)
 
 			if server_name == "sumneko_lua" then
-				require("lua-dev").setup(current_server_settings)
+				if lua_dev_exists then
+					local luadev = lua_dev.setup({
+						lspconfig = {
+							on_attach = current_server_settings.on_attach,
+							capabilities = current_server_settings.capabilities,
+							settings = current_server_settings.settings,
+						},
+					})
+					nvim_lsp.sumneko_lua.setup(luadev)
+				else
+					vim.notify("lua-dev load failed", "error", { render = "minimal" })
+					nvim_lsp[server_name].setup(current_server_settings)
+				end
+			else
+				nvim_lsp[server_name].setup(current_server_settings)
 			end
 		end,
 	})

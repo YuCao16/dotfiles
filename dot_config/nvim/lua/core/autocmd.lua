@@ -33,15 +33,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = lspsaga,
 })
 
--- Update signature help on jump placeholder
-local cocautocmd = vim.api.nvim_create_augroup("cocautocmd", { clear = true })
-vim.api.nvim_create_autocmd("User", {
-	pattern = "CocJumpPlaceholder",
-	command = "call CocActionAsync('showSignatureHelp') <CR>",
-	group = cocautocmd,
-})
-
--- config toggleterm
+-- quick exit from toggleterm
 local toggleterm = vim.api.nvim_create_augroup("toggleterm", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "toggleterm",
@@ -80,17 +72,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = tabstop,
 })
 
--- config for vim-jupyter, convert *.ipynb to markdown
-local jupytext = vim.api.nvim_create_augroup("jupytext", { clear = true })
-vim.api.nvim_create_autocmd(
-	{ "FileType", "BufNewFile", "BufFilePre", "BufRead", "BufCreate" },
-	{ pattern = { "*.ipynb" }, command = "set filetype=tex", group = jupytext }
-)
-vim.api.nvim_create_autocmd(
-	"BufCreate",
-	{ pattern = { "*.ipynb" }, command = "set filetype=markdown", group = jupytext }
-)
-
 -- basic settings for python and markdown
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
 local python = vim.api.nvim_create_augroup("python", { clear = true })
@@ -116,7 +97,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "cc", "cpp", "c" },
 	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
 	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
-	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
 	command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
 	group = nvimrun,
 })
@@ -135,6 +115,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "map <buffer> <leader>2 :w<CR>:exec '!lua' shellescape(@%, 1)<CR>",
 	group = nvimrun,
 })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "julia" },
+	command = "map <buffer> <leader>2 :w<CR>:exec '!julia' shellescape(@%, 1)<CR>",
+	group = nvimrun,
+})
 
 -- quit nvimtree if it's the only buffer left
 local nvimtree = vim.api.nvim_create_augroup("nvimtree", { clear = true })
@@ -150,14 +135,33 @@ vim.api.nvim_create_autocmd(
 	{ pattern = "*", command = "SessionManager save_current_session", group = session }
 )
 
--- Some fix for neovim nightly
-local nightly = vim.api.nvim_create_augroup("nightly", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
-vim.api.nvim_create_autocmd("WinEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
-vim.api.nvim_create_autocmd("BufLeave", { pattern = "*", command = "set cmdheight=1", group = nightly })
-
 -- Custom user command
 vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
+
+-- Some fix for neovim nightly  DONE: not neovim, it's lens.vim
+-- local nightly = vim.api.nvim_create_augroup("nightly", { clear = true })
+-- vim.api.nvim_create_autocmd("BufEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
+-- vim.api.nvim_create_autocmd("WinEnter", { pattern = "*", command = "set cmdheight=1", group = nightly })
+-- vim.api.nvim_create_autocmd("BufLeave", { pattern = "*", command = "set cmdheight=1", group = nightly })
+
+-- -- config for vim-jupyter, convert *.ipynb to markdown
+-- local jupytext = vim.api.nvim_create_augroup("jupytext", { clear = true })
+-- vim.api.nvim_create_autocmd(
+-- 	{ "FileType", "BufNewFile", "BufFilePre", "BufRead", "BufCreate" },
+-- 	{ pattern = { "*.ipynb" }, command = "set filetype=tex", group = jupytext }
+-- )
+-- vim.api.nvim_create_autocmd(
+-- 	"BufCreate",
+-- 	{ pattern = { "*.ipynb" }, command = "set filetype=markdown", group = jupytext }
+-- )
+
+-- Update signature help on jump placeholder
+-- local cocautocmd = vim.api.nvim_create_augroup("cocautocmd", { clear = true })
+-- vim.api.nvim_create_autocmd("User", {
+-- 	pattern = "CocJumpPlaceholder",
+-- 	command = "call CocActionAsync('showSignatureHelp') <CR>",
+-- 	group = cocautocmd,
+-- })
 
 -- highlight yank use build in command
 -- local highlightyank = vim.api.nvim_create_augroup("highlightyank", { clear = true })

@@ -6,9 +6,10 @@ local function readAll(file)
 end
 
 local token = readAll("/home/caoyu/.config/sourcery/tokenizer.txt")
+token = string.gsub(token, "\n", "")
 
 return {
 	init_options = {
-		token = token
+		token = token,
 	},
 }

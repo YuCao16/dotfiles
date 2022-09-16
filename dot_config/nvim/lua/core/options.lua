@@ -35,6 +35,10 @@ opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.conceallevel = 2
 
+-- Indent-line
+vim.opt.list = true
+vim.opt.listchars:append("eol:↴")
+
 -- Others
 opt.wildignore = "*.png,*.gif,*.jpeg,*.jpg,*.DS_Store,*.zip"
 vim.g.python3_host_prog = "/usr/bin/python3.10"

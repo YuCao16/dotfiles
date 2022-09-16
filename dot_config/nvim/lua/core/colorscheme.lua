@@ -12,15 +12,19 @@ local cmd = vim.cmd -- Execute Vim commands
 require("kanagawa").setup({
 	transparent = false,
 })
-cmd([[colorscheme kanagawa]])
--- cmd([[colorscheme carbonfox]])
+vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+-- cmd([[colorscheme kanagawa]])
+cmd([[colorscheme tokyonight]])
+-- cmd([[colorscheme tokyonight-storm]])
+-- cmd([[colorscheme tokyonight-night]])
+-- cmd([[colorscheme catppuccin]])
+-- cmd([[colorscheme nightfox]])
+-- cmd([[colorscheme onedarkpro]])
 
 -- require("github-theme").setup({
 -- 	transparent = false,
 -- 	dark_sidebar = false,
 -- })
--- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
--- cmd([[colorscheme catppuccin]])
 -- cmd([[hi! link StatusLine Normal]])
 
 -- cmd([[colorscheme github_dark]])

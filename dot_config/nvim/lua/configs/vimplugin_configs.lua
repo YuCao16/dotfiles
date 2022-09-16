@@ -144,6 +144,12 @@ let g:neoformat_cpp_clangformat = {
     \ 'args': ['--style="{IndentWidth: 4}"'],
 \}
 let g:neoformat_enabled_markdown = ['prettier']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_javascript_prettier = {
+      \ 'exe': 'prettier',
+      \ 'args': ['--write', '--prose-wrap=always','--tab-width=2'],
+      \ 'replace': 1
+      \ }
 ]])
 
 -- "=====================================================

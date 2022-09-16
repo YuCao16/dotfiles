@@ -32,7 +32,7 @@ kind_icons = require("core.ui").kind_icons
 
 -- setup max width for cmp menu
 local ELLIPSIS_CHAR = "…"
-local MAX_LABEL_WIDTH = 20
+local MAX_LABEL_WIDTH = 25
 local MAX_KIND_WIDTH = 14
 
 local get_ws = function(max, len)

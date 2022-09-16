@@ -19,23 +19,20 @@ local workflow_filetype = {
 	"python",
 	"markdown",
 	"tex",
-	"latex",
-	"ipynb",
 	"org",
 	"json",
 	"html",
 	"javascript",
 	"css",
 	"lua",
-	"cc",
 	"cpp",
-	"c",
 	"vim",
 	"julia",
 	"go",
 	"typescript",
 	"cmake",
 	"sh",
+	"yaml",
 }
 
 return require("packer").startup({
@@ -144,8 +141,6 @@ return require("packer").startup({
 				require("scope").setup()
 			end,
 		})
-		-- use({ 'beauwilliams/focus.nvim' })
-		-- use({ "camspiers/lens.vim", event = { "WinNew" } })
 		use({ "https://gitlab.com/yorickpeterse/nvim-window.git", event = { "WinNew" } })
 		use({ "kevinhwang91/nvim-hlslens" })
 		use({
@@ -172,8 +167,28 @@ return require("packer").startup({
 			end,
 		})
 		use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
-		use({ "yucao16/registers.nvim" })
+		-- use({
+		-- 	"tversteeg/registers.nvim",
+		-- 	branch = "refactor",
+		-- 	config = function()
+		-- 		require("registers").setup({
+		-- 			window = {
+		-- 				max_width = 80,
+		-- 				border = "rounded",
+		-- 			},
+		-- 		})
+		-- 	end,
+		-- })
+		use({
+			"natecraddock/workspaces.nvim",
+			config = function()
+				require("workspaces").setup()
+			end,
+		})
 
+		-- use({ 'beauwilliams/focus.nvim' })
+		-- use({ "camspiers/lens.vim", event = { "WinNew" } })
+		use({ "yucao16/registers.nvim" })
 		-- use({
 		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -277,7 +292,6 @@ return require("packer").startup({
 
 		-- "-------------------=== Code/Project navigation ===-------------
 		use({ "majutsushi/tagbar", ft = workflow_filetype })
-		-- use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		use({
 			"windwp/nvim-autopairs",
 			event = { "BufAdd", "InsertEnter" },
@@ -343,9 +357,7 @@ return require("packer").startup({
 			event = { "BufAdd", "InsertEnter" },
 			ft = workflow_filetype,
 			config = function()
-				require("nvim-surround").setup({
-					-- Configuration here, or leave empty to use defaults
-				})
+				require("nvim-surround").setup({})
 			end,
 		})
 		use({
@@ -356,6 +368,7 @@ return require("packer").startup({
 			end,
 		})
 
+		-- use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
 		-- use({
 		-- 	"ahmedkhalf/project.nvim",
 		-- 	config = function()
@@ -396,10 +409,8 @@ return require("packer").startup({
 			"mfussenegger/nvim-dap-python",
 			ft = "python",
 			after = { "nvim-dap", "nvim-dap-ui" },
-			-- config = function()
-			-- 	require("dap-python").setup("/usr/bin/python3")
-			-- end,
 		})
+
 		-- use({ "Pocco81/dap-buddy.nvim" })
 
 		-- "-------------------=== Languages plugins ===-------------------
@@ -438,7 +449,6 @@ return require("packer").startup({
 					org_highlight_latex_and_related = "entities",
 					-- org_agenda_files = {'~/Dropbox/org/*', '~/org/**/*'},
 					org_agenda_files = { "~/Dropbox/org/*" },
-					-- org_indent_mode = 'noindent',
 				})
 			end,
 		})
@@ -503,15 +513,17 @@ return require("packer").startup({
 		use({ "kyazdani42/nvim-web-devicons" })
 
 		-- "-------------------=== ColorScheme ===-------------------
-		use({ "projekt0n/github-nvim-theme" })
 		use({ "rebelot/kanagawa.nvim" })
 		use({ "catppuccin/nvim" })
-		use({ "EdenEast/nightfox.nvim" })
+		use({ "folke/tokyonight.nvim" })
+		use({ "projekt0n/github-nvim-theme" })
 
+		-- use({ "EdenEast/nightfox.nvim" })
+		-- use({ 'olimorris/onedarkpro.nvim' })
+		-- use({ "Mofiqul/vscode.nvim" })
 		-- use({ "sainnhe/sonokai", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "EdenEast/nightfox.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "yucao16/monokai_transparent", event = { "BufAdd", "InsertEnter" } })
-		-- use({ "Mofiqul/vscode.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "folke/tokyonight.nvim", event = { "BufAdd", "InsertEnter" } })
 
 		-- use({ "sainnhe/edge", event = { "BufAdd", "InsertEnter" } })
@@ -604,12 +616,12 @@ return require("packer").startup({
 				if navic_ok then
 					navic.enable()
 				end
-				-- require("configs.navic").enable()
 			end,
 		})
 		use({ "lvimuser/lsp-inlayhints.nvim", after = "mason.nvim" })
-		use({ "folke/lua-dev.nvim", after = "mason.nvim" })
+		use({ "folke/lua-dev.nvim" })
 
+		-- use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 		-- use({
 		-- 	"ThePrimeagen/refactoring.nvim",
 		-- 	config = function()
@@ -664,7 +676,7 @@ return require("packer").startup({
 
 		-- use({ "ThePrimeagen/vim-be-good", event = { "BufAdd", "InsertEnter" } }) -- game
 		-- use({ "tami5/sqlite.lua" })
-		-- " use 'TaDaa/vimade'                       " Eye Protection
+		-- use({ "TaDaa/vimade" }) -- Eye Protection
 		-- use({ "tjdevries/train.nvim", event = { "BufAdd", "InsertEnter" } })
 		-- use({ "svermeulen/vimpeccable", event = { "BufAdd", "InsertEnter" } })
 

@@ -9,7 +9,7 @@ require("nvim-treesitter.configs").setup({
 	ignore_install = { "ruby" },
 	highlight = {
 		enable = true,
-		disable = { "rust", "org", "tex", "latex" }, -- note connot remove org
+		disable = { "org", "tex", "latex" }, -- note connot remove org
 		additional_vim_regex_highlighting = false,
 		-- additional_vim_regex_highlighting = { "org" },
 	},
@@ -48,8 +48,8 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 	indent = {
-		enable = true,
-		disable = { "html", "python" },
+		enable = false,
+		disable = { "html", "python", "cpp" },
 	},
 })
 

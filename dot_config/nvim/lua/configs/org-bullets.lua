@@ -1,7 +1,7 @@
-local org_bullet_ok, org_bullet = pcall(require, 'org-bullets')
+local org_bullet_ok, org_bullet = pcall(require, "org-bullets")
 if not org_bullet_ok then
 	vim.notify("org-bullets failed", "error", { render = "minimal" })
-    return
+	return
 end
 
 org_bullet.setup({

@@ -32,5 +32,4 @@ M.configs = {
 	enabled_at_startup = true,
 	debug_mode = false,
 }
-
 return M

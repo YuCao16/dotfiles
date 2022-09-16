@@ -8,13 +8,12 @@ local mason_exists, mason = pcall(require, "mason")
 local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
 local inlayhints_exists, inlayhints = pcall(require, "lsp-inlayhints")
-local lua_dev_exists, lua_dev = pcall(require, "lua-dev")
 
 if not (nvim_lsp_exists and mason_exists and mason_lspconfig_exists and navic_exists) then
 	vim.notify("Error when loading handlers dependencies", "error", { render = "minimal" })
 end
 
--- setup inlay hint
+-- setup inlay hint, auto toggle config in core.autocmd.lua
 opt = require("configs.inlay_hint").configs
 inlayhints.setup(opt)
 
@@ -37,6 +36,7 @@ local navic_server_list = {
 	"tailwindcss",
 	"bashls",
 	"julials",
+	"yamlls",
 }
 
 -- Check if current lsp supports document syntax
@@ -71,6 +71,10 @@ local lsp_handlers = function()
 	lspSymbol("Info", "")
 	lspSymbol("Hint", "")
 	lspSymbol("Warn", "")
+	-- lspSymbol("Error", "")
+	-- lspSymbol("Info", "")
+	-- lspSymbol("Hint", "")
+	-- lspSymbol("Warn", "")
 
 	local popup_opts = { border = "rounded", max_width = 80, silent = false, focusable = true }
 	local popup_opts_f = { border = "rounded", max_width = 80, silent = false, focusable = false }
@@ -112,14 +116,15 @@ local on_attach = function(client, bufnr)
 	local opts = { noremap = true, silent = true }
 
 	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
 	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 	buf_set_keymap("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
 	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
+	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
 
 	-- custome command
-	vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
+	-- vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
+	vim.api.nvim_create_user_command("Format", ":lua vim.lsp.buf.format { async = true }<CR>", {})
 
 	-- autocmd
 	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
@@ -177,6 +182,7 @@ local on_attach = function(client, bufnr)
 	if support_navic(navic_server_list, client.name) then
 		navic.attach(client, bufnr)
 		require("configs.navic").show_winbar()
+		inlayhints.on_attach(client, bufnr)
 	end
 
 	if client.name == "pyright" then
@@ -186,8 +192,6 @@ local on_attach = function(client, bufnr)
 		-- client.server_capabilities.completionProvider = false
 	elseif client.name == "jedi_language_server" then
 		client.server_capabilities.completionProvider = false
-	elseif client.name == "clangd" then
-		inlayhints.on_attach(client, bufnr)
 	end
 end
 
@@ -197,7 +201,6 @@ local server_settings = {
 	sourcery = require("configs.lsp.settings.sourcery"),
 	sumneko_lua = require("configs.lsp.settings.sumneko_lua"),
 	pyright = require("configs.lsp.settings.pyright"),
-	-- pylsp = require("configs.lsp.settings.pylsp"),
 }
 
 local function make_config()
@@ -218,6 +221,7 @@ local function make_config()
 	}
 end
 
+-- setup Mason.nvim
 if mason_exists then
 	mason.setup({
 		ui = {
@@ -232,6 +236,26 @@ if mason_exists then
 	})
 end
 
+-- setup lua-dev
+lua_dev_exist, lua_dev = pcall(require, "lua-dev")
+if lua_dev_exist then
+	lua_dev.setup({
+		override = function(root_dir, library)
+			if require("lua-dev.util").has_file(root_dir, "/etc/nixos") then
+				library.enabled = true
+				library.plugins = false
+			else
+				library.enabled = true
+				library.plugins = false
+
+			end
+		end,
+	})
+else
+	vim.notify("lua-dev load failed", "Error", { render = "minimal" })
+end
+
+-- load lsp by mason.lspconfig
 if mason_lspconfig_exists then
 	mason_lspconfig.setup({
 		ensure_installed = {
@@ -246,31 +270,13 @@ if mason_lspconfig_exists then
 			local has_settings = server_settings[server_name] ~= nil
 			local current_server_settings =
 				vim.tbl_deep_extend("force", has_settings and server_settings[server_name] or {}, config)
-
-			-- nvim_lsp[server_name].setup(current_server_settings)
-
-			if server_name == "sumneko_lua" then
-				if lua_dev_exists then
-					local luadev = lua_dev.setup({
-						lspconfig = {
-							on_attach = current_server_settings.on_attach,
-							capabilities = current_server_settings.capabilities,
-							settings = current_server_settings.settings,
-						},
-					})
-					nvim_lsp.sumneko_lua.setup(luadev)
-				else
-					vim.notify("lua-dev load failed", "error", { render = "minimal" })
-					nvim_lsp[server_name].setup(current_server_settings)
-				end
-			else
-				nvim_lsp[server_name].setup(current_server_settings)
-			end
+			nvim_lsp[server_name].setup(current_server_settings)
 		end,
 	})
 end
 
 return M
+
 -- example to load a nonMason lsp
 -- if nvim_lsp_exists then
 -- 	nvim_lsp.jedi_language_server.setup({

@@ -16,7 +16,7 @@ description.
 
 ## Screenshot
 
-1. Open Neovim![overall](img/overall.png)
+1. Open Neovim ![overall](img/overall.png)
 
 2. Python ![python](img/python.png)
 

@@ -72,17 +72,23 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = tabstop,
 })
 
--- basic settings for python and markdown
+-- basic settings for latex and markdown
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
-local python = vim.api.nvim_create_augroup("python", { clear = true })
 vim.api.nvim_create_autocmd(
 	"FileType",
 	{ pattern = { "markdown", "latex", "tex" }, command = "set textwidth=80", group = textwidth }
 )
-vim.api.nvim_create_autocmd("FileType", { pattern = "python", command = "set colorcolumn=80", group = python })
+
+-- colorcolumn for programming language file type
+local colorcolumn = vim.api.nvim_create_augroup("colorcolumn", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "python", "cpp", "lua", "javascript", "html", "css", "markdown", "tex" },
+	command = "set colorcolumn=80",
+	group = colorcolumn,
+})
 
 -- This line map run python with <,2> and close python shell after running
-local nvimrun = vim.api.nvim_create_augroup("python", { clear = true })
+local nvimrun = vim.api.nvim_create_augroup("nvimrun", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	command = "map <buffer> <leader>2 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>",
@@ -91,13 +97,6 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "js", "javascript" },
 	command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
-	group = nvimrun,
-})
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "cc", "cpp", "c" },
-	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
-	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
-	command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
 	group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -120,11 +119,18 @@ vim.api.nvim_create_autocmd("FileType", {
 	command = "map <buffer> <leader>2 :w<CR>:exec '!julia' shellescape(@%, 1)<CR>",
 	group = nvimrun,
 })
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "cc", "cpp", "c" },
+	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
+	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
+	command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+	group = nvimrun,
+})
 
 -- quit nvimtree if it's the only buffer left
 local nvimtree = vim.api.nvim_create_augroup("nvimtree", { clear = true })
 vim.api.nvim_create_autocmd(
-	"bufenter",
+	"BufEnter",
 	{ pattern = "*", command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif', group = nvimtree }
 )
 

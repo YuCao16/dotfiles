@@ -11,7 +11,7 @@
 -- Utils highlight
 -------------------
 -- add a red line one column 80
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
+-- vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
 -- set windows separator to None
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 -- change float border color

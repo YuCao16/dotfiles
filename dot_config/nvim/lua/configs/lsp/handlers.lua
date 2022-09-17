@@ -3,9 +3,9 @@
 --=====================================================
 
 -- Ensure safely requrie dependencies
-local nvim_lsp_exists, nvim_lsp = pcall(require, "lspconfig")
 local mason_exists, mason = pcall(require, "mason")
 local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
+local nvim_lsp_exists, nvim_lsp = pcall(require, "lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
 local inlayhints_exists, inlayhints = pcall(require, "lsp-inlayhints")
 
@@ -33,7 +33,6 @@ local navic_server_list = {
 	"clangd",
 	"html",
 	"cssls",
-	"tailwindcss",
 	"bashls",
 	"julials",
 	"yamlls",
@@ -46,7 +45,6 @@ local function support_navic(server_list, server_name)
 			return true
 		end
 	end
-
 	return false
 end
 
@@ -54,7 +52,7 @@ if not nvim_lsp_exists then
 	vim.notify("LSP config failed to setup", vim.log.levels.INFO, { title = ":: Local ::" })
 	return
 else
-	-- Lspinfo rounded border
+	-- LspInfo rounded border
 	require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
@@ -123,7 +121,6 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
 
 	-- custome command
-	-- vim.api.nvim_create_user_command("Format", vim.lsp.buf.format, {})
 	vim.api.nvim_create_user_command("Format", ":lua vim.lsp.buf.format { async = true }<CR>", {})
 
 	-- autocmd
@@ -137,33 +134,8 @@ local on_attach = function(client, bufnr)
 				scope = "cursor",
 				focusable = false,
 			})
-			-- if using lspsaga
-			-- require'lspsaga.diagnostic'.show_cursor_diagnostics()
 		end,
 	})
-
-	-- underline highlight
-	if client.server_capabilities.documentformattingprovider then
-		vim.api.nvim_set_hl(0, "lspreferenceread", { link = "specialkey" })
-		vim.api.nvim_set_hl(0, "lspreferencetext", { link = "specialkey" })
-		vim.api.nvim_set_hl(0, "lspreferencewrite", { link = "specialkey" })
-
-		local lspdocumenthighlightgroup = vim.api.nvim_create_augroup("lspdocumenthighlight", { clear = true })
-		vim.api.nvim_create_autocmd({ "cursormoved" }, {
-			group = lspdocumenthighlightgroup,
-			callback = function()
-				vim.lsp.buf.clear_references()
-			end,
-			buffer = 0,
-		})
-		vim.api.nvim_create_autocmd({ "cursorhold" }, {
-			group = lspdocumenthighlightgroup,
-			callback = function()
-				vim.lsp.buf.document_highlight()
-			end,
-			buffer = 0,
-		})
-	end
 
 	if client.server_capabilities.codelensprovider then
 		local lspcodelensgroup = vim.api.nvim_create_augroup("lspcodelens", { clear = true })
@@ -171,13 +143,11 @@ local on_attach = function(client, bufnr)
 			group = lspcodelensgroup,
 			callback = function()
 				vim.lsp.codelens.refresh()
+				vim.notify("codelens refreshed")
 			end,
 			buffer = 0,
 		})
 	end
-
-	-- try virtual type by rarely supported by lsp
-	-- require("virtualtypes").on_attach(client)
 
 	if support_navic(navic_server_list, client.name) then
 		navic.attach(client, bufnr)
@@ -189,7 +159,6 @@ local on_attach = function(client, bufnr)
 		-- I have to say, sometimes, pyright is shit!
 		client.server_capabilities.hoverProvider = false
 		client.server_capabilities.signatureHelpProvider = false
-		-- client.server_capabilities.completionProvider = false
 	elseif client.name == "jedi_language_server" then
 		client.server_capabilities.completionProvider = false
 	end
@@ -208,14 +177,11 @@ local function make_config()
 	capabilities.textDocument.completion.completionItem = {
 		documentationFormat = { "markdown", "plaintext" },
 	}
-
 	-- nvim-cmp supports additional completion capabilities
 	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-
 	return {
 		-- enable snippet support
 		capabilities = capabilities,
-
 		-- map buffer local keybindings when the language server attaches
 		on_attach = on_attach,
 	}
@@ -241,14 +207,8 @@ lua_dev_exist, lua_dev = pcall(require, "lua-dev")
 if lua_dev_exist then
 	lua_dev.setup({
 		override = function(root_dir, library)
-			if require("lua-dev.util").has_file(root_dir, "/etc/nixos") then
-				library.enabled = true
-				library.plugins = false
-			else
-				library.enabled = true
-				library.plugins = false
-
-			end
+			library.enabled = false
+			library.plugins = false
 		end,
 	})
 else
@@ -258,11 +218,8 @@ end
 -- load lsp by mason.lspconfig
 if mason_lspconfig_exists then
 	mason_lspconfig.setup({
-		ensure_installed = {
-			"sumneko_lua",
-			"clangd",
-			"pyright",
-		},
+		ensure_installed = navic_server_list,
+		automatic_installation = true,
 	})
 	mason_lspconfig.setup_handlers({
 		function(server_name)
@@ -276,6 +233,30 @@ if mason_lspconfig_exists then
 end
 
 return M
+
+-- in on_attach function
+-- underline highlight, should be deprecated since it will keep flesh
+-- if client.server_capabilities.documentFormattingProvider then
+--     vim.api.nvim_set_hl(0, "lspreferenceread", { link = "specialkey" })
+--     vim.api.nvim_set_hl(0, "lspreferencetext", { link = "specialkey" })
+--     vim.api.nvim_set_hl(0, "lspreferencewrite", { link = "specialkey" })
+--
+--     local lspdocumenthighlightgroup = vim.api.nvim_create_augroup("lspdocumenthighlight", { clear = true })
+--     vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+--         group = lspdocumenthighlightgroup,
+--         callback = function()
+--             vim.lsp.buf.clear_references()
+--         end,
+--         buffer = 0,
+--     })
+--     vim.api.nvim_create_autocmd({ "CursorHold" }, {
+--         group = lspdocumenthighlightgroup,
+--         callback = function()
+--             vim.lsp.buf.document_highlight()
+--         end,
+--         buffer = 0,
+--     })
+-- end
 
 -- example to load a nonMason lsp
 -- if nvim_lsp_exists then

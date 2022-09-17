@@ -167,6 +167,14 @@ return require("packer").startup({
 			end,
 		})
 		use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
+		use({ "yucao16/registers.nvim" })
+
+		-- use({
+		-- 	"natecraddock/workspaces.nvim",
+		-- 	config = function()
+		-- 		require("workspaces").setup()
+		-- 	end,
+		-- })
 		-- use({
 		-- 	"tversteeg/registers.nvim",
 		-- 	branch = "refactor",
@@ -179,16 +187,8 @@ return require("packer").startup({
 		-- 		})
 		-- 	end,
 		-- })
-		use({
-			"natecraddock/workspaces.nvim",
-			config = function()
-				require("workspaces").setup()
-			end,
-		})
-
 		-- use({ 'beauwilliams/focus.nvim' })
 		-- use({ "camspiers/lens.vim", event = { "WinNew" } })
-		use({ "yucao16/registers.nvim" })
 		-- use({
 		-- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
 		-- 	event = { "BufAdd", "InsertEnter" },
@@ -620,8 +620,8 @@ return require("packer").startup({
 		})
 		use({ "lvimuser/lsp-inlayhints.nvim", after = "mason.nvim" })
 		use({ "folke/lua-dev.nvim" })
+		use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 
-		-- use({ "kevinhwang91/nvim-bqf", ft = "qf" })
 		-- use({
 		-- 	"ThePrimeagen/refactoring.nvim",
 		-- 	config = function()

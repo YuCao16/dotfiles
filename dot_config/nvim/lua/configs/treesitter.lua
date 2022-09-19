@@ -21,7 +21,7 @@ require("nvim-treesitter.configs").setup({
 	},
 	endwise = {
 		enable = true,
-		disable = { "rust" },
+		disable = { "ruby" },
 	},
 	autotag = {
 		enable = true,

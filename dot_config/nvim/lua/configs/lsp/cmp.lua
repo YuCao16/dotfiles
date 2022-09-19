@@ -111,7 +111,7 @@ cmp.setup({
 			compare.offset,
 			compare.exact,
 			compare.score,
-			require("configs.lsp.cmp-under-comparator").under,
+			require("configs.cmp_under_comparator").under,
 			compare.kind,
 			compare.sort_text,
 			compare.length,

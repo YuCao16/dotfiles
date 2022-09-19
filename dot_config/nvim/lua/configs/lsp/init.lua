@@ -3,7 +3,6 @@ local oks = {
 	["lspsaga"] = pcall(require, "configs.lsp.lsp_saga"),
 	["null-ls"] = pcall(require, "configs.lsp.null"),
 	["signature"] = pcall(require, "configs.lsp.signature"),
-	-- ["cmp"] = pcall(require, "configs.lsp.cmp"), -- move to plugins to speed up startup
 }
 
 for name, item in pairs(oks) do

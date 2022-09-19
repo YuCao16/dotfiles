@@ -15,6 +15,7 @@ require("kanagawa").setup({
 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 -- cmd([[colorscheme kanagawa]])
 cmd([[colorscheme tokyonight]])
+-- cmd([[colorscheme tokyonight-moon]])
 -- cmd([[colorscheme tokyonight-storm]])
 -- cmd([[colorscheme tokyonight-night]])
 -- cmd([[colorscheme catppuccin]])

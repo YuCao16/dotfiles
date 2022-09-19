@@ -22,19 +22,19 @@ g["tagbar_compact"] = 1
 g["lens#animate"] = 0
 g["animate#duration"] = 100.0
 g["lens#disable_buftypes"] = {
-	"terminal",
+    "terminal",
 }
 g["lens#disabled_filetypes"] = {
-	"tagbar",
-	"NvimTree",
-	"dapui_watches",
-	"dapui_stacks",
-	"dapui_breakpoints",
-	"dapui_scopes",
-	"dapui_console",
-	"dap-repl",
-	"Outline",
-	"SidebarNvim",
+    "tagbar",
+    "NvimTree",
+    "dapui_watches",
+    "dapui_stacks",
+    "dapui_breakpoints",
+    "dapui_scopes",
+    "dapui_console",
+    "dap-repl",
+    "Outline",
+    "SidebarNvim",
 }
 
 -- "=====================================================
@@ -46,9 +46,9 @@ g["csv_delim"] = ","
 -- "" VimTex settings
 -- "=====================================================
 if vim.fn.has("macunix") == 1 then --make sure skim for macos only
-	g["vimtex_view_method"] = "skim"
+    g["vimtex_view_method"] = "skim"
 else
-	g["vimtex_view_method"] = "general"
+    g["vimtex_view_method"] = "general"
 end
 g["vimtex_compiler_method"] = "latexmk"
 
@@ -150,6 +150,12 @@ let g:neoformat_javascript_prettier = {
       \ 'args': ['--write', '--prose-wrap=always','--tab-width=2'],
       \ 'replace': 1
       \ }
+let g:neoformat_lua_stylua = {
+    \ 'exe': 'stylua',
+    \ 'args': ['--column-width 80', '--indent-type Spaces',
+    \          '--indent-width 4', '-'],
+    \ 'stdin': 1,
+    \ }
 ]])
 
 -- "=====================================================

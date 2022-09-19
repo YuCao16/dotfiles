@@ -12,7 +12,8 @@ M.configs = {
 		type_hints = {
 			-- type and other hints
 			show = true,
-			prefix = "",
+			-- prefix = " ▪ ",
+			prefix = " ▸ ",
 			separator = ", ",
 			remove_colon_start = false,
 			remove_colon_end = false,

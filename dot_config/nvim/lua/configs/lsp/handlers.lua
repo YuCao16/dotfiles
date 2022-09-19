@@ -4,235 +4,117 @@
 
 -- Ensure safely requrie dependencies
 local mason_exists, mason = pcall(require, "mason")
-local mason_lspconfig_exists, mason_lspconfig = pcall(require, "mason-lspconfig")
+local mason_lspconfig_exists, mason_lspconfig =
+    pcall(require, "mason-lspconfig")
 local nvim_lsp_exists, nvim_lsp = pcall(require, "lspconfig")
 local navic_exists, navic = pcall(require, "nvim-navic")
-local inlayhints_exists, inlayhints = pcall(require, "lsp-inlayhints")
 
-if not (nvim_lsp_exists and mason_exists and mason_lspconfig_exists and navic_exists) then
-	vim.notify("Error when loading handlers dependencies", "error", { render = "minimal" })
-end
-
--- setup inlay hint, auto toggle config in core.autocmd.lua
-opt = require("configs.inlay_hint").configs
-inlayhints.setup(opt)
-
--- Pulling out things from
-local diagnostic = vim.diagnostic
-local lsp = vim.lsp
-
--- List of servers
-local navic_server_list = {
-	"jedi_language_server",
-	"marksman",
-	"texlab",
-	"sumneko_lua",
-	"gopls",
-	"tsserver",
-	"jsonls",
-	"clangd",
-	"html",
-	"cssls",
-	"bashls",
-	"julials",
-	"yamlls",
-}
-
--- Check if current lsp supports document syntax
-local function support_navic(server_list, server_name)
-	for index, value in ipairs(server_list) do
-		if value == server_name then
-			return true
-		end
-	end
-	return false
-end
-
+-- check if lspconfig ok, if so, set LspInfo border to rounded
+-- if not ok, then stop loading
 if not nvim_lsp_exists then
-	vim.notify("LSP config failed to setup", vim.log.levels.INFO, { title = ":: Local ::" })
-	return
+    vim.notify(
+        "LSP config failed to setup",
+        vim.log.levels.INFO,
+        { render = "minimal" }
+    )
+    return
 else
-	-- LspInfo rounded border
-	require("lspconfig.ui.windows").default_options.border = "rounded"
+    require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
-local M = {}
-
--- TODO: backfill this to template
-local lsp_handlers = function()
-	local function lspSymbol(name, icon)
-		local hl = "DiagnosticSign" .. name
-		vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
-	end
-
-	lspSymbol("Error", "")
-	lspSymbol("Info", "")
-	lspSymbol("Hint", "")
-	lspSymbol("Warn", "")
-	-- lspSymbol("Error", "")
-	-- lspSymbol("Info", "")
-	-- lspSymbol("Hint", "")
-	-- lspSymbol("Warn", "")
-
-	local popup_opts = { border = "rounded", max_width = 80, silent = false, focusable = true }
-	local popup_opts_f = { border = "rounded", max_width = 80, silent = false, focusable = false }
-
-	lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, popup_opts)
-	lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.hover, popup_opts)
-
-	diagnostic.config({
-		virtual_text = false,
-		signs = true,
-		underline = true,
-		severity_sort = true,
-		update_in_insert = false, -- update diagnostics insert mode
-		float = {
-			focusable = false,
-			-- style = "minimal",
-			border = "rounded",
-			source = "always",
-			header = "🙀Diagnostics:",
-			prefix = "",
-		},
-	})
+-- check if other required plugins ok, if not won't return
+if not (mason_exists and mason_lspconfig_exists and navic_exists) then
+    vim.notify(
+        "Error when loading handlers dependencies",
+        "error",
+        { render = "minimal" }
+    )
 end
 
-local on_attach = function(client, bufnr)
-	-- setup handlers
-	lsp_handlers()
+-- List of servers support navic
+local ensure_installed = require("configs.lsp.config").navic_server_list
 
-	-- general
-	client.config.flags.allow_incremental_sync = true
+-- lsp handler
+local on_attach = require("configs.lsp.config").on_attach
 
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- keybindings
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-
-	local opts = { noremap = true, silent = true }
-
-	buf_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<leader>gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "[d", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>', opts)
-	buf_set_keymap("n", "]d", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>', opts)
-	buf_set_keymap("n", "<leader>go", ":symbolsoutline<CR>", { noremap = false, silent = false })
-
-	-- custome command
-	vim.api.nvim_create_user_command("Format", ":lua vim.lsp.buf.format { async = true }<CR>", {})
-
-	-- autocmd
-	local lsplinediagnosticsgroup = vim.api.nvim_create_augroup("lsplinediagnostics", { clear = true })
-	vim.api.nvim_create_autocmd("cursorhold", {
-		group = lsplinediagnosticsgroup,
-		pattern = "*",
-		callback = function()
-			-- if change scope to "line", then diagnostic will toggle the whole line
-			vim.diagnostic.open_float(0, {
-				scope = "cursor",
-				focusable = false,
-			})
-		end,
-	})
-
-	if client.server_capabilities.codelensprovider then
-		local lspcodelensgroup = vim.api.nvim_create_augroup("lspcodelens", { clear = true })
-		vim.api.nvim_create_autocmd({ "cursorhold", "bufenter", "insertleave" }, {
-			group = lspcodelensgroup,
-			callback = function()
-				vim.lsp.codelens.refresh()
-				vim.notify("codelens refreshed")
-			end,
-			buffer = 0,
-		})
-	end
-
-	if support_navic(navic_server_list, client.name) then
-		navic.attach(client, bufnr)
-		require("configs.navic").show_winbar()
-		inlayhints.on_attach(client, bufnr)
-	end
-
-	if client.name == "pyright" then
-		-- I have to say, sometimes, pyright is shit!
-		client.server_capabilities.hoverProvider = false
-		client.server_capabilities.signatureHelpProvider = false
-	elseif client.name == "jedi_language_server" then
-		client.server_capabilities.completionProvider = false
-	end
-end
-
+-- lsp settings
 local server_settings = {
-	tsserver = require("configs.lsp.settings.tsserver"),
-	jedi_language_server = require("configs.lsp.settings.jedi"),
-	sourcery = require("configs.lsp.settings.sourcery"),
-	sumneko_lua = require("configs.lsp.settings.sumneko_lua"),
-	pyright = require("configs.lsp.settings.pyright"),
+    tsserver = require("configs.lsp.settings.tsserver"),
+    jedi_language_server = require("configs.lsp.settings.jedi"),
+    sourcery = require("configs.lsp.settings.sourcery"),
+    sumneko_lua = require("configs.lsp.settings.sumneko_lua"),
+    pyright = require("configs.lsp.settings.pyright"),
 }
 
+-- setup on_attach and capabilities
 local function make_config()
-	local capabilities = lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem = {
-		documentationFormat = { "markdown", "plaintext" },
-	}
-	-- nvim-cmp supports additional completion capabilities
-	capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-	return {
-		-- enable snippet support
-		capabilities = capabilities,
-		-- map buffer local keybindings when the language server attaches
-		on_attach = on_attach,
-	}
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem = {
+        documentationFormat = { "markdown", "plaintext" },
+    }
+    -- nvim-cmp supports additional completion capabilities
+    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    return {
+        -- include enable snippet support, etc
+        capabilities = capabilities,
+        -- map buffer local keybindings when the language server attaches
+        on_attach = on_attach,
+    }
 end
 
 -- setup Mason.nvim
 if mason_exists then
-	mason.setup({
-		ui = {
-			border = "rounded",
-			icons = {
-				package_installed = "✓",
-				package_pending = "➜",
-				package_uninstalled = "✗",
-			},
-		},
-		log_level = vim.log.levels.DEBUG,
-	})
-end
-
--- setup lua-dev
-lua_dev_exist, lua_dev = pcall(require, "lua-dev")
-if lua_dev_exist then
-	lua_dev.setup({
-		override = function(root_dir, library)
-			library.enabled = false
-			library.plugins = false
-		end,
-	})
-else
-	vim.notify("lua-dev load failed", "Error", { render = "minimal" })
+    mason_opt = require("configs.mason")
+    mason.setup(mason_opt)
 end
 
 -- load lsp by mason.lspconfig
 if mason_lspconfig_exists then
-	mason_lspconfig.setup({
-		ensure_installed = navic_server_list,
-		automatic_installation = true,
-	})
-	mason_lspconfig.setup_handlers({
-		function(server_name)
-			local config = make_config()
-			local has_settings = server_settings[server_name] ~= nil
-			local current_server_settings =
-				vim.tbl_deep_extend("force", has_settings and server_settings[server_name] or {}, config)
-			nvim_lsp[server_name].setup(current_server_settings)
-		end,
-	})
+    mason_lspconfig.setup({
+        ensure_installed = ensure_installed,
+        automatic_installation = true,
+    })
+    mason_lspconfig.setup_handlers({
+        function(server_name)
+            local config = make_config()
+            local has_settings = server_settings[server_name] ~= nil
+            local current_server_settings = vim.tbl_deep_extend(
+                "force",
+                has_settings and server_settings[server_name] or {},
+                config
+            )
+            if server_name == "sumneko_lua" then
+                lua_dev_exist, lua_dev = pcall(require, "lua-dev")
+                if lua_dev_exist then
+                    lua_dev.setup({
+                        override = function(root_dir, library)
+                            library.enabled = false
+                            library.plugins = false
+                        end,
+                    })
+                else
+                    vim.notify(
+                        "lua-dev load failed",
+                        "Error",
+                        { render = "minimal" }
+                    )
+                end
+            elseif server_name == "rust_analyzer" then
+                rt_opts = require("configs.rust_tools").opts
+                rt_opts.server.on_attach = on_attach
+                rt_opts.server.capabilities = capabilities
+                rt_ok, rt = pcall(require, "rust-tools")
+                if rt_ok then
+                    rt.setup(rt_opts)
+                    return
+                else
+                    vim.notify("rust-tools load failed")
+                end
+            end
+            nvim_lsp[server_name].setup(current_server_settings)
+        end,
+    })
 end
-
-return M
 
 -- in on_attach function
 -- underline highlight, should be deprecated since it will keep flesh

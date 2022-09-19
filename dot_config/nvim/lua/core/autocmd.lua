@@ -10,139 +10,171 @@
 -- quick exit from dashboard
 local dashboard = vim.api.nvim_create_augroup("dashboard", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "dashboard" },
-	command = "nnoremap <buffer> <down> j && nnoremap <buffer> <up> k",
-	group = dashboard,
+    pattern = { "dashboard" },
+    command = "nnoremap <buffer> <down> j && nnoremap <buffer> <up> k",
+    group = dashboard,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "dashboard" },
-	command = "nnoremap <buffer> q :lua Handle_dashboard()<CR>",
-	group = dashboard,
+    pattern = { "dashboard" },
+    command = "nnoremap <buffer> q :lua Handle_dashboard()<CR>",
+    group = dashboard,
 })
 
 -- quick exit from lspsaga
 local lspsaga = vim.api.nvim_create_augroup("lspsaga", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lspsagaoutline", "notify" },
-	command = "nnoremap <buffer> q :q<CR>",
-	group = lspsaga,
+    pattern = { "lspsagaoutline", "notify", "qf" },
+    command = "nnoremap <buffer> q :q<CR>",
+    group = lspsaga,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "sagacodeaction", "nil", "nofile", "notify" },
-	command = "nnoremap <buffer> <ESC> :q<CR>",
-	group = lspsaga,
+    pattern = { "sagacodeaction", "nil", "nofile", "notify" },
+    command = "nnoremap <buffer> <ESC> :q<CR>",
+    group = lspsaga,
 })
 
 -- quick exit from toggleterm
 local toggleterm = vim.api.nvim_create_augroup("toggleterm", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "toggleterm",
-	command = "nnoremap <buffer> q :q<CR>",
-	group = cocautocmd,
+    pattern = "toggleterm",
+    command = "nnoremap <buffer> q :q<CR>",
+    group = cocautocmd,
 })
 
 -- auto config scrollbar
-local ScrollbarInit = vim.api.nvim_create_augroup("ScrollbarInit", { clear = true })
-vim.api.nvim_create_autocmd({ "WinScrolled", "VimResized", "QuitPre", "WinEnter", "FocusGained" }, {
-	pattern = "*",
-	command = "silent! lua require('scrollbar').show()",
-	group = ScrollbarInit,
-})
-vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave", "BufWinLeave", "FocusLost" }, {
-	pattern = "*",
-	command = "silent! lua require('scrollbar').clear()",
-	group = ScrollbarInit,
-})
+local ScrollbarInit =
+    vim.api.nvim_create_augroup("ScrollbarInit", { clear = true })
+vim.api.nvim_create_autocmd(
+    { "WinScrolled", "VimResized", "QuitPre", "WinEnter", "FocusGained" },
+    {
+        pattern = "*",
+        command = "silent! lua require('scrollbar').show()",
+        group = ScrollbarInit,
+    }
+)
+vim.api.nvim_create_autocmd(
+    { "WinLeave", "BufLeave", "BufWinLeave", "FocusLost" },
+    {
+        pattern = "*",
+        command = "silent! lua require('scrollbar').clear()",
+        group = ScrollbarInit,
+    }
+)
 
 -- tabstop for filetypes
 local tabstop = vim.api.nvim_create_augroup("tabstop", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "markdown" },
-	command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab",
-	group = tabstop,
+    pattern = { "markdown" },
+    command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab",
+    group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "tex", "vim", "lua", "journal", "cpp", "cc", "c", "htmldjango" },
-	command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
-	group = tabstop,
+    pattern = { "tex", "vim", "lua", "journal", "cpp", "cc", "c", "htmldjango" },
+    command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
+    group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "css", "xml", "json", "html", "js", "javascript" },
-	command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
-	group = tabstop,
+    pattern = { "css", "xml", "json", "html", "js", "javascript" },
+    command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
+    group = tabstop,
 })
 
 -- basic settings for latex and markdown
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
 vim.api.nvim_create_autocmd(
-	"FileType",
-	{ pattern = { "markdown", "latex", "tex" }, command = "set textwidth=80", group = textwidth }
+    "FileType",
+    {
+        pattern = { "markdown", "latex", "tex" },
+        command = "set textwidth=80",
+        group = textwidth,
+    }
 )
 
 -- colorcolumn for programming language file type
 local colorcolumn = vim.api.nvim_create_augroup("colorcolumn", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "python", "cpp", "lua", "javascript", "html", "css", "markdown", "tex" },
-	command = "set colorcolumn=80",
-	group = colorcolumn,
+    pattern = {
+        "python",
+        "cpp",
+        "lua",
+        "javascript",
+        "html",
+        "css",
+        "markdown",
+        "tex",
+    },
+    command = "set colorcolumn=80",
+    group = colorcolumn,
 })
 
 -- This line map run python with <,2> and close python shell after running
 local nvimrun = vim.api.nvim_create_augroup("nvimrun", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "python",
-	command = "map <buffer> <leader>2 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>",
-	group = nvimrun,
+    pattern = "python",
+    command = "map <buffer> <leader>2 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "js", "javascript" },
-	command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
-	group = nvimrun,
+    pattern = { "js", "javascript" },
+    command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "cpp" },
-	command = "map <buffer> <leader>3 :w<CR>:exec '!./run.sh'<CR>",
-	group = nvimrun,
+    pattern = { "cpp" },
+    command = "map <buffer> <leader>3 :w<CR>:exec '!./run.sh'<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "go" },
-	command = "map <buffer> <leader>2 :w<CR>:exec '!go run' shellescape(@%, 1)<CR>",
-	group = nvimrun,
+    pattern = { "go" },
+    command = "map <buffer> <leader>2 :w<CR>:exec '!go run' shellescape(@%, 1)<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "lua" },
-	command = "map <buffer> <leader>2 :w<CR>:exec '!lua' shellescape(@%, 1)<CR>",
-	group = nvimrun,
+    pattern = { "lua" },
+    command = "map <buffer> <leader>2 :w<CR>:exec '!lua' shellescape(@%, 1)<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "julia" },
-	command = "map <buffer> <leader>2 :w<CR>:exec '!julia' shellescape(@%, 1)<CR>",
-	group = nvimrun,
+    pattern = { "julia" },
+    command = "map <buffer> <leader>2 :w<CR>:exec '!julia' shellescape(@%, 1)<CR>",
+    group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "cc", "cpp", "c" },
-	-- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
-	-- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
-	command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
-	group = nvimrun,
+    pattern = { "cc", "cpp", "c" },
+    -- command = "map <buffer> <leader>2 :w<CR>:!g++ -std=c++11 linalg.cpp -ldlib -o out && ./out<CR>",
+    -- command = "map <buffer> <leader>2 :w<CR>:exec '!g++ -std=c++11' shellescape(@%, 1) '-ldlib -o out && ./out'<CR>",
+    command = "map <buffer> <leader>2 :w<CR>:exec '!clang++ -std=c++11' shellescape(@%, 1) '-o out && ./out'<CR>",
+    group = nvimrun,
 })
 
 -- quit nvimtree if it's the only buffer left
 local nvimtree = vim.api.nvim_create_augroup("nvimtree", { clear = true })
 vim.api.nvim_create_autocmd(
-	"BufEnter",
-	{ pattern = "*", command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif', group = nvimtree }
+    "BufEnter",
+    {
+        pattern = "*",
+        command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif',
+        group = nvimtree,
+    }
 )
 
 -- Save session when vimleave
 local session = vim.api.nvim_create_augroup("session", { clear = true })
 vim.api.nvim_create_autocmd(
-	"vimleave",
-	{ pattern = "*", command = "SessionManager save_current_session", group = session }
+    "vimleave",
+    {
+        pattern = "*",
+        command = "SessionManager save_current_session",
+        group = session,
+    }
 )
 
 -- Custom user command
-vim.api.nvim_create_user_command("Path", 'lua print(vim.fn.expand("%:p"))<cr>', {})
+vim.api.nvim_create_user_command(
+    "Path",
+    'lua print(vim.fn.expand("%:p"))<cr>',
+    {}
+)
 
 -- lsp-inlayhints.nvim
 -- vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true })

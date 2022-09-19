@@ -73,6 +73,29 @@ dap.adapters.python = {
 	args = { "-m", "debugpy.adapter" },
 }
 
+-- Rust
+local extension_path = vim.env.HOME .. "/.local/share/nvim/mason/packages/codelldb/extension/"
+local codelldb_path = extension_path .. "adapter/codelldb"
+local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
+dap.adapters.codelldb = {
+	type = "executable",
+	command = "lldb-vscode",
+	name = "rt_lldb",
+}
+dap.configurations.rust = {
+	{
+		name = "Launch file",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		runInTerminal = false,
+	},
+}
+
 -- lldb-vscode ad: more information
 
 -- dap.adapters.lldb = {

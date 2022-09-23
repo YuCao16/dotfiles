@@ -538,6 +538,12 @@ return require("packer").startup({
         use({ "catppuccin/nvim" })
         use({ "folke/tokyonight.nvim" })
         use({ "projekt0n/github-nvim-theme" })
+        use({ "Mofiqul/dracula.nvim" })
+        use({ "tanvirtin/monokai.nvim" })
+        use({
+            "mcchrish/zenbones.nvim",
+            requires = "rktjmp/lush.nvim",
+        })
 
         -- use({ "EdenEast/nightfox.nvim" })
         -- use({ 'olimorris/onedarkpro.nvim' })

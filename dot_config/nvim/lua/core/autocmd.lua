@@ -69,12 +69,12 @@ vim.api.nvim_create_autocmd("FileType", {
     group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "tex", "vim", "lua", "journal", "cpp", "cc", "c", "htmldjango" },
+    pattern = { "tex", "vim", "lua", "journal", "cpp", "c" },
     command = "setlocal shiftwidth=4 tabstop=4 softtabstop=4",
     group = tabstop,
 })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "css", "xml", "json", "html", "js", "javascript" },
+    pattern = { "css", "json", "html", "javascript" },
     command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
     group = tabstop,
 })
@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown", "latex", "tex" },
-    command = "set textwidth=80",
+    command = "setlocal textwidth=80",
     group = textwidth,
 })
 
@@ -92,6 +92,7 @@ local colorcolumn = vim.api.nvim_create_augroup("colorcolumn", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {
         "python",
+        "rust",
         "cpp",
         "lua",
         "javascript",
@@ -100,7 +101,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "markdown",
         "tex",
     },
-    command = "set colorcolumn=80",
+    command = "setlocal colorcolumn=80",
     group = colorcolumn,
 })
 

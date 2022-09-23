@@ -84,7 +84,6 @@ return require("packer").startup({
         -- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
         -- "-------------------=== Nvim Fix/Improve ===-------------
-        -- use({ "antoinemadec/FixCursorHold.nvim" })
         use({ "famiu/bufdelete.nvim" })
         use({
             "karb94/neoscroll.nvim",
@@ -172,10 +171,9 @@ return require("packer").startup({
             "lewis6991/gitsigns.nvim",
             ft = workflow_filetype,
             event = {
-                "CursorMoved",
                 "CursorHold",
                 "InsertEnter",
-                "CmdlineEnter",
+                "BufAdd",
             },
             config = function()
                 require("configs.gitsign")
@@ -184,12 +182,6 @@ return require("packer").startup({
         use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
         use({ "yucao16/registers.nvim" })
 
-        -- use({
-        -- 	"natecraddock/workspaces.nvim",
-        -- 	config = function()
-        -- 		require("workspaces").setup()
-        -- 	end,
-        -- })
         -- use({
         -- 	"tversteeg/registers.nvim",
         -- 	branch = "refactor",
@@ -225,35 +217,14 @@ return require("packer").startup({
         -- 	end,
         -- })
         -- use({ "camspiers/animate.vim", event = { "BufAdd" } }) -- " window resizer
-        -- use({ "junegunn/limelight.vim", event = { "BufAdd", "InsertEnter" } })
         -- use({
         -- 	"yucao16/nvim-peekup", -- register
         -- 	config = function()
         -- 		require("nvim-peekup.config").on_keystroke["delay"] = "100ms"
         -- 	end,
         -- })
-        -- use({ "junegunn/fzf" })
-        -- use({ "junegunn/fzf.vim" }) -- " Search Tools
-        -- use({ "tmhedberg/SimpylFold", event = { "BufAdd", "InsertEnter" } })
         -- use({ "folke/twilight.nvim" })
         -- use({ "sindrets/winshift.nvim", event = { "BufAdd", "InsertEnter" } })
-        -- use({ "tpope/vim-repeat", event = { "BufAdd", "InsertEnter" } })
-        -- use({
-        -- 	"rmagatti/auto-session",
-        -- 	config = function()
-        -- 		local opts = {
-        -- 			log_level = "info",
-        -- 			auto_session_enable_last_session = false,
-        -- 			auto_session_root_dir = vim.fn.stdpath("data") .. "/session/",
-        -- 			auto_session_enabled = true,
-        -- 			auto_save_enabled = false,
-        -- 			auto_restore_enabled = false,
-        -- 			auto_session_suppress_dirs = nil,
-        -- 		}
-        -- 		require("auto-session").setup(opts)
-        -- 	end,
-        -- })
-        -- use({ "anuvyklack/nvim-keymap-amend" })
         -- use({
         -- 	"anuvyklack/fold-preview.nvim",
         -- 	requires = "anuvyklack/keymap-amend.nvim",
@@ -305,8 +276,6 @@ return require("packer").startup({
             "nvim-treesitter/playground",
             event = { "BufAdd", "InsertEnter" },
         })
-
-        -- use({ "romgrk/nvim-treesitter-context" })
 
         -- "-------------------=== Code/Project navigation ===-------------
         use({ "majutsushi/tagbar", ft = workflow_filetype })
@@ -387,23 +356,9 @@ return require("packer").startup({
         })
 
         -- use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
-        -- use({
-        -- 	"ahmedkhalf/project.nvim",
-        -- 	config = function()
-        -- 		require("project_nvim").setup({})
-        -- 	end,
-        -- })
-        -- use({
-        -- 	"stevearc/aerial.nvim",
-        -- 	config = function()
-        -- 		require("aerial").setup()
-        -- 	end,
-        -- })
         -- use({ "APZelos/blamer.nvim", ft = workflow_filetype })
         -- use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
-        -- use({ "junegunn/vim-easy-align", event = { "BufAdd", "InsertEnter" } })
         -- use({ "weilbith/nvim-code-action-menu" }) -- code action popup, but there is no quickif x for python
-        -- " use 'sirver/ultisnips'
         -- use({
         -- 	"lewis6991/spellsitter.nvim",
         -- 	ft = { "markdown", "latex", "org" },
@@ -428,8 +383,6 @@ return require("packer").startup({
             ft = "python",
             after = { "nvim-dap", "nvim-dap-ui" },
         })
-
-        -- use({ "Pocco81/dap-buddy.nvim" })
 
         -- "-------------------=== Languages plugins ===-------------------
         use({ "lervag/vimtex", ft = { "markdown", "tex", "ipynb", "org" } }) -- " LaTex
@@ -517,7 +470,7 @@ return require("packer").startup({
         -- })
 
         -- "-------------------=== Color/Theme ===-------------------
-        use("machakann/vim-highlightedyank") --highlight yank (copyed line/lines) region
+        use({ "machakann/vim-highlightedyank" }) --highlight yank (copyed line/lines) region
         use({
             "norcalli/nvim-colorizer.lua",
             config = function()
@@ -537,14 +490,14 @@ return require("packer").startup({
         use({ "rebelot/kanagawa.nvim" })
         use({ "catppuccin/nvim" })
         use({ "folke/tokyonight.nvim" })
-        use({ "projekt0n/github-nvim-theme" })
-        use({ "Mofiqul/dracula.nvim" })
-        use({ "tanvirtin/monokai.nvim" })
         use({
             "mcchrish/zenbones.nvim",
             requires = "rktjmp/lush.nvim",
         })
 
+        -- use({ "projekt0n/github-nvim-theme" })
+        -- use({ "Mofiqul/dracula.nvim" })
+        -- use({ "tanvirtin/monokai.nvim" })
         -- use({ "EdenEast/nightfox.nvim" })
         -- use({ 'olimorris/onedarkpro.nvim' })
         -- use({ "Mofiqul/vscode.nvim" })
@@ -557,15 +510,11 @@ return require("packer").startup({
         -- use({ "sainnhe/everforest", event = { "BufAdd", "InsertEnter" } })
         -- use({ "rose-pine/neovim", event = { "BufAdd", "InsertEnter" } })
         -- use({ "marko-cerovac/material.nvim", event = { "BufAdd", "InsertEnter" } })
-        -- use({ "arcticicestudio/nord-vim", event = { "BufAdd", "InsertEnter" } })
         -- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
         -- use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
         -- use { 'navarasu/onedark.nvim' }
         -- use({ "lunarvim/horizon.nvim" })
         -- use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
-        -- use({ "dracula/vim", event = { "BufAdd", "InsertEnter" } })
-        -- use({ "sickill/vim-monokai", event = { "BufAdd", "InsertEnter" } })
-        -- use({ "tomasiser/vim-code-dark", event = { "BufAdd", "InsertEnter" } })
         -- use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
 
         -- "-------------------=== UI ===-------------------------------
@@ -648,8 +597,8 @@ return require("packer").startup({
         use({ "lvimuser/lsp-inlayhints.nvim", after = "mason.nvim" })
         use({ "folke/lua-dev.nvim" })
         use({ "simrat39/rust-tools.nvim" })
-
         use({ "kevinhwang91/nvim-bqf", ft = "qf" })
+
         -- use({
         -- 	"ThePrimeagen/refactoring.nvim",
         -- 	config = function()

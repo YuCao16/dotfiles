@@ -81,14 +81,11 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- basic settings for latex and markdown
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })
-vim.api.nvim_create_autocmd(
-    "FileType",
-    {
-        pattern = { "markdown", "latex", "tex" },
-        command = "set textwidth=80",
-        group = textwidth,
-    }
-)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "latex", "tex" },
+    command = "set textwidth=80",
+    group = textwidth,
+})
 
 -- colorcolumn for programming language file type
 local colorcolumn = vim.api.nvim_create_augroup("colorcolumn", { clear = true })
@@ -149,25 +146,19 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- quit nvimtree if it's the only buffer left
 local nvimtree = vim.api.nvim_create_augroup("nvimtree", { clear = true })
-vim.api.nvim_create_autocmd(
-    "BufEnter",
-    {
-        pattern = "*",
-        command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif',
-        group = nvimtree,
-    }
-)
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif',
+    group = nvimtree,
+})
 
 -- Save session when vimleave
 local session = vim.api.nvim_create_augroup("session", { clear = true })
-vim.api.nvim_create_autocmd(
-    "vimleave",
-    {
-        pattern = "*",
-        command = "SessionManager save_current_session",
-        group = session,
-    }
-)
+vim.api.nvim_create_autocmd("vimleave", {
+    pattern = "*",
+    command = "SessionManager save_current_session",
+    group = session,
+})
 
 -- Custom user command
 vim.api.nvim_create_user_command(

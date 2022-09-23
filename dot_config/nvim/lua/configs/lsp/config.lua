@@ -147,12 +147,6 @@ M.on_attach = function(client, bufnr)
             require("rust-tools").hover_actions.hover_actions,
             { buffer = bufnr }
         )
-        vim.keymap.set(
-            "n",
-            "<Leader>ga",
-            require("rust-tools").code_action_group.code_action_group,
-            { buffer = bufnr }
-        )
     end
 
     -- custome command

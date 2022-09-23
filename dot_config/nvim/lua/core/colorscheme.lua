@@ -15,12 +15,10 @@ require("kanagawa").setup({
 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 -- cmd([[colorscheme kanagawa]])
 cmd([[colorscheme tokyonight]])
+-- cmd([[colorscheme zenbones]])
 -- cmd([[colorscheme tokyonight-moon]])
--- cmd([[colorscheme tokyonight-storm]])
 -- cmd([[colorscheme tokyonight-night]])
 -- cmd([[colorscheme catppuccin]])
--- cmd([[colorscheme nightfox]])
--- cmd([[colorscheme onedarkpro]])
 
 -- require("github-theme").setup({
 -- 	transparent = false,

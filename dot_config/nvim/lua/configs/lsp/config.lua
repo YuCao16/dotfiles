@@ -98,6 +98,7 @@ M.on_attach = function(client, bufnr)
 
     local opts = { noremap = true, silent = true }
 
+    buf_set_keymap("n", "<tab>", ":lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap(
         "n",
         "<leader>gd",

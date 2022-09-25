@@ -133,30 +133,60 @@ g["code_action_menu_window_border"] = "rounded"
 -- "=====================================================
 -- "" neoformat settings
 -- "=====================================================
-cmd([[
-let g:neoformat_markdown_prettier = {
-      \ 'exe': 'prettier',
-      \ 'args': ['--write', '--prose-wrap=always','--tab-width=4'],
-      \ 'replace': 1
-      \ }
-let g:neoformat_cpp_clangformat = {
-    \ 'exe': 'clang-format',
-    \ 'args': ['--style="{IndentWidth: 4}"'],
-\}
-let g:neoformat_enabled_markdown = ['prettier']
-let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_javascript_prettier = {
-      \ 'exe': 'prettier',
-      \ 'args': ['--write', '--prose-wrap=always','--tab-width=2'],
-      \ 'replace': 1
-      \ }
-let g:neoformat_lua_stylua = {
-    \ 'exe': 'stylua',
-    \ 'args': ['--column-width 80', '--indent-type Spaces',
-    \          '--indent-width 4', '-'],
-    \ 'stdin': 1,
-    \ }
-]])
+g.neoformat_enabled_markdown = { "prettier" }
+g.neoformat_markdown_prettier = {
+    exe = "prettier",
+    args = { "--write --prose-wrap=always --tab-width=4" },
+    replace = 1,
+}
+g.neoformat_javascript_prettier = { "prettier" }
+g.neoformat_javascript_prettier = {
+    exe = "prettier",
+    args = { "--write --prose-wrap=always --tab-width=2" },
+    replace = 1,
+}
+g.neoformat_lua_stylua = {
+    exe = "stylua",
+    args = { "--column-width 80 --indent-type Spaces --indent-width 4 -" },
+    stdin = 1,
+}
+g.neoformat_rust_rustfmt = {
+    exe = "rustfmt",
+    args = { "--config max_width=80" },
+    replace = 1,
+}
+g.neoformat_cpp_clangformat =
+    { exe = "clang-format", args = { "--style='{IndentWidth: 4}'" } }
+
+-- cmd([[
+-- let g:neoformat_enabled_markdown = ['prettier']
+-- let g:neoformat_markdown_prettier = {
+--       \ 'exe': 'prettier',
+--       \ 'args': ['--write', '--prose-wrap=always','--tab-width=4'],
+--       \ 'replace': 1
+--       \ }
+-- let g:neoformat_enabled_javascript = ['prettier']
+-- let g:neoformat_javascript_prettier = {
+--       \ 'exe': 'prettier',
+--       \ 'args': ['--write', '--prose-wrap=always','--tab-width=2'],
+--       \ 'replace': 1
+--       \ }
+-- let g:neoformat_cpp_clangformat = {
+--     \ 'exe': 'clang-format',
+--     \ 'args': ['--style="{IndentWidth: 4}"'],
+-- \}
+-- let g:neoformat_rust_rustfmt = {
+--     \ 'exe': 'rustfmt',
+--     \ 'args': ['--config', 'max_width=80'],
+--     \ 'replace': 1
+-- \}
+-- let g:neoformat_lua_stylua = {
+--     \ 'exe': 'stylua',
+--     \ 'args': ['--column-width 80', '--indent-type Spaces',
+--     \          '--indent-width 4', '-'],
+--     \ 'stdin': 1,
+--     \ }
+-- ]])
 
 -- "=====================================================
 -- "" Coc Configurations

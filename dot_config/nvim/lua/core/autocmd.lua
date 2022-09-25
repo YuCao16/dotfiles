@@ -113,6 +113,11 @@ vim.api.nvim_create_autocmd("FileType", {
     group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "rust" },
+    command = "map <buffer> <leader>2 :RustRun<CR>",
+    group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
     pattern = { "js", "javascript" },
     command = "map <buffer> <leader>2 :w<CR>:exec '!node' shellescape(@%, 1)<CR>",
     group = nvimrun,
@@ -167,6 +172,17 @@ vim.api.nvim_create_user_command(
     'lua print(vim.fn.expand("%:p"))<cr>',
     {}
 )
+
+-- reload cursorword and highlight after changing colorscheme
+local colorscheme = vim.api.nvim_create_augroup("colorscheme", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = colorscheme,
+    pattern = "*",
+    callback = function()
+        pcall(vim.cmd, "source ~/.config/nvim/plugin/cursorword.lua")
+        pcall(vim.cmd, "source ~/.config/nvim/lua/core/highlight.lua")
+    end,
+})
 
 -- lsp-inlayhints.nvim
 -- vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true })

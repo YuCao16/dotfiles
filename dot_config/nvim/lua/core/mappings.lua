@@ -122,12 +122,15 @@ map(
     ":lua require'dap'.step_over()<CR>",
     { noremap = false, silent = false }
 )
-map(
-    "n",
-    "<leader>dt",
-    ":lua require('dap').disconnect(); require('dap.repl').close(); require'dapui'.close()<CR>",
-    { noremap = false, silent = false }
-)
+map("n", "<leader>dt", "", {
+    callback = function()
+        require("dap").terminate()
+        vim.wait(100)
+        require("dap.repl").close()
+    end,
+    noremap = false,
+    silent = false,
+})
 map(
     "n",
     "<leader>do",
@@ -192,7 +195,7 @@ map(
     ":Lspsaga lsp_finder<CR>",
     { noremap = false, silent = false }
 )
-map("n", "<tab>", ":Lspsaga hover_doc<CR>", { noremap = false, silent = false })
+-- map("n", "<tab>", ":Lspsaga hover_doc<CR>", { noremap = false, silent = false })
 
 -- Trouble
 map(
@@ -251,6 +254,13 @@ map("n", "<leader><tab>", "", {
     silent = true,
 })
 
+-- map(
+--     "n",
+--     "<leader>dt",
+--     -- ":lua require('dap').disconnect(); require('dap.repl').close(); require'dapui'.close()<CR>",
+--     ":lua require('dap').disconnect(); require('dap.repl').close()",
+--     { noremap = false, silent = false }
+-- )
 -- map("n", "<leader>so", ":Telescope oldfiles<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>ca", ":CodeActionMenu<CR>", { noremap = false, silent = false })
 -- map("n", "<leader>0", ":lua require('nabla').popup({ border = 'single' })<CR>", { noremap = true, silent = false })

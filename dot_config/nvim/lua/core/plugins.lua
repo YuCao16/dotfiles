@@ -474,7 +474,7 @@ return require("packer").startup({
         use({
             "norcalli/nvim-colorizer.lua",
             config = function()
-                require("colorizer").setup()
+                require("colorizer").setup({ "!rust" })
             end,
         })
         use({

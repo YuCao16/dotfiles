@@ -33,6 +33,7 @@ local function matchadd()
         ["lspsagafinder"] = true,
         ["dashboard"] = true,
         ["packer"] = true,
+        ["mason"] = true,
     }
     if disable_ft[vim.bo.ft] then
         return

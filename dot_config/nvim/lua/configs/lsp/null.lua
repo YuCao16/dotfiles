@@ -16,7 +16,7 @@ null_ls.setup({
         -- it says buildins, but you still need to use Mason to install
         null_ls.builtins.diagnostics.markdownlint.with({
             extra_args = { "--disable=line_length" },
-            condition = is_executable("mypy"),
+            condition = is_executable("markdownlint"),
         }),
         -- null_ls.builtins.diagnostics.cpplint,
         -- null_ls.builtins.diagnostics.mypy.with({

@@ -62,6 +62,11 @@ if vim.g.colors_name == "tokyonight" then
     end
 end
 
+if vim.g.colors_name == "onedark" then
+    vim.api.nvim_set_hl(0, "rainbowcol1", {fg = "#ffd700"})
+    vim.api.nvim_set_hl(0, "Conceal", {fg = "#abb2bf", bg = "#282C34"})
+end
+
 -------------------
 -- Indent-Line highlight
 -------------------

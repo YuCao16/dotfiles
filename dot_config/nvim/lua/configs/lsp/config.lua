@@ -197,6 +197,10 @@ M.on_attach = function(client, bufnr)
         client.server_capabilities.signatureHelpProvider = false
     elseif client.name == "jedi_language_server" then
         client.server_capabilities.completionProvider = false
+        client.server_capabilities.referencesProvider = false
+        client.server_capabilities.definitionProvider = false
+    elseif client.name == "sourcery" then
+        client.server_capabilities.hoverProvider = false
     end
 end
 

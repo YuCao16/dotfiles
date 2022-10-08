@@ -134,6 +134,7 @@ g["code_action_menu_window_border"] = "rounded"
 -- "" neoformat settings
 -- "=====================================================
 g.neoformat_enabled_markdown = { "prettier" }
+g.neoformat_enabled_python = { "black" }
 g.neoformat_markdown_prettier = {
     exe = "prettier",
     args = { "--write --prose-wrap=always --tab-width=4" },

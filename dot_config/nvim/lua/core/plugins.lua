@@ -490,6 +490,8 @@ return require("packer").startup({
         use({ "rebelot/kanagawa.nvim" })
         use({ "catppuccin/nvim" })
         use({ "folke/tokyonight.nvim" })
+        use({ "tanvirtin/monokai.nvim" })
+        use { 'navarasu/onedark.nvim' }
         use({
             "mcchrish/zenbones.nvim",
             requires = "rktjmp/lush.nvim",
@@ -497,7 +499,6 @@ return require("packer").startup({
 
         -- use({ "projekt0n/github-nvim-theme" })
         -- use({ "Mofiqul/dracula.nvim" })
-        -- use({ "tanvirtin/monokai.nvim" })
         -- use({ "EdenEast/nightfox.nvim" })
         -- use({ 'olimorris/onedarkpro.nvim' })
         -- use({ "Mofiqul/vscode.nvim" })
@@ -512,7 +513,6 @@ return require("packer").startup({
         -- use({ "marko-cerovac/material.nvim", event = { "BufAdd", "InsertEnter" } })
         -- use({ "ryanoasis/vim-devicons", event = { "BufAdd", "InsertEnter" } }) -- " Beautiful Icon
         -- use({ "joshdick/onedark.vim", event = { "BufAdd", "InsertEnter" } })
-        -- use { 'navarasu/onedark.nvim' }
         -- use({ "lunarvim/horizon.nvim" })
         -- use({ "ayu-theme/ayu-vim", event = { "BufAdd", "InsertEnter" } })
         -- use({ "sainnhe/gruvbox-material", event = { "BufAdd", "InsertEnter" } })
@@ -521,6 +521,7 @@ return require("packer").startup({
         use({ "nvim-lua/plenary.nvim" })
         use({ "rcarriga/nvim-notify" })
         use({ "MunifTanjim/nui.nvim" })
+        use({ "AckslD/messages.nvim" })
 
         -- use({ "RishabhRD/popfix" })
 

@@ -31,6 +31,28 @@ function Handle_dashboard()
     end
 end
 
+-- function set_nvimtree_when_open_term(terminal)
+--   local nvimtree = require "nvim-tree"
+--   local nvimtree_view = require "nvim-tree.view"
+--   if nvimtree_view.is_visible() and terminal.direction == "horizontal" then
+--     local nvimtree_width = vim.fn.winwidth(nvimtree_view.get_winnr())
+--     nvimtree.toggle()
+--     nvimtree_view.View.width = nvimtree_width
+--     nvimtree.toggle(false, true)
+--   end
+-- end
+
+function set_nvimtree_when_open_term()
+  local nvimtree_view = require "nvim-tree.view"
+  if nvimtree_view.is_visible() then
+    vim.cmd("NvimTreeToggle")
+    vim.cmd("ToggleTerm")
+    require('nvim-tree').toggle(false, true)
+  else
+    vim.cmd("ToggleTerm")
+  end
+end
+
 vim.cmd([[
 function! s:isAtStartOfLine(mapping)
   let text_before_cursor = getline('.')[0 : col('.')-1]

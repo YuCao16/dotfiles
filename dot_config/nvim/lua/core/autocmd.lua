@@ -78,6 +78,11 @@ vim.api.nvim_create_autocmd("FileType", {
     command = "setlocal shiftwidth=2 tabstop=2 softtabstop=2",
     group = tabstop,
 })
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    command = "setlocal nonumber",
+    group = tabstop,
+})
 
 -- basic settings for latex and markdown
 local textwidth = vim.api.nvim_create_augroup("textwidth", { clear = true })

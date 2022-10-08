@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter
 local M = {}
 
 local status_ok, navic = pcall(require, "nvim-navic")
@@ -34,7 +35,7 @@ local excludes = function()
 end
 
 local clean_filepath = function(filepath)
-    local file_path_clean = filepath:gsub("/home/caoyu/", " ~/")
+    local file_path_clean = filepath:gsub(vim.fn.expand("~/"), " ~/")
     local file_name = vim.fn.expand("%:t")
     file_path_clean = file_path_clean:gsub("/" .. file_name, "")
     -- file_path_clean = filepath:gsub("/", " 〉")
@@ -48,10 +49,12 @@ local get_icon = function()
         return "/"
         -- return ""
     else
-        local icon_color_ok, _ = pcall(icons.get_icon_color, file_extension)
-        if not icon_color_ok then
-            return "/"
-            -- return ""
+        local icon_color_ok, icon_color =
+            pcall(icons.get_icon_color, file_extension)
+        -- if not icon_color_ok & icon_color == "nil" then
+        if not icon_color_ok or icon_color == nil then
+            -- return "/"
+            return ""
         else
             -- return icon
             local icon, color =

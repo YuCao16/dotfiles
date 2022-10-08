@@ -75,7 +75,7 @@ map(
 map(
     "n",
     "<leader>cv",
-    ":ToggleTerm size=40 direction=vertical<CR>",
+    "lua set_nvimtree_when_open_term()",
     { noremap = false, silent = false }
 )
 map(
@@ -254,6 +254,12 @@ map("n", "<leader><tab>", "", {
     silent = true,
 })
 
+-- map(
+--     "n",
+--     "<leader>cv",
+--     ":ToggleTerm size=40 direction=vertical<CR>",
+--     { noremap = false, silent = false }
+-- )
 -- map(
 --     "n",
 --     "<leader>dt",

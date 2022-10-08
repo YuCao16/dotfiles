@@ -5,11 +5,11 @@ local function readAll(file)
     return content
 end
 
--- local token = readAll("/home/caoyu/.config/sourcery/tokenizer.txt")
 local token_ok, token =
-    pcall(readAll, "/home/caoyu/.config/sourcery/tokenizer.txt")
+    pcall(readAll, vim.fn.expand("~") .. "/.config/sourcery/tokenizer.txt")
+
 if not token_ok then
-    return
+    return {}
 end
 
 token = string.gsub(token, "\n", "")

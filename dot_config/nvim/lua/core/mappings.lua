@@ -205,6 +205,14 @@ map(
     { noremap = false, silent = false }
 )
 
+-- JABS.nvim
+map(
+    "n",
+    "<leader>1",
+    ":JABSOpen<CR>",
+    { noremap = false, silent = false }
+)
+
 -- Ohters
 map(
     "n",

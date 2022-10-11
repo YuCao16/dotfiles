@@ -179,6 +179,18 @@ return require("packer").startup({
                 require("configs.gitsign")
             end,
         })
+        use({
+            "matbme/JABS.nvim",
+            config = function()
+                require("jabs").setup({
+                    position = "center",
+                    border = "rounded",
+                    preview = {
+                        border = "rounded", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default double
+                    },
+                })
+            end,
+        })
         use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
         use({ "yucao16/registers.nvim" })
 
@@ -491,7 +503,7 @@ return require("packer").startup({
         use({ "catppuccin/nvim" })
         use({ "folke/tokyonight.nvim" })
         use({ "tanvirtin/monokai.nvim" })
-        use { 'navarasu/onedark.nvim' }
+        use({ "navarasu/onedark.nvim" })
         use({
             "mcchrish/zenbones.nvim",
             requires = "rktjmp/lush.nvim",

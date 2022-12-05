@@ -60,7 +60,8 @@ map(
 map(
     "n",
     "<leader>q",
-    ":lua Handle_nvimtree()<CR>",
+    -- ":lua Handle_nvimtree()<CR>",
+    ":lua Handle_neotree()<CR>",
     { noremap = false, silent = true }
 )
 map("n", "<leader>Q", ":NvimTreeClose<CR>", { noremap = false, silent = true })
@@ -75,7 +76,7 @@ map(
 map(
     "n",
     "<leader>cv",
-    "lua set_nvimtree_when_open_term()",
+    ":lua set_neotree_when_open_term()<CR>",
     { noremap = false, silent = false }
 )
 map(
@@ -169,6 +170,7 @@ map(
     ":BufferLineCyclePrev<CR>",
     { noremap = false, silent = true }
 )
+map("n", "gB", ":BufferLinePick<CR>", { noremap = false, silent = true })
 
 -- Utils
 map("n", "<leader>9", ":exec 'source '.bufname('%')<CR>", { silent = false }) -- source current file
@@ -205,13 +207,16 @@ map(
     { noremap = false, silent = false }
 )
 
--- JABS.nvim
+-- Hop.nvim
 map(
     "n",
-    "<leader>1",
-    ":JABSOpen<CR>",
+    "<leader>v",
+    ":HopWord<CR>",
     { noremap = false, silent = false }
 )
+
+-- JABS.nvim
+map("n", "<leader>1", ":JABSOpen<CR>", { noremap = false, silent = false })
 
 -- Ohters
 map(

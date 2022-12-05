@@ -8,5 +8,15 @@
     "body": "import jax.numpy as jnp",
     "description": "packer use command",
     "prefix": "imjnp"
+  },
+  "type annotation for torch.Tensor": {
+    "body": "torch.Tensor",
+    "description": "packer use command",
+    "prefix": "tt"
+  },
+  "type annotation for nn.Module": {
+    "body": "nn.Module",
+    "description": "packer use command",
+    "prefix": "nm"
   }
 }

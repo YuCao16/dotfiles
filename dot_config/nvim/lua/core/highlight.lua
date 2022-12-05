@@ -14,6 +14,7 @@
 -- vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
 -- set windows separator to None
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE", fg = "black" })
 -- change float border color
 vim.api.nvim_set_hl(0, "FloatBorder", {
     bg = "none",
@@ -42,6 +43,7 @@ vim.api.nvim_set_hl(0, "LspInlayHint", { link = "DiagnosticHint" })
 -------------------
 -- Rainbow brackets
 -------------------
+
 -- For tokyonight
 if vim.g.colors_name == "tokyonight" then
     local tk_colors_ok, tk_colors = pcall(require, "tokyonight.colors")
@@ -63,13 +65,39 @@ if vim.g.colors_name == "tokyonight" then
 end
 
 if vim.g.colors_name == "onedark" then
-    vim.api.nvim_set_hl(0, "rainbowcol1", {fg = "#ffd700"})
-    vim.api.nvim_set_hl(0, "Conceal", {fg = "#abb2bf", bg = "#282C34"})
+    -- vim.api.nvim_set_hl(0, "NavicIconsFile", { link = "Directory" })
+    vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = "#99a3b3" })
+    vim.api.nvim_set_hl(0, "TagbarHighlight", { link = "Visual" })
+    vim.api.nvim_set_hl(0, "IncSearch", { link = "Search" })
+    vim.api.nvim_set_hl(
+        0,
+        "Search",
+        { bg = "#99D1DB", fg = "#282c34", ctermfg = 0, ctermbg = 11 }
+    )
+    vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ffd700" })
+    vim.api.nvim_set_hl(0, "Identifier", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "@constructor", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "@method.call", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "@function.call", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "@parameter", { fg = "#d19a66" })
+    vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#E86671" })
+    vim.api.nvim_set_hl(0, "lualine_c_normal", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "Conceal", { fg = "#abb2bf", bg = "#282C34" })
+    vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#8094b4" })
+    vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#abb2bf" })
+    vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = "#abb2bf" })
+    -- vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#0db9d7" })
+    -- vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#0db9d7" })
+    -- vim.api.nvim_set_hl(
+    --     0,
+    --     "DiagnosticUnderlineHint",
+    --     {underline=true, undercurl=true, sp="#0db9d7"}
+    -- )
 end
 
--------------------
+------------------------
 -- Indent-Line highlight
--------------------
+------------------------
 vim.api.nvim_set_hl(
     0,
     "IndentBlanklineIndent1",
@@ -105,23 +133,23 @@ vim.api.nvim_set_hl(
 -- Navic highlight
 -------------------
 vim.api.nvim_set_hl(0, "NavicIconsFile", { link = "Directory" })
-vim.api.nvim_set_hl(0, "NavicIconsModule", { link = "TSInclude" })
+vim.api.nvim_set_hl(0, "NavicIconsModule", { link = "@include" })
 vim.api.nvim_set_hl(0, "NavicIconsClass", { link = "Type" })
 vim.api.nvim_set_hl(0, "NavicIconsMethod", { link = "Function" })
-vim.api.nvim_set_hl(0, "NavicIconsConstructor", { link = "TSConstructor" })
-vim.api.nvim_set_hl(0, "NavicIconsBoolean", { link = "TSBoolean" })
-vim.api.nvim_set_hl(0, "NavicIconsNumber", { link = "TSNumber" })
-vim.api.nvim_set_hl(0, "NavicIconsConstant", { link = "TSConstant" })
-vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { link = "TSField" })
+vim.api.nvim_set_hl(0, "NavicIconsConstructor", { link = "@constructor" })
+vim.api.nvim_set_hl(0, "NavicIconsBoolean", { link = "@boolean" })
+vim.api.nvim_set_hl(0, "NavicIconsNumber", { link = "@number" })
+vim.api.nvim_set_hl(0, "NavicIconsConstant", { link = "@constant" })
+vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { link = "@field" })
 vim.api.nvim_set_hl(0, "NavicIconsStruct", { link = "Type" })
 vim.api.nvim_set_hl(0, "NavicIconsEvent", { link = "CmpItemKindEventDefault" })
-vim.api.nvim_set_hl(0, "NavicIconsOperator", { link = "TSOperator" })
+vim.api.nvim_set_hl(0, "NavicIconsOperator", { link = "@operator" })
 vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { link = "Identifier" })
-vim.api.nvim_set_hl(0, "NavicIconsArray", { link = "TSConstant" })
-vim.api.nvim_set_hl(0, "NavicIconsObject", { link = "TSType" })
-vim.api.nvim_set_hl(0, "NavicIconsNamespace", { link = "TSNamespace" })
-vim.api.nvim_set_hl(0, "NavicIconsPackage", { link = "TSNamespace" })
-vim.api.nvim_set_hl(0, "NavicIconsNull", { link = "TSType" })
+vim.api.nvim_set_hl(0, "NavicIconsArray", { link = "@constant" })
+vim.api.nvim_set_hl(0, "NavicIconsObject", { link = "@type" })
+vim.api.nvim_set_hl(0, "NavicIconsNamespace", { link = "@namespace" })
+vim.api.nvim_set_hl(0, "NavicIconsPackage", { link = "@namespace" })
+vim.api.nvim_set_hl(0, "NavicIconsNull", { link = "@type" })
 vim.api.nvim_set_hl(
     0,
     "NavicIconsProperty",

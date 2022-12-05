@@ -71,11 +71,11 @@ dap.configurations.cpp = {
 dap.configurations.c = dap.configurations.cpp
 
 -- python
-dap.adapters.python = {
-    type = "executable",
-    command = "/usr/bin/python3",
-    args = { "-m", "debugpy.adapter" },
-}
+-- dap.adapters.python = {
+--     type = "executable",
+--     command = "/usr/bin/python3",
+--     args = { "-m", "debugpy.adapter" },
+-- }
 
 -- Rust
 local extension_path = vim.env.HOME

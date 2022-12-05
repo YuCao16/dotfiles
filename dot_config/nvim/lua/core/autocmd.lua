@@ -118,6 +118,16 @@ vim.api.nvim_create_autocmd("FileType", {
     group = nvimrun,
 })
 vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    command = "map <buffer> <leader>f :Format<CR>",
+    group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    command = "map <buffer> <leader>f :Format<CR>",
+    group = nvimrun,
+})
+vim.api.nvim_create_autocmd("FileType", {
     pattern = { "rust" },
     command = "map <buffer> <leader>2 :RustRun<CR>",
     group = nvimrun,
@@ -162,10 +172,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif',
     group = nvimtree,
 })
+-- nvim-tree is also there in modified buffers so this function filter it out
 
 -- Save session when vimleave
 local session = vim.api.nvim_create_augroup("session", { clear = true })
-vim.api.nvim_create_autocmd("vimleave", {
+vim.api.nvim_create_autocmd("VimLeave", {
     pattern = "*",
     command = "SessionManager save_current_session",
     group = session,

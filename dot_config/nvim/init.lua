@@ -26,20 +26,23 @@ local oks = {
     -- configs
     ["vimplugin_setting"] = pcall(require, "configs.vimplugin_configs"),
     ["dashboard"] = pcall(require, "configs.dashboard"),
-    ["nvimtree"] = pcall(require, "configs.nvimtree"),
+    -- ["nvimtree"] = pcall(require, "configs.nvimtree"),
+    ["neotree"] = pcall(require, "configs.neotree"),
     ["lualine"] = pcall(require, "configs.lualine"),
     ["bufferline"] = pcall(require, "configs.bufferline"),
     ["treesitter"] = pcall(require, "configs.treesitter"),
     ["telescope"] = pcall(require, "configs.telescope"),
 }
 
-notif_ok, vim.notify = pcall(require, "notify")
-require("notify").setup({
-    on_open = function(win)
-        -- set vim.notify() not focusable
-        -- vim.api.nvim_win_set_config(win, { focusable = false })
-    end,
-})
+notify_ok, vim.notify = pcall(require, "notify")
+if not notify_ok then
+    require("notify").setup({
+        on_open = function(win)
+            -- set vim.notify() not focusable
+            -- vim.api.nvim_win_set_config(win, { focusable = false })
+        end,
+    })
+end
 
 for name, item in pairs(oks) do
     ---@diagnostic disable-next-line: unbalanced-assignments

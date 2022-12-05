@@ -32,3 +32,5 @@ indent_line.setup({
     -- 	"IndentBlanklineIndent6",
     -- },
 })
+-- this command make indent-line refresh while cursor moving
+vim.g.indent_blankline_show_current_context = true

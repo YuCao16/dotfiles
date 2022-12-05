@@ -20,6 +20,15 @@ function Handle_nvimtree()
     end
 end
 
+-- handle neotree, if neotree open then focus, if no neotree then toggle neotree
+function Handle_neotree()
+    if vim.bo.filetype == "neo-tree" then
+        vim.cmd("NeoTreeClose")
+    else
+        vim.cmd("NeoTreeFocus")
+    end
+end
+
 -- if dashboard is the only buffer, then press q to quit nvim
 function Handle_dashboard()
     local num_of_buffer =
@@ -43,14 +52,24 @@ end
 -- end
 
 function set_nvimtree_when_open_term()
-  local nvimtree_view = require "nvim-tree.view"
-  if nvimtree_view.is_visible() then
-    vim.cmd("NvimTreeToggle")
-    vim.cmd("ToggleTerm")
-    require('nvim-tree').toggle(false, true)
-  else
-    vim.cmd("ToggleTerm")
-  end
+    local nvimtree_view = require("nvim-tree.view")
+    if nvimtree_view.is_visible() then
+        vim.cmd("NvimTreeToggle")
+        vim.cmd("ToggleTerm")
+        require("nvim-tree").toggle(false, true)
+    else
+        vim.cmd("ToggleTerm")
+    end
+end
+
+function set_neotree_when_open_term()
+    if vim.fn.bufname("neo-tree") ~= "" then
+        vim.cmd("NeoTreeClose")
+        vim.cmd("ToggleTerm")
+        vim.cmd("NeoTreeShow")
+    else
+        vim.cmd("ToggleTerm")
+    end
 end
 
 vim.cmd([[

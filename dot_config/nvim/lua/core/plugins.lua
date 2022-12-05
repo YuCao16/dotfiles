@@ -72,6 +72,10 @@ return require("packer").startup({
                 })
             end,
         })
+        use({
+            "nvim-neo-tree/neo-tree.nvim",
+            after = "nvim-tree.lua",
+        })
 
         -- use({
         -- 	"neoclide/coc.nvim",
@@ -79,7 +83,6 @@ return require("packer").startup({
         -- 	event = { "BufAdd", "InsertEnter" },
         -- 	ft = workflow_filetype,
         -- })
-        -- use({"nvim-neo-tree/neo-tree.nvim"})
         -- use({ "dstein64/vim-startuptime" })
         -- use({ "mhinz/vim-startify", event = { "BufAdd", "InsertEnter" } })
 
@@ -151,7 +154,12 @@ return require("packer").startup({
             "https://gitlab.com/yorickpeterse/nvim-window.git",
             event = { "WinNew" },
         })
-        use({ "kevinhwang91/nvim-hlslens" })
+        use({
+            "nvim-zh/colorful-winsep.nvim",
+            config = function()
+                require("colorful-winsep").setup()
+            end,
+        })
         use({
             "Shatur/neovim-session-manager",
             config = function()
@@ -188,12 +196,55 @@ return require("packer").startup({
                     preview = {
                         border = "rounded", -- none, single, double, rounded, solid, shadow, (or an array or chars). Default double
                     },
+                    use_devicons = true,
+                    preview_position = "right",
                 })
             end,
         })
         use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
         use({ "yucao16/registers.nvim" })
+        use({
+            "RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
+            event = { "BufAdd", "InsertEnter" },
+            ft = workflow_filetype,
+            config = function()
+                require("illuminate").configure({
+                    filetypes_denylist = {
+                        "NvimTree",
+                        "dashboard",
+                        "SidebarNvim",
+                    },
+                })
+            end,
+        })
+        use({
+            "phaazon/hop.nvim",
+            branch = "v2",
+            config = function()
+                require("hop").setup({ "etovxqpdygfblzhckisuran" })
+            end,
+        })
 
+        -- use({
+        --     "doums/monark.nvim",
+        --     config = function()
+        --         require("monark").setup()
+        --     end,
+        -- })
+        -- use({
+        --     "glepnir/hlsearch.nvim",
+        --     config = function()
+        --         require("hlsearch").setup()
+        --     end,
+        -- })
+        -- use({
+        --     "kevinhwang91/nvim-hlslens",
+        --     config = function()
+        --         require("hlslens").setup({
+        --             calm_down = true,
+        --         })
+        --     end,
+        -- })
         -- use({
         -- 	"tversteeg/registers.nvim",
         -- 	branch = "refactor",
@@ -208,18 +259,6 @@ return require("packer").startup({
         -- })
         -- use({ 'beauwilliams/focus.nvim' })
         -- use({ "camspiers/lens.vim", event = { "WinNew" } })
-        -- use({
-        -- 	"RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
-        -- 	event = { "BufAdd", "InsertEnter" },
-        -- 	ft = workflow_filetype,
-        -- 	require("illuminate").configure({
-        -- 		filetypes_denylist = {
-        -- 			"NvimTree",
-        -- 			"dashboard",
-        -- 			"SidebarNvim",
-        -- 		},
-        -- 	}),
-        -- })
         -- use({
         -- 	"gbprod/substitute.nvim",
         -- 	event = { "BufAdd", "InsertEnter" },
@@ -389,11 +428,14 @@ return require("packer").startup({
                 require("configs.dap")
             end,
         })
-        use({ "rcarriga/nvim-dap-ui", ft = { "python", "cpp", "c", "rust" } })
+        use({ "rcarriga/nvim-dap-ui", ft = { "python", "cpp", "rust" } })
         use({
             "mfussenegger/nvim-dap-python",
             ft = "python",
             after = { "nvim-dap", "nvim-dap-ui" },
+            config = function()
+                require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
+            end,
         })
 
         -- "-------------------=== Languages plugins ===-------------------
@@ -402,7 +444,10 @@ return require("packer").startup({
             "KeitaNakamura/tex-conceal.vim",
             ft = { "markdown", "tex", "ipynb", "org" },
         })
-        use({ "jbyuki/nabla.nvim", ft = { "markdown", "tex", "ipynb", "org" } })
+        use({
+            "jbyuki/nabla.nvim",
+            ft = { "markdown", "tex", "ipynb", "org", "python", "lua" },
+        })
 
         use({ "plasticboy/vim-markdown", ft = { "markdown", "tex", "ipynb" } }) -- " MarkDown
         use({
@@ -489,14 +534,15 @@ return require("packer").startup({
                 require("colorizer").setup({ "!rust" })
             end,
         })
-        use({
-            "xiyaowong/nvim-transparent",
-            event = { "BufAdd", "InsertEnter" },
-            config = function()
-                require("configs.transparent")
-            end,
-        })
         use({ "kyazdani42/nvim-web-devicons" })
+
+        -- use({
+        --     "xiyaowong/nvim-transparent",
+        --     event = { "BufAdd", "InsertEnter" },
+        --     config = function()
+        --         require("configs.transparent")
+        --     end,
+        -- })
 
         -- "-------------------=== ColorScheme ===-------------------
         use({ "rebelot/kanagawa.nvim" })
@@ -594,6 +640,7 @@ return require("packer").startup({
             config = function()
                 require("trouble").setup({
                     mode = "document_diagnostics",
+                    -- mode = "workspace_diagnostics",
                 })
             end,
         })
@@ -605,6 +652,19 @@ return require("packer").startup({
                 if navic_ok then
                     navic.enable()
                 end
+            end,
+        })
+        use({
+            "dnlhc/glance.nvim",
+            config = function()
+                require("glance").setup({
+                    border = {
+                        enable = true, -- Show window borders. Only horizontal borders allowed
+                        top_char = "-",
+                        bottom_char = "-",
+                    },
+                    -- your configuration
+                })
             end,
         })
         use({ "lvimuser/lsp-inlayhints.nvim", after = "mason.nvim" })
@@ -659,6 +719,11 @@ return require("packer").startup({
             run = "./install.sh",
             requires = "hrsh7th/nvim-cmp",
             ft = workflow_filetype,
+            config = function()
+                require("cmp_tabnine.config"):setup({
+                    show_prediction_strength = true,
+                })
+            end,
         })
         use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
         use({ "kdheepak/cmp-latex-symbols", ft = { "latex", "tex" } })

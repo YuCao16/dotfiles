@@ -20,7 +20,6 @@ opt.smartcase = true -- Ignore lowercase for the whole pattern
 opt.hidden = true -- Enable background buffers
 opt.ruler = true
 opt.cursorline = true
-opt.foldenable = false
 opt.incsearch = true
 opt.hlsearch = true
 opt.laststatus = 3
@@ -28,6 +27,12 @@ opt.pumheight = 20
 opt.scrolloff = 12 -- set for signature, make sure it can always display above current line
 opt.encoding = "utf-8"
 opt.cmdheight = 1
+opt.wrap = false
+
+-- enable fold by treesitter
+opt.foldenable = false
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- tab behavior
 opt.tabstop = 4

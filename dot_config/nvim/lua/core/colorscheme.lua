@@ -9,8 +9,13 @@
 
 local cmd = vim.cmd -- Execute Vim commands
 
-require("kanagawa").setup({
-    transparent = false,
+-- require("kanagawa").setup({
+--     transparent = false,
+-- })
+require("onedark").setup({
+    highlights = {
+        MatchParen = { bg = "#727169" },
+    },
 })
 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 -- cmd([[colorscheme kanagawa]])

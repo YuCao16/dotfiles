@@ -34,6 +34,7 @@ local function matchadd()
         ["dashboard"] = true,
         ["packer"] = true,
         ["mason"] = true,
+        ["tagbar"] = true,
     }
     if disable_ft[vim.bo.ft] then
         return

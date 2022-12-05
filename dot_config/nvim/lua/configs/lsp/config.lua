@@ -125,13 +125,13 @@ M.on_attach = function(client, bufnr)
     )
     buf_set_keymap(
         "n",
-        "[d",
+        "]d",
         '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>',
         opts
     )
     buf_set_keymap(
         "n",
-        "]d",
+        "[d",
         '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>',
         opts
     )
@@ -185,6 +185,25 @@ M.on_attach = function(client, bufnr)
         })
     end
 
+    if client.server_capabilities.documentHighlightProvider then
+        local highlight_name = vim.fn.printf("lsp_document_highlight_%d", bufnr)
+        vim.api.nvim_create_augroup(highlight_name, {})
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            group = highlight_name,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+        vim.api.nvim_create_autocmd("CursorMoved", {
+            group = highlight_name,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.clear_references()
+            end,
+        })
+    end
+
     if support_navic(M.navic_server_list, client.name) then
         navic.attach(client, bufnr)
         require("configs.navic").show_winbar()
@@ -196,6 +215,8 @@ M.on_attach = function(client, bufnr)
         client.server_capabilities.hoverProvider = false
         client.server_capabilities.signatureHelpProvider = false
     elseif client.name == "jedi_language_server" then
+        -- client.server_capabilities.hoverProvider = false
+        -- client.server_capabilities.documentSymbolProvider = false
         client.server_capabilities.completionProvider = false
         client.server_capabilities.referencesProvider = false
         client.server_capabilities.definitionProvider = false
@@ -205,3 +226,26 @@ M.on_attach = function(client, bufnr)
 end
 
 return M
+
+-- if client.server_capabilities.documentHighlightProvider then
+--     local lspdocumenthighlightgroup = vim.api.nvim_create_augroup(
+--         "lspdocumenthighlight",
+--         { clear = true }
+--     )
+--     vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+--         group = lspdocumenthighlightgroup,
+--         callback = function()
+--             vim.lsp.buf.clear_references()
+--         end,
+--         buffer = bufnr,
+--         -- buffer = 0,
+--     })
+--     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+--         group = lspdocumenthighlightgroup,
+--         callback = function()
+--             vim.lsp.buf.document_highlight()
+--         end,
+--         buffer = bufnr,
+--         -- buffer = 0,
+--     })
+-- end

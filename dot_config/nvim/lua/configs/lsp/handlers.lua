@@ -53,7 +53,7 @@ local function make_config()
         documentationFormat = { "markdown", "plaintext" },
     }
     -- nvim-cmp supports additional completion capabilities
-    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
     return {
         -- include enable snippet support, etc
         capabilities = capabilities,
@@ -84,7 +84,8 @@ if mason_lspconfig_exists then
                 config
             )
             if server_name == "sumneko_lua" then
-                lua_dev_exist, lua_dev = pcall(require, "lua-dev")
+                -- lua_dev_exist, lua_dev = pcall(require, "lua-dev")
+                lua_dev_exist, lua_dev = pcall(require, "neodev")
                 if lua_dev_exist then
                     lua_dev.setup({
                         override = function(root_dir, library)
@@ -115,30 +116,6 @@ if mason_lspconfig_exists then
         end,
     })
 end
-
--- in on_attach function
--- underline highlight, should be deprecated since it will keep flesh
--- if client.server_capabilities.documentFormattingProvider then
---     vim.api.nvim_set_hl(0, "lspreferenceread", { link = "specialkey" })
---     vim.api.nvim_set_hl(0, "lspreferencetext", { link = "specialkey" })
---     vim.api.nvim_set_hl(0, "lspreferencewrite", { link = "specialkey" })
---
---     local lspdocumenthighlightgroup = vim.api.nvim_create_augroup("lspdocumenthighlight", { clear = true })
---     vim.api.nvim_create_autocmd({ "CursorMoved" }, {
---         group = lspdocumenthighlightgroup,
---         callback = function()
---             vim.lsp.buf.clear_references()
---         end,
---         buffer = 0,
---     })
---     vim.api.nvim_create_autocmd({ "CursorHold" }, {
---         group = lspdocumenthighlightgroup,
---         callback = function()
---             vim.lsp.buf.document_highlight()
---         end,
---         buffer = 0,
---     })
--- end
 
 -- example to load a nonMason lsp
 -- if nvim_lsp_exists then

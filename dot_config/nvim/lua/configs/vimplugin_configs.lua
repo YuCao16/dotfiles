@@ -15,6 +15,7 @@ local cmd = vim.cmd -- Execute Vim commands
 -- "=====================================================
 g["tagbar_width"] = 34
 g["tagbar_compact"] = 1
+g["tagbar_sort"] = 0
 
 -- "=====================================================
 -- "" Lens/Animate settings
@@ -137,7 +138,7 @@ g.neoformat_enabled_markdown = { "prettier" }
 g.neoformat_enabled_python = { "black" }
 g.neoformat_markdown_prettier = {
     exe = "prettier",
-    args = { "--write --prose-wrap=always --tab-width=4" },
+    args = { "--write --prose-wrap=always --tab-width=4 --listItemIndent=1" },
     replace = 1,
 }
 g.neoformat_javascript_prettier = { "prettier" }

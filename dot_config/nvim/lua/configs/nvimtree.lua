@@ -3,7 +3,8 @@
 --=====================================================
 
 require("nvim-tree").setup({
-    auto_close = ture,
+    -- auto_close = false,
+    -- auto_close = true,
     -- show_on_startup = true,
     view = {
         hide_root_folder = false,
@@ -22,7 +23,7 @@ require("nvim-tree").setup({
     },
     git = {
         enable = true,
-        ignore = false,
+        ignore = true,
     },
     actions = {
         open_file = {

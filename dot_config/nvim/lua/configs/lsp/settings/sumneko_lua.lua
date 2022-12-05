@@ -20,7 +20,7 @@ return {
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
                 -- globals = { "vim", "describe", "it", "before_each", "after_each", "packer_plugins" },
-                globals = { "vim" },
+                globals = { "vim", "opt" },
                 disable = {
                     "lowercase-global",
                     "undefined-global",

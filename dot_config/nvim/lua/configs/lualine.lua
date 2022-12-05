@@ -4,6 +4,7 @@
 -- Bubbles config for lualine
 
 -- Allows display of word count in md/text files
+
 local function getWords()
     if
         vim.bo.filetype == "md"
@@ -89,5 +90,5 @@ require("lualine").setup({
         lualine_z = { "location" },
     },
     tabline = {},
-    extensions = { "toggleterm", "nvim-tree", "nvim-dap-ui" },
+    extensions = { "toggleterm", "nvim-tree", "neo-tree", "nvim-dap-ui" },
 })

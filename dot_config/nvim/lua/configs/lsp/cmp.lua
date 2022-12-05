@@ -55,8 +55,9 @@ cmp.setup({
     -- 	completeopt = "nenu,menuone",
     -- },
     formatting = {
-        fields = { "kind", "abbr", "menu" },
-        -- fields = { "abbr", "kind", "menu" },
+        -- fields = { "kind", "abbr", "menu" },
+        fields = { "abbr", "kind", "menu" },
+        -- fields = { "abbr", "kind" },
         format = function(entry, vim_item)
             local content = vim_item.abbr
 
@@ -67,12 +68,6 @@ cmp.setup({
             else
                 vim_item.abbr = content .. get_ws(MAX_LABEL_WIDTH, #content)
             end
-
-            -- Kind icons
-            vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-
-            -- This concatonates the icons with the name of the item kind
-            -- vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
 
             vim_item.menu = ({
                 nvim_lsp = "[LSP]",
@@ -86,15 +81,26 @@ cmp.setup({
                 orgmode = "[ORG]",
                 latex_symbols = "[TEX]",
             })[entry.source.name]
+
+            -- Kind icons
+            vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+
+            -- This concatonates the icons with the name of the item kind
+            -- vim_item.kind =
+            --     string.format("%s %s", kind_icons[vim_item.kind], vim_item.menu)
+
             return vim_item
         end,
     },
     window = {
-        completion = cmp.config.window.bordered("rounded"),
+        completion = cmp.config.window.bordered({
+            bordered = "rounded",
+            col_offset = -1,
+        }),
         documentation = cmp.config.window.bordered("rounded"),
     },
     sources = cmp.config.sources({
-        { name = "luasnip", priority = 11 },
+        { name = "luasnip", priority = 11, max_item_count = 5 },
         {
             name = "cmp_tabnine",
             max_item_count = 3,

@@ -36,6 +36,9 @@ end
 
 local clean_filepath = function(filepath)
     local file_path_clean = filepath:gsub(vim.fn.expand("~/"), " ~/")
+    if file_path_clean:len() > 20 then
+        file_path_clean = file_path_clean:sub(1,17) .. "..."
+    end
     local file_name = vim.fn.expand("%:t")
     file_path_clean = file_path_clean:gsub("/" .. file_name, "")
     -- file_path_clean = filepath:gsub("/", " 〉")

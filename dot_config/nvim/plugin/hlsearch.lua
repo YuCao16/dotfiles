@@ -1,3 +1,4 @@
+-- TODO: Won't stop search only symbols like "/"
 local api, fn = vim.api, vim.fn
 hs = {}
 local group = api.nvim_create_augroup("Hlsearch", { clear = true })
@@ -12,13 +13,20 @@ function stop_hl()
 end
 
 function start_hl()
-    local res = fn.getreg("/")
-    local res_clean = res:gsub("%p+", { ["\\<"] = "", ["\\>"] = "" })
+    local res = fn.getreg("/"):gsub("%*", "")
+    -- local res_clean = res:gsub("%p+", { ["\\<"] = "", ["\\>"] = "" })
+    local res_clean = res:gsub("[%p%c%s]", "")
     local cword = fn.expand("<cword>")
+    cword = cword:gsub("[%p%c%s]", "")
     if vim.v.hlsearch == 1 and not fn.search([[\%#\zs]] .. res, "cnW") then
         stop_hl()
     end
-    if not string.find(string.lower(cword), string.lower(res_clean)) then
+    if
+        not (
+            string.find(string.lower(cword), string.lower(res_clean))
+            or string.find(string.lower(res_clean), string.lower(cword))
+        )
+    then
         stop_hl()
     end
 end

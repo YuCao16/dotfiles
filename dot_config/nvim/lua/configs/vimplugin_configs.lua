@@ -11,11 +11,25 @@ local g = vim.g -- Global variables
 local cmd = vim.cmd -- Execute Vim commands
 
 -- "=====================================================
+-- "" Vista settings
+-- "=====================================================
+g["vista#renderer#enable_icon"] = 1
+g["vista_highlight_whole_line"] = 0
+g["vista_echo_cursor"] = 0
+g["vista_stay_on_open"] = 0
+g["vista_executive_for"] = {
+    lua = "nvim_lsp",
+}
+g["vista_floating_border"] = "rounded"
+-- "=====================================================
 -- "" tagbar settings
 -- "=====================================================
 g["tagbar_width"] = 34
 g["tagbar_compact"] = 1
+g["tagbar_silent"] = 1
 g["tagbar_sort"] = 0
+g["tagbar_show_linenumbers"] = 0
+g["tagbar_no_autocmds"] = 0
 
 -- "=====================================================
 -- "" Lens/Animate settings

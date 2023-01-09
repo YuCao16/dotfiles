@@ -225,7 +225,9 @@ map(
     ":SessionManager load_last_session<CR>",
     { noremap = false, silent = false }
 )
-map("n", "<leader>p", ":TagbarToggle<CR>", { noremap = false, silent = false })
+-- map("n", "<leader>p", ":TagbarToggle<CR>", { noremap = false, silent = false })
+map("n", "<leader>p", ":Vista!!<CR>", { noremap = false, silent = true })
+map("n", "<leader>;", ":VistaNvimToggle<CR>", { noremap = false, silent = false })
 map(
     "n",
     "<leader>tr",

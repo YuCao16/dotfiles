@@ -40,6 +40,7 @@ local workflow_filetype = {
     "sh",
     "yaml",
     "rust",
+    "cuda",
 }
 
 return require("packer").startup({
@@ -69,6 +70,17 @@ return require("packer").startup({
                         border = "rounded",
                     },
                     shade_terminals = true,
+                })
+            end,
+        })
+        use({
+            "nyngwang/NeoTerm.lua",
+            config = function()
+                require("neo-term").setup({
+                    -- split_on_top = true,
+                    -- split_size = 0.5,
+                    exclude_buftypes = { "terminal" }, -- these two options will affect `NeoTermOpen`
+                    exclude_filetypes = { "neo-tree", "dashboard" },
                 })
             end,
         })
@@ -104,12 +116,23 @@ return require("packer").startup({
         })
 
         -- "-------------------=== Util ===-------------
+        -- use({ "d00h/nvim-sidebar"})
+        -- use({
+        --     "sidebar-nvim/sidebar.nvim",
+        --     event = { "BufAdd", "InsertEnter" },
+        --     ft = workflow_filetype,
+        --     config = function()
+        --         require("configs.sidebar")
+        --     end,
+        -- })
         use({
-            "sidebar-nvim/sidebar.nvim",
-            event = { "BufAdd", "InsertEnter" },
-            ft = workflow_filetype,
+            "yucao16/sidebar.nvim",
             config = function()
-                require("configs.sidebar")
+                -- require("configs.sidebar")
+                require("sidebar-nvim").setup({
+                    sections = { "symbols" },
+                    initial_width = 40,
+                })
             end,
         })
         use({
@@ -127,7 +150,9 @@ return require("packer").startup({
             config = function()
                 require("zen-mode").setup({
                     window = {
-                        width = 0.75, -- width will be 75% of the editor width
+                        backdrop = 0.8,
+                        -- width = 0.75, -- width will be 75% of the editor width
+                        width = 100,
                     },
                 })
             end,
@@ -155,16 +180,11 @@ return require("packer").startup({
             event = { "WinNew" },
         })
         use({
-            "nvim-zh/colorful-winsep.nvim",
-            config = function()
-                require("colorful-winsep").setup()
-            end,
-        })
-        use({
             "Shatur/neovim-session-manager",
             config = function()
                 require("session_manager").setup({
                     autoload_mode = false,
+                    autosave_ignore_filetypes = {"VistaNvim"}
                     -- sessions_dir = "~/.local/share/nvim/sessions/",
                 })
             end,
@@ -188,6 +208,13 @@ return require("packer").startup({
             end,
         })
         use({
+            "akinsho/git-conflict.nvim",
+            tag = "*",
+            config = function()
+                require("git-conflict").setup()
+            end,
+        })
+        use({
             "matbme/JABS.nvim",
             config = function()
                 require("jabs").setup({
@@ -203,6 +230,18 @@ return require("packer").startup({
         })
         use({ "sindrets/diffview.nvim", after = "gitsigns.nvim" })
         use({ "yucao16/registers.nvim" })
+        use({
+            "AckslD/nvim-neoclip.lua",
+            requires = {
+                { "kkharji/sqlite.lua", module = "sqlite" },
+                -- you'll need at least one of these
+                -- {'nvim-telescope/telescope.nvim'},
+                -- {'ibhagwan/fzf-lua'},
+            },
+            config = function()
+                require("neoclip").setup()
+            end,
+        })
         use({
             "RRethy/vim-illuminate", -- highlight other uses of the current word under the cursor
             event = { "BufAdd", "InsertEnter" },
@@ -224,7 +263,30 @@ return require("packer").startup({
                 require("hop").setup({ "etovxqpdygfblzhckisuran" })
             end,
         })
+        use({
+            "s1n7ax/nvim-window-picker",
+            tag = "v1.*",
+            config = function()
+                require("configs.window_picker")
+            end,
+        })
 
+        -- use({
+        --     "folke/noice.nvim",
+        --     config = function()
+        --         require("noice").setup({
+        --             -- add any options here
+        --         })
+        --     end,
+        --     requires = {
+        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        --         "MunifTanjim/nui.nvim",
+        --         -- OPTIONAL:
+        --         --   `nvim-notify` is only needed, if you want to use the notification view.
+        --         --   If not available, we use `mini` as the fallback
+        --         "rcarriga/nvim-notify",
+        --     },
+        -- })
         -- use({
         --     "doums/monark.nvim",
         --     config = function()
@@ -284,13 +346,16 @@ return require("packer").startup({
         -- 	end,
         -- })
         -- use({
-        -- 	"Pocco81/true-zen.nvim",
-        -- 	config = function()
-        -- 		require("true-zen").setup({
-        -- 			-- your config goes here
-        -- 			-- or just leave it empty :)
-        -- 		})
-        -- 	end,
+        --     "Pocco81/true-zen.nvim",
+        --     config = function()
+        --         require("true-zen").setup({
+        --             modes = {
+        --                 ataraxis = {
+        --                     backdrop = 0.5,
+        --                 },
+        --             },
+        --         })
+        --     end,
         -- })
 
         -- "-------------------=== Telescope ===-------------
@@ -329,7 +394,8 @@ return require("packer").startup({
         })
 
         -- "-------------------=== Code/Project navigation ===-------------
-        use({ "majutsushi/tagbar", ft = workflow_filetype })
+        -- use({ "majutsushi/tagbar", ft = workflow_filetype }) -- too slow for large file
+        use({ "chxuan/tagbar", ft = workflow_filetype })
         use({
             "windwp/nvim-autopairs",
             event = { "BufAdd", "InsertEnter" },
@@ -342,7 +408,9 @@ return require("packer").startup({
             "anuvyklack/pretty-fold.nvim",
             ft = { "python", "lua" },
             config = function()
-                require("pretty-fold").setup()
+                require("pretty-fold").setup({
+                    ft_ignore = { "vista" },
+                })
             end,
         })
         use({
@@ -358,9 +426,10 @@ return require("packer").startup({
         })
         use({
             "folke/todo-comments.nvim",
+            requires = "nvim-lua/plenary.nvim",
             ft = workflow_filetype,
             config = function()
-                require("todo-comments").setup()
+                require("todo-comments").setup({})
             end,
         })
         use({
@@ -398,6 +467,18 @@ return require("packer").startup({
                 require("nvim-surround").setup({})
             end,
         })
+        -- use({ "yucao16/vista.vim" })
+        -- use({ "yucao16/tagvista" })
+        use({ "liuchengxu/vista.vim", lock = true })
+        use({
+            "yucao16/vista.nvim",
+            branch = "vista.nvim-dev",
+            lock = true,
+            config = function()
+                require("vista-nvim").setup()
+            end,
+        })
+
         use({
             "simrat39/symbols-outline.nvim",
             ft = workflow_filetype,
@@ -405,7 +486,19 @@ return require("packer").startup({
                 require("configs.symbols_outline")
             end,
         })
-
+        use({
+            "stevearc/aerial.nvim",
+            config = function()
+                require("aerial").setup({
+                    -- backends = { "treesitter", "lsp" },
+                    backends = { "lsp" },
+                    layout = {
+                        width = 30,
+                    },
+                })
+            end,
+        })
+        -- use({ "liuchengxu/vista.vim" })
         -- use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
         -- use({ "APZelos/blamer.nvim", ft = workflow_filetype })
         -- use({ "honza/vim-snippets", after = "coc.nvim" }) -- snippets collections
@@ -462,15 +555,6 @@ return require("packer").startup({
 
         use({ "chrisbra/csv.vim", ft = { "csv" } }) -- " CSV
 
-        use({ -- Neorg
-            "nvim-neorg/neorg",
-            ft = "norg",
-            after = "nvim-treesitter",
-            config = function()
-                require("neorg").setup()
-            end,
-        })
-
         use({
             "nvim-orgmode/orgmode", -- " ORG
             ft = { "org", "orgmode" },
@@ -496,6 +580,14 @@ return require("packer").startup({
             event = { "BufAdd", "InsertEnter" },
         })
 
+        -- use({ -- Neorg
+        --     "nvim-neorg/neorg",
+        --     ft = "norg",
+        --     after = "nvim-treesitter",
+        --     config = function()
+        --         require("neorg").setup()
+        --     end,
+        -- })
         -- use({
         -- 	"p00f/clangd_extensions.nvim",
         --           after = "nvim-navic",
@@ -528,14 +620,32 @@ return require("packer").startup({
 
         -- "-------------------=== Color/Theme ===-------------------
         use({ "machakann/vim-highlightedyank" }) --highlight yank (copyed line/lines) region
+        use({ "kyazdani42/nvim-web-devicons" })
         use({
-            "norcalli/nvim-colorizer.lua",
+            "nvim-zh/colorful-winsep.nvim",
             config = function()
-                require("colorizer").setup({ "!rust" })
+                require("colorful-winsep").setup({
+                    highlight = {
+                        fg = "#957CC6",
+                        -- bg = "#0D0F18",
+                    },
+                })
             end,
         })
-        use({ "kyazdani42/nvim-web-devicons" })
+        use({
+            "uga-rosa/ccc.nvim",
+            config = function()
+                require("configs.ccc_config")
+            end,
+        })
 
+        -- use({
+        --     "norcalli/nvim-colorizer.lua",
+        --     config = function()
+        --         -- require("colorizer").setup({ "!rust", "lua", "css", "html" })
+        --         require("colorizer").setup({ "!rust" })
+        --     end,
+        -- })
         -- use({
         --     "xiyaowong/nvim-transparent",
         --     event = { "BufAdd", "InsertEnter" },
@@ -548,13 +658,13 @@ return require("packer").startup({
         use({ "rebelot/kanagawa.nvim" })
         use({ "catppuccin/nvim" })
         use({ "folke/tokyonight.nvim" })
-        use({ "tanvirtin/monokai.nvim" })
         use({ "navarasu/onedark.nvim" })
         use({
             "mcchrish/zenbones.nvim",
             requires = "rktjmp/lush.nvim",
         })
 
+        -- use({ "tanvirtin/monokai.nvim" })
         -- use({ "projekt0n/github-nvim-theme" })
         -- use({ "Mofiqul/dracula.nvim" })
         -- use({ "EdenEast/nightfox.nvim" })

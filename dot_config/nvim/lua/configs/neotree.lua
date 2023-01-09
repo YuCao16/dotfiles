@@ -186,11 +186,12 @@ neotree_nvim.setup({
         position = "left",
         width = 28,
         mappings = {
-            ["<2-LeftMouse>"] = "open",
-            ["<cr>"] = "open",
-            ["o"] = "open",
-            ["h"] = "toggle_hidden",
-            ["H"] = "",
+            ["<2-LeftMouse>"] = "open_with_window_picker",
+            ["<cr>"] = "open_with_window_picker",
+            ["o"] = "open_with_window_picker",
+            ["/"] = "",
+            -- ["h"] = "toggle_hidden",
+            -- ["H"] = "",
         },
     },
 })

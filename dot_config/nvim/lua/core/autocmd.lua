@@ -20,10 +20,24 @@ vim.api.nvim_create_autocmd("FileType", {
     group = dashboard,
 })
 
+-- mapping for Vista.vim
+local vista = vim.api.nvim_create_augroup("vista", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "vista",
+    command = "map <buffer> o <CR>",
+    group = vista,
+})
+
 -- quick exit from lspsaga
 local lspsaga = vim.api.nvim_create_augroup("lspsaga", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "lspsagaoutline", "notify", "qf" },
+    -- pattern = { "lspsagaoutline", "notify", "qf" },
+    pattern = { "lspsagaoutline" },
+    command = "nnoremap <buffer> q :Lspsaga outline<CR>",
+    group = lspsaga,
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "notify", "qf" },
     command = "nnoremap <buffer> q :q<CR>",
     group = lspsaga,
 })
@@ -34,11 +48,16 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- quick exit from toggleterm
-local toggleterm = vim.api.nvim_create_augroup("toggleterm", { clear = true })
+local quickexit = vim.api.nvim_create_augroup("toggleterm", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "toggleterm",
+    pattern = { "toggleterm" },
     command = "nnoremap <buffer> q :q<CR>",
-    group = cocautocmd,
+    group = quickexit,
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "TelescopePrompt" },
+    command = "nnoremap <buffer> q :q!<CR>",
+    group = quickexit,
 })
 
 -- auto config scrollbar
@@ -165,18 +184,38 @@ vim.api.nvim_create_autocmd("FileType", {
     group = nvimrun,
 })
 
--- quit nvimtree if it's the only buffer left
-local nvimtree = vim.api.nvim_create_augroup("nvimtree", { clear = true })
+-- quit nvimtree/vista if it's the only buffer left
+local lastwin = vim.api.nvim_create_augroup("lastwin", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*",
     command = 'if (winnr("$") == 1 && &filetype == "nvimtree") | q | endif',
-    group = nvimtree,
+    group = lastwin,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "vista") | q | endif',
+    group = lastwin,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "vista_markdown") | q | endif',
+    group = lastwin,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "VistaNvim") | q | endif',
+    group = lastwin,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "Outline") | q | endif',
+    group = lastwin,
 })
 -- nvim-tree is also there in modified buffers so this function filter it out
 
 -- Save session when vimleave
 local session = vim.api.nvim_create_augroup("session", { clear = true })
-vim.api.nvim_create_autocmd("VimLeave", {
+vim.api.nvim_create_autocmd("VimLeavePre", {
     pattern = "*",
     command = "SessionManager save_current_session",
     group = session,
@@ -200,6 +239,19 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
+-- Avoid default all folds to be closed on any file that you open.
+-- autocmd BufReadPost,FileReadPost * normal zR
+-- local treefold = vim.api.nvim_create_augroup("treefold", { clear = true })
+-- vim.api.nvim_create_autocmd("BufReadPost", {
+--     -- pattern = { "*" },
+--     command = "norm! zz",
+--     group = treefold,
+-- })
+-- vim.api.nvim_create_autocmd("FileReadPost", {
+--     -- pattern = { "*" },
+--     command = "norm! zz",
+--     group = treefold,
+-- })
 -- lsp-inlayhints.nvim
 -- vim.api.nvim_create_augroup("LspAttach_inlayhints", { clear = true })
 -- vim.api.nvim_create_autocmd("LspAttach", {

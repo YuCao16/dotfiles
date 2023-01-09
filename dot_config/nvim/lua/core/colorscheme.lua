@@ -13,6 +13,7 @@ local cmd = vim.cmd -- Execute Vim commands
 --     transparent = false,
 -- })
 require("onedark").setup({
+    style= "darker",
     highlights = {
         MatchParen = { bg = "#727169" },
     },

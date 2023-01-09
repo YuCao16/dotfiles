@@ -65,7 +65,9 @@ if vim.g.colors_name == "tokyonight" then
 end
 
 if vim.g.colors_name == "onedark" then
+    local c = require('onedark.colors')
     -- vim.api.nvim_set_hl(0, "NavicIconsFile", { link = "Directory" })
+    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = None, fg=c.bg0 })
     vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = "#99a3b3" })
     vim.api.nvim_set_hl(0, "TagbarHighlight", { link = "Visual" })
     vim.api.nvim_set_hl(0, "IncSearch", { link = "Search" })
@@ -86,6 +88,8 @@ if vim.g.colors_name == "onedark" then
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#8094b4" })
     vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#abb2bf" })
     vim.api.nvim_set_hl(0, "NeoTreeExpander", { fg = "#abb2bf" })
+    -- vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#7E9CD8" })
+    -- vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#76946A" })
     -- vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#0db9d7" })
     -- vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#0db9d7" })
     -- vim.api.nvim_set_hl(

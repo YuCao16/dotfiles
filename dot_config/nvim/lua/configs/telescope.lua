@@ -41,5 +41,6 @@ require("telescope").setup({
 })
 -- load extension
 require("telescope").load_extension("recent_files")
+require('telescope').load_extension('neoclip')
 -- telescope.load_extension("dotfiles")
 -- telescope.load_extension("gosource")

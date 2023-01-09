@@ -31,6 +31,7 @@ opt.wrap = false
 
 -- enable fold by treesitter
 opt.foldenable = false
+opt.foldlevelstart = 20
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 

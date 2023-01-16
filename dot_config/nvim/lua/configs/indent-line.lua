@@ -20,6 +20,7 @@ indent_line.setup({
         "mason",
         "Trouble",
         "code-action-menu-menu",
+        "lspsagafinder",
         "help",
     },
     buftype_exclude = { "terminal", "nofile", "prompt" },

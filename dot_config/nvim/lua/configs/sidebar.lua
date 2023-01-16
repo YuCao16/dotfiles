@@ -24,12 +24,11 @@ local demo = {
 sidebar_nvim.setup({
     sections = {
         "datetime",
-        -- "git",
-        "symbols",
+        "git",
+        -- "symbols",
         "todos",
         "files",
         "buffers",
-        demo,
     },
     symbols = {
         icon = "ƒ",

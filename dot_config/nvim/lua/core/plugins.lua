@@ -116,23 +116,12 @@ return require("packer").startup({
         })
 
         -- "-------------------=== Util ===-------------
-        -- use({ "d00h/nvim-sidebar"})
-        -- use({
-        --     "sidebar-nvim/sidebar.nvim",
-        --     event = { "BufAdd", "InsertEnter" },
-        --     ft = workflow_filetype,
-        --     config = function()
-        --         require("configs.sidebar")
-        --     end,
-        -- })
         use({
-            "yucao16/sidebar.nvim",
+            "sidebar-nvim/sidebar.nvim",
+            event = { "BufAdd", "InsertEnter" },
+            ft = workflow_filetype,
             config = function()
-                -- require("configs.sidebar")
-                require("sidebar-nvim").setup({
-                    sections = { "symbols" },
-                    initial_width = 40,
-                })
+                require("configs.sidebar")
             end,
         })
         use({
@@ -184,7 +173,7 @@ return require("packer").startup({
             config = function()
                 require("session_manager").setup({
                     autoload_mode = false,
-                    autosave_ignore_filetypes = {"VistaNvim"}
+                    autosave_ignore_filetypes = { "VistaNvim" },
                     -- sessions_dir = "~/.local/share/nvim/sessions/",
                 })
             end,
@@ -271,6 +260,16 @@ return require("packer").startup({
             end,
         })
 
+        -- use({
+        --     "yucao16/sidebar.nvim",
+        --     config = function()
+        --         require("sidebar-nvim").setup({
+        --             sections = { "symbols" },
+        --             initial_width = 40,
+        --         })
+        --     end,
+        -- })
+        -- use({ "d00h/nvim-sidebar"})
         -- use({
         --     "folke/noice.nvim",
         --     config = function()

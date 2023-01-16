@@ -54,7 +54,9 @@ null_ls.setup({
             extra_args = { "--line-length=80" },
             condition = is_executable("black"),
         }),
-
+        -- null_ls.builtins.diagnostics.vulture.with({
+        --     condition = is_executable("black"),
+        -- }),
         ruff_fix(),
         null_ls.builtins.diagnostics.ruff.with({
             extra_args = {

@@ -1,95 +1,123 @@
 local saga = require("lspsaga")
 
-saga.init_lsp_saga({
-    -- Options with default value
-    border_style = "rounded", -- "single" | "double" | "rounded" | "bold" | "plus"
-    --the range of 0 for fully opaque window (disabled) to 100 for fully
-    --transparent background. Values between 0-30 are typically most useful.
-    saga_winblend = 0,
-    -- when cursor in saga window you config these to move
-    move_in_saga = { prev = "<C-p>", next = "<C-n>" },
-    -- Error, Warn, Info, Hint
-    -- use emoji like
-    -- { "🙀", "😿", "😾", "😺" }
-    -- or
-    -- { "😡", "😥", "😤", "😐" }
-    -- and diagnostic_header can be a function type
-    -- must return a string and when diagnostic_header
-    -- is function type it will have a param `entry`
-    -- entry is a table type has these filed
-    -- { bufnr, code, col, end_col, end_lnum, lnum, message, severity, source }
-    diagnostic_header = { " ", " ", " ", "ﴞ " },
-    -- diagnostic_header = { "😡", "😥", "😤", "😐" },
-    -- show diagnostic source
-    -- show_diagnostic_source = true,
-    -- preview lines of lsp_finder and definition preview
-    max_preview_lines = 10,
-    -- use emoji lightbulb in default
-    code_action_icon = "💡",
-    -- if true can press number to execute the codeaction in codeaction window
-    code_action_num_shortcut = true,
-    -- same as nvim-lightbulb but async
-    code_action_lightbulb = {
+saga.setup({
+    ui = {
+        -- currently only round theme
+        theme = "round",
+        -- border type can be single,double,rounded,solid,shadow.
+        border = "rounded",
+        winblend = 0,
+        expand = "",
+        collaspe = "",
+        preview = " ",
+        code_action = "💡",
+        diagnostic = "🐞",
+        incoming = " ",
+        outgoing = " ",
+        colors = {
+            --float window normal bakcground color
+            -- normal_bg = "#1d1536",
+            normal_bg = "None",
+            --title background color
+            title_bg = "#afd700",
+            red = "#e95678",
+            magenta = "#b33076",
+            orange = "#FF8700",
+            yellow = "#f7bb3b",
+            green = "#afd700",
+            cyan = "#36d0e0",
+            blue = "#61afef",
+            purple = "#CBA6F7",
+            white = "#d1d4cf",
+            black = "#1c1c19",
+        },
+        kind = {},
+    },
+    preview = {
+        lines_above = 0,
+        lines_below = 10,
+    },
+    scroll_preview = {
+        scroll_down = "<C-f>",
+        scroll_up = "<C-b>",
+    },
+    request_timeout = 4000,
+    symbol_in_winbar = {
         enable = false,
-        -- enable_in_insert = true,
-        -- cache_code_action = true,
-        -- sign = true,
-        -- update_time = 150,
-        -- sign_priority = 20,
-        -- virtual_text = true,
+        separator = " ",
+        hide_keyword = true,
+        show_file = true,
+        folder_level = 2,
     },
-    -- finder icons
-    finder_icons = {
-        def = "  ",
-        ref = "諭 ",
-        link = "  ",
-    },
-    -- finder do lsp request timeout
-    -- if your project big enough or your server very slow
-    -- you may need to increase this value
-    finder_request_timeout = 1500,
-    finder_action_keys = {
-        open = "<CR>",
+    finder = {
+        edit = { "o", "<CR>" },
         vsplit = "s",
         split = "i",
         tabe = "t",
-        quit = "q",
-        scroll_down = "<C-f>",
-        scroll_up = "<C-b>", -- quit can be a table
+        quit = { "q", "<ESC>" },
     },
-    code_action_keys = {
+    definition = {
+        edit = "<C-c>o",
+        vsplit = "<C-c>v",
+        split = "<C-c>i",
+        tabe = "<C-c>t",
         quit = "q",
-        exec = "<CR>",
+        close = "<Esc>",
     },
-    rename_action_quit = {"<ESC>"},
-    rename_in_select = false,
-    -- show symbols in winbar must nightly
-    symbol_in_winbar = {
-        in_custom = false,
+    code_action = {
+        num_shortcut = true,
+        keys = {
+            quit = "q",
+            exec = "<CR>",
+        },
+    },
+    lightbulb = {
         enable = false,
-        separator = " ",
-        show_file = true,
-        click_support = false,
+        enable_in_insert = true,
+        sign = true,
+        sign_priority = 40,
+        virtual_text = true,
     },
-    -- show outline
-    show_outline = {
+    diagnostic = {
+        twice_into = false,
+        show_code_action = true,
+        show_source = true,
+        keys = {
+            exec_action = "o",
+            quit = "q",
+        },
+    },
+    rename = {
+        -- quit = "<C-c>",
+        quit = "<ESC>",
+        exec = "<CR>",
+        in_select = true,
+    },
+    outline = {
         win_position = "right",
-        --set special filetype win that outline window split.like NvimTree neotree
-        -- defx, db_ui
         win_with = "",
-        win_width = 34,
-        auto_enter = true,
+        win_width = 30,
+        show_detail = true,
         auto_preview = true,
-        virt_text = "┃",
-        jump_key = "<CR>",
-        -- auto refresh when change buffer
         auto_refresh = true,
+        auto_close = true,
+        custom_sort = nil,
+        keys = {
+            jump = "o",
+            expand_collaspe = "u",
+            quit = "q",
+        },
     },
-    -- custom lsp kind
-    -- usage { Field = 'color code'} or {Field = {your icon, your color code}}
-    custom_kind = {},
-    -- if you don't use nvim-lspconfig you must pass your server name and
-    -- the related filetypes into this table
-    -- like server_filetype_map = { metals = { "sbt", "scala" } }
-    server_filetype_map = {},
+    callhierarchy = {
+        show_detail = false,
+        keys = {
+            edit = "e",
+            vsplit = "s",
+            split = "i",
+            tabe = "t",
+            jump = "o",
+            quit = "q",
+            expand_collaspe = "u",
+        },
+    },
 })

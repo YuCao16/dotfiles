@@ -63,7 +63,7 @@ return require("packer").startup({
             requires = { "nvim-lua/plenary.nvim" },
         })
         use({
-            "akinsho/toggleterm.nvim",
+            "yucao16/toggleterm.nvim",
             config = function()
                 require("toggleterm").setup({
                     float_opts = {

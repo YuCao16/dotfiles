@@ -6,7 +6,6 @@ if not status_ok then
     vim.notify("nvim-navic failed", "error", { render = "minimal" })
     return
 end
-
 local exclude_filetype = {
     "help",
     "dashboard",
@@ -21,7 +20,6 @@ local exclude_filetype = {
     "toggleterm",
     "qf",
 }
-
 local excludes = function()
     if
         vim.tbl_contains(exclude_filetype, vim.bo.filetype)
@@ -30,27 +28,28 @@ local excludes = function()
         vim.opt_local.winbar = nil
         return true
     end
-
     return false
 end
-
 local clean_filepath = function(filepath)
     local file_path_clean = filepath:gsub(vim.fn.expand("~/"), " ~/")
-    if file_path_clean:len() > 20 then
-        file_path_clean = file_path_clean:sub(1,17) .. "..."
-    end
     local file_name = vim.fn.expand("%:t")
     file_path_clean = file_path_clean:gsub("/" .. file_name, "")
+    local max_width = math.floor((vim.fn.winwidth(0)) * 0.5)
+    local path_width = file_path_clean:len()
+    if path_width > max_width then
+        file_path_clean = file_path_clean:sub(1, max_width) .. "..."
+    else
+        file_path_clean = file_path_clean:sub(1, path_width)
+    end
     -- file_path_clean = filepath:gsub("/", " 〉")
     return file_path_clean
 end
-
 local get_icon = function()
     local file_extension = vim.fn.expand("%:e")
     local icons_ok, icons = pcall(require, "nvim-web-devicons")
     if not icons_ok or file_extension == "" then
         return "/"
-        -- return ""
+    -- return ""
     else
         local icon_color_ok, icon_color =
             pcall(icons.get_icon_color, file_extension)
@@ -67,12 +66,10 @@ local get_icon = function()
         end
     end
 end
-
 local show_winbar = function()
     if excludes() then
         return
     end
-
     if status_ok then
         -- local filetype_icon = " 〉" .. get_icon() .. " "
         local filetype_icon = " " .. get_icon() .. " "
@@ -99,13 +96,11 @@ local show_winbar = function()
         end
     end
 end
-
 M.attach = function(client, bufnr)
     if status_ok then
         navic.attach(client, bufnr)
     end
 end
-
 M.enable = function()
     navic.setup({
         icons = {
@@ -148,5 +143,4 @@ M.enable = function()
     })
 end
 M.show_winbar = show_winbar
-
 return M

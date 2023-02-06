@@ -1,14 +1,14 @@
 local dap_ok, dap = pcall(require, "dap")
-local dapui_ok, dapui = pcall(require, "dapui")
+-- local dapui_ok, dapui = pcall(require, "dapui")
 if not dap_ok then
     vim.notify("dap failed", "error", { render = "minimal" })
     return
 end
 
-if not dapui_ok then
-    vim.notify("dapui failed", "error", { render = "minimal" })
-    return
-end
+-- if not dapui_ok then
+--     vim.notify("dapui failed", "error", { render = "minimal" })
+--     return
+-- end
 
 -- Setup Mason rootdir
 local mason_rootdir = vim.fn.stdpath("data") .. "/mason"
@@ -16,20 +16,23 @@ local mason_rootdir = vim.fn.stdpath("data") .. "/mason"
 ----------------------
 -- Setup dapUi
 ----------------------
-opt = require("configs.dap.dapui")
-dapui.setup(opt)
+local opt = require("configs.dap.dap_ui")
+-- require("dapui").setup(opt)
 
 ----------------------
 -- Auto open dapUi
 ----------------------
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    require("dapui").open()
+    -- dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+    require("dapui").close()
+    -- dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+    require("dapui").close()
+    -- dapui.close()
 end
 
 ----------------------

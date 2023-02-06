@@ -11,7 +11,7 @@
 -- Utils highlight
 -------------------
 -- add a red line one column 80
--- vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ff3131", ctermbg = 236 })
+-- vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#ffpssa131", ctermbg = 236 })
 -- set windows separator to None
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE", fg = "black" })
@@ -65,12 +65,21 @@ if vim.g.colors_name == "tokyonight" then
 end
 
 if vim.g.colors_name == "onedark" then
-    local c = require('onedark.colors')
+    local c = require("onedark.colors")
     -- vim.api.nvim_set_hl(0, "NavicIconsFile", { link = "Directory" })
-    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = None, fg=c.bg0 })
+    vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = None, fg = c.bg0 })
     vim.api.nvim_set_hl(0, "LspInfoBorder", { fg = "#99a3b3" })
     vim.api.nvim_set_hl(0, "TagbarHighlight", { link = "Visual" })
     vim.api.nvim_set_hl(0, "IncSearch", { link = "Search" })
+    vim.api.nvim_set_hl(0, "SagaBorder", { bg = None, fg = "#c8c093" })
+    vim.api.nvim_set_hl(
+        0,
+        "FinderPreviewSearch",
+        { bg = "#e95678", fg = "#1f2329" }
+    )
+    -- vim.api.nvim_set_hl(0, "SagaBorder", { bg = None, fg="#99a3b3" })
+    -- vim.api.nvim_set_hl(0, "SagaExpand", { bg = None, fg="#a0a8b7" })
+    -- vim.api.nvim_set_hl(0, "SagaCollapse", { bg = None, fg="#a0a8b7" })
     vim.api.nvim_set_hl(
         0,
         "Search",

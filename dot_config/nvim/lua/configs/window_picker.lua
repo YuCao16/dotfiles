@@ -20,6 +20,7 @@ win_picker.setup({
                 "SidebarNvim",
                 "VistaNvim",
                 "Trouble",
+                "lspsagaoutline",
             },
             -- if the buffer type is one of following, the window will be ignored
             buftype = { "terminal" },

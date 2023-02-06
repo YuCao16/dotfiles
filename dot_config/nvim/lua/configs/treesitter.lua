@@ -1,6 +1,15 @@
 --=====================================================
 -- Treesitter settings
 --=====================================================
+local function table_contains(tbl, x)
+    found = false
+    for _, v in pairs(tbl) do
+        if v == x then
+            found = true
+        end
+    end
+    return found
+end
 
 require("nvim-treesitter.configs").setup({
     -- ensure_installed = "maintained",
@@ -9,31 +18,104 @@ require("nvim-treesitter.configs").setup({
     ignore_install = { "ruby" },
     highlight = {
         enable = true,
-        disable = { "org", "tex", "latex" }, -- note connot remove org
+        disable = function(_, bufnr)
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local filetype = vim.bo.filetype
+            local disable_type = { "org", "tex", "latex" }
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
         additional_vim_regex_highlighting = false,
-        -- additional_vim_regex_highlighting = { "org" },
     },
     autopairs = {
         enable = true,
+        disable = function(_, bufnr)
+            local disable_type = { "org" }
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
     },
     textobjects = {
         enable = true,
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
     },
     endwise = {
         enable = true,
-        disable = { "ruby" },
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
+        -- disable = { "org", "tex", "latex" }, -- note connot remove org
+        -- disable = { "ruby" },
     },
     autotag = {
         enable = true,
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
+        -- disable = { "org", "tex", "latex" }, -- note connot remove org
     },
     rainbow = {
         enable = true,
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
+        -- disable = { "org", "tex", "latex" }, -- note connot remove org
         extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
         max_file_lines = nil, -- Do not enable for files with more than n lines, int
     },
     playground = {
         enable = true,
-        disable = {},
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
+        -- disable = { "org", "tex", "latex" }, -- note connot remove org
+        -- disable = {},
         keybindings = {
             toggle_query_editor = "o",
             toggle_hl_groups = "i",
@@ -49,7 +131,17 @@ require("nvim-treesitter.configs").setup({
     },
     indent = {
         enable = false,
-        disable = { "html", "python", "cpp" },
+        disable = function(_, bufnr)
+            local disable_type = {}
+            if table_contains(disable_type, filetype) then
+                return true
+            end
+            local buf_name = vim.api.nvim_buf_get_name(bufnr)
+            local file_size =
+                vim.api.nvim_call_function("getfsize", { buf_name })
+            return file_size > 256 * 1024
+        end,
+        -- disable = { "html", "python", "cpp" },
     },
 })
 

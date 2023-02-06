@@ -208,12 +208,7 @@ map(
 )
 
 -- Hop.nvim
-map(
-    "n",
-    "<leader>v",
-    ":HopWord<CR>",
-    { noremap = false, silent = false }
-)
+map("n", "<leader>v", ":HopWord<CR>", { noremap = false, silent = false })
 
 -- JABS.nvim
 map("n", "<leader>1", ":JABSOpen<CR>", { noremap = false, silent = false })
@@ -226,8 +221,20 @@ map(
     { noremap = false, silent = false }
 )
 -- map("n", "<leader>p", ":TagbarToggle<CR>", { noremap = false, silent = false })
-map("n", "<leader>p", ":Vista!!<CR>", { noremap = false, silent = true })
-map("n", "<leader>;", ":VistaNvimToggle<CR>", { noremap = false, silent = false })
+-- map("n", "<leader>p", ":Vista!!<CR>", { noremap = false, silent = true })
+-- map("n", "<leader>p", ":Lspsaga outline<CR>", { noremap = false, silent = true })
+map(
+    "n",
+    "<leader>;",
+    ":VistaNvimToggle<CR>",
+    { noremap = false, silent = false }
+)
+map(
+    "n",
+    "<leader><S-;>",
+    ":VistaNvimFocus<CR>",
+    { noremap = false, silent = false }
+)
 map(
     "n",
     "<leader>tr",

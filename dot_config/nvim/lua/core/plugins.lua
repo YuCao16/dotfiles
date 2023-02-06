@@ -49,7 +49,7 @@ return require("packer").startup({
 
         -- "-------------------=== Core ===-------------
         use({ "lewis6991/impatient.nvim" })
-        use({ "glepnir/dashboard-nvim" })
+        use({ "yucao16/dashboard-nvim", branch = "version0.2.2" })
         use({
             "nvim-lualine/lualine.nvim",
             requires = { "kyazdani42/nvim-web-devicons" },
@@ -74,21 +74,21 @@ return require("packer").startup({
             end,
         })
         use({
-            "nyngwang/NeoTerm.lua",
-            config = function()
-                require("neo-term").setup({
-                    -- split_on_top = true,
-                    -- split_size = 0.5,
-                    exclude_buftypes = { "terminal" }, -- these two options will affect `NeoTermOpen`
-                    exclude_filetypes = { "neo-tree", "dashboard" },
-                })
-            end,
-        })
-        use({
             "nvim-neo-tree/neo-tree.nvim",
             after = "nvim-tree.lua",
         })
 
+        -- use({
+        --     "nyngwang/NeoTerm.lua",
+        --     config = function()
+        --         require("neo-term").setup({
+        --             -- split_on_top = true,
+        --             -- split_size = 0.5,
+        --             exclude_buftypes = { "terminal" }, -- these two options will affect `NeoTermOpen`
+        --             exclude_filetypes = { "neo-tree", "dashboard" },
+        --         })
+        --     end,
+        -- })
         -- use({
         -- 	"neoclide/coc.nvim",
         -- 	branch = "release",
@@ -129,7 +129,7 @@ return require("packer").startup({
             event = { "WinScrolled" },
             ft = workflow_filetype,
             config = function()
-                require("scrollbar").setup()
+                require("configs.scroll_bar")
             end,
         })
         use({
@@ -223,12 +223,10 @@ return require("packer").startup({
             "AckslD/nvim-neoclip.lua",
             requires = {
                 { "kkharji/sqlite.lua", module = "sqlite" },
-                -- you'll need at least one of these
-                -- {'nvim-telescope/telescope.nvim'},
-                -- {'ibhagwan/fzf-lua'},
             },
             config = function()
-                require("neoclip").setup()
+                require("configs.neo_clip")
+                -- require("neoclip").setup()
             end,
         })
         use({
@@ -241,6 +239,7 @@ return require("packer").startup({
                         "NvimTree",
                         "dashboard",
                         "SidebarNvim",
+                        "VistaNvim",
                     },
                 })
             end,
@@ -290,12 +289,6 @@ return require("packer").startup({
         --     "doums/monark.nvim",
         --     config = function()
         --         require("monark").setup()
-        --     end,
-        -- })
-        -- use({
-        --     "glepnir/hlsearch.nvim",
-        --     config = function()
-        --         require("hlsearch").setup()
         --     end,
         -- })
         -- use({
@@ -393,8 +386,6 @@ return require("packer").startup({
         })
 
         -- "-------------------=== Code/Project navigation ===-------------
-        -- use({ "majutsushi/tagbar", ft = workflow_filetype }) -- too slow for large file
-        use({ "chxuan/tagbar", ft = workflow_filetype })
         use({
             "windwp/nvim-autopairs",
             event = { "BufAdd", "InsertEnter" },
@@ -466,23 +457,12 @@ return require("packer").startup({
                 require("nvim-surround").setup({})
             end,
         })
-        -- use({ "yucao16/vista.vim" })
-        -- use({ "yucao16/tagvista" })
-        use({ "liuchengxu/vista.vim", lock = true })
         use({
             "yucao16/vista.nvim",
             branch = "vista.nvim-dev",
             lock = true,
             config = function()
-                require("vista-nvim").setup()
-            end,
-        })
-
-        use({
-            "simrat39/symbols-outline.nvim",
-            ft = workflow_filetype,
-            config = function()
-                require("configs.symbols_outline")
+                require("vista-nvim").setup({ theme = "tree" })
             end,
         })
         use({
@@ -497,6 +477,19 @@ return require("packer").startup({
                 })
             end,
         })
+
+        -- use({
+        --     "simrat39/symbols-outline.nvim",
+        --     ft = workflow_filetype,
+        --     config = function()
+        --         require("configs.symbols_outline")
+        --     end,
+        -- })
+        -- use({ "liuchengxu/vista.vim", lock = true })
+        -- use({ "majutsushi/tagbar", ft = workflow_filetype }) -- too slow for large file
+        -- use({ "yucao16/vista.vim" })
+        -- use({ "yucao16/tagvista" })
+        -- use({ "chxuan/tagbar", ft = workflow_filetype })
         -- use({ "liuchengxu/vista.vim" })
         -- use({ "github/copilot.vim", ft = { "python", "markdown", "tex" } })
         -- use({ "APZelos/blamer.nvim", ft = workflow_filetype })
@@ -520,7 +513,10 @@ return require("packer").startup({
                 require("configs.dap")
             end,
         })
-        use({ "rcarriga/nvim-dap-ui", ft = { "python", "cpp", "rust" } })
+        use({
+            "rcarriga/nvim-dap-ui",
+            ft = { "python", "cpp", "rust" },
+        })
         use({
             "mfussenegger/nvim-dap-python",
             ft = "python",
@@ -729,7 +725,7 @@ return require("packer").startup({
             "williamboman/mason-lspconfig.nvim",
             after = "mason.nvim",
         })
-        use({ "glepnir/lspsaga.nvim", branch = "main", after = "mason.nvim" })
+        use({ "yucao16/lspsaga.nvim", branch = "finder", after = "mason.nvim" })
         use({ "jose-elias-alvarez/null-ls.nvim", after = "mason.nvim" })
 
         use({
@@ -749,6 +745,7 @@ return require("packer").startup({
             config = function()
                 require("trouble").setup({
                     mode = "document_diagnostics",
+                    auto_close = true,
                     -- mode = "workspace_diagnostics",
                 })
             end,

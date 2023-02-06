@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "TelescopePrompt" },
-    command = "nnoremap <buffer> q :q!<CR>",
+    command = "nnoremap <buffer> q :normal! <C-[><CR>",
     group = quickexit,
 })
 
@@ -211,6 +211,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     command = 'if (winnr("$") == 1 && &filetype == "Outline") | q | endif',
     group = lastwin,
 })
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    command = 'if (winnr("$") == 1 && &filetype == "lspsagaoutline") | q | endif',
+    group = lastwin,
+})
 -- nvim-tree is also there in modified buffers so this function filter it out
 
 -- Save session when vimleave
@@ -219,6 +224,21 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
     pattern = "*",
     command = "SessionManager save_current_session",
     group = session,
+})
+
+-- Edit large file
+local largefile = vim.api.nvim_create_augroup("largefile", { clear = true })
+local function big_file_disable()
+    local file_size = vim.fn.getfsize(vim.fn.expand("%"))
+    if file_size > 256 * 1024 then
+        vim.cmd("setlocal foldmethod=manual")
+        vim.notify("Big file, disable treesitter foldmethod.")
+    end
+end
+vim.api.nvim_create_autocmd({"BufReadPre", "FileReadPre"}, {
+    pattern = "*",
+    callback = big_file_disable,
+    group = largefile,
 })
 
 -- Custom user command

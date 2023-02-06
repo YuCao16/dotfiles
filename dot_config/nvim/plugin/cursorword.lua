@@ -11,6 +11,7 @@ local function disable_cursorword()
         ["lspsagafinder"] = true,
         ["NeogitStatus"] = true,
         ["text"] = true,
+        ["VistaNvim"] = true,
     }
     if not disable_ft[vim.bo.ft] then
         return
@@ -35,6 +36,7 @@ local function matchadd()
         ["packer"] = true,
         ["mason"] = true,
         ["tagbar"] = true,
+        ["VistaNvim"] = true,
     }
     if disable_ft[vim.bo.ft] then
         return

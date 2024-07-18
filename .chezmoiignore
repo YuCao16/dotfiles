@@ -1,2 +1,4 @@
 .config/nvim/plugins/packer_compiled.lua
 */.DS_store
+.git/
+**/.git/
